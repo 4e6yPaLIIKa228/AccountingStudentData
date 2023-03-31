@@ -64,13 +64,14 @@
                                                     <Image x:Name="FotoStudenta" Source="/Foto/notfoto.jpg"  Width="120" Height="120" />
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                    <Button x:Name="BtnAddFoto" Width="25" Height="25"/>
-                                                    <Button x:Name="btn2" Click="btn2_Click" Width="25" Height="25"/>
-                                                    <Button >
+                                                    <Button  x:Name="BtnAddFoto" Click="BtnAddFoto_Click">
                                                         <StackPanel Orientation="Horizontal">
                                                             <Image Source="/Foto/openfoto.png" />
                                                         </StackPanel>
                                                     </Button>
+                                                    <Button  Width="25" Height="25"/>
+                                                    <Button x:Name="btn2" Click="btn2_Click" Width="25" Height="25"/>
+                                                    
                                                 </StackPanel>
                                             </StackPanel>
                                         </Border>
