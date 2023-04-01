@@ -222,23 +222,7 @@ namespace AccountingStudentData.BoxWindows
                                         '{OMSSt.Text.ToLower()}','{AdressSt.Text.ToLower()}','{PasportSt.Text.ToLower()}','{VudanPasportSt.Text.ToLower()}','{NumberPasportSt.Text.ToLower()}','{SeriaPasportSt.Text.ToLower()}','{DtpPasportSt.Text.ToLower()}'
                                         ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDMum}','{IDDad}','{IDPyk}','{LastObraz.Text.ToLower()}',
                                         '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto)";
-                                    cmd = new SQLiteCommand(query, connection);
-                                    //if (checkBoxDad.IsChecked == true)
-                                    //{
-                                    //    cmd.Parameters.AddWithValue("@IDDad", IDDad);
-                                    //}
-                                    //else
-                                    //{
-                                    //    cmd.Parameters.AddWithValue("@IDDad", null);
-                                    //}
-                                    //if (checkBoxMum.IsChecked == true)
-                                    //{
-                                    //    cmd.Parameters.AddWithValue("@IDMum", IDMum);
-                                    //}
-                                    //else
-                                    //{
-                                    //    cmd.Parameters.AddWithValue("@IDMum", null);
-                                    //}
+                                    cmd = new SQLiteCommand(query, connection);                                   
                                     byte[] bytes = null;
                                     if (image_bytes == null)
                                     {
@@ -327,10 +311,7 @@ namespace AccountingStudentData.BoxWindows
 
         private void btn2_Click(object sender, RoutedEventArgs e)
         {
-            //Image x = new Image(FotoStudenta);
-            //converterDemo();
-           // byte[] bytes = File.ReadAllBytes("Foto/notfoto.jpg");
-           // MessageBox.Show(Convert.ToString(bytes));
+          
         }
 
         private void checkBoxDad_Checked(object sender, RoutedEventArgs e)
