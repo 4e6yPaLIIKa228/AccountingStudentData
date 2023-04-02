@@ -163,26 +163,38 @@
                     <DataGrid.Columns  >
                         <DataGridTextColumn Header="ФИО" Width="auto" >
                             <DataGridTextColumn.Binding>
-                                <MultiBinding StringFormat="{} {0} {1}. {2}.">
-                                    <Binding Path="Surname"   />
-                                    <Binding Path="Name" Converter="{StaticResource TextOneCumvl}" ConverterParameter="1" />
-                                    <Binding Path="MidleName" Converter="{StaticResource TextOneCumvl}" ConverterParameter="1"/>
+                                <MultiBinding StringFormat="{} {0} &#x0a; {1} &#x0a; {2}">
+                                    <Binding Path="SurnameSt"/>
+                                    <Binding Path="NameSt"/>
+                                    <Binding Path="MidleNameSt"/>
                                 </MultiBinding>
                             </DataGridTextColumn.Binding>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Телефон"   Width="auto"  Binding="{Binding Phone1}"/>
-                        <DataGridTextColumn Header="Код специальности" Width="auto" />
-                        <DataGridTextColumn Header="Группа"  Width="auto"  />
+                        <DataGridTextColumn Header="Телефон"   Width="auto"  Binding="{Binding Phone1St}"/>                        
+                        <DataGridTextColumn Header="Пол"   Width="auto"  Binding="{Binding PollSt, Converter={StaticResource TextOneCumvl}, ConverterParameter=1}" />
+                        <DataGridTextColumn Header="После"   Width="auto"  Binding="{Binding KlassSt}"/>
+                        <DataGridTextColumn Header="Код &#x0a;специальности" Width="auto" Binding="{Binding NumberSpecualSt}" />
+                        <DataGridTextColumn Header="Группа" Width="auto" Binding="{Binding GroupSt}" />
                         <DataGridTextColumn Header="Руководитель" Width="auto" >
                             <DataGridTextColumn.Binding>
-                                <MultiBinding StringFormat="{} {0} {1}. {2}.">
+                                <MultiBinding StringFormat="{} {0} &#x0a; {1} &#x0a; {2}">
                                     <Binding Path="SurnamePyk"   />
-                                    <Binding Path="NamePyk" Converter="{StaticResource TextOneCumvl}" ConverterParameter="1" />
-                                    <Binding Path="MidleNamePyk" Converter="{StaticResource TextOneCumvl}" ConverterParameter="1"/>
+                                    <Binding Path="NamePyk" />
+                                    <Binding Path="MidleNamePyk"/> <!--Converter="{StaticResource TextOneCumvl}" ConverterParameter="1"-->
                                 </MultiBinding>
                             </DataGridTextColumn.Binding>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Дата зачисления"   />
+                        <DataGridTextColumn Header="Дата &#x0a;зачисления" Width="auto" Binding="{Binding DataPost}" />
+                        <DataGridTextColumn Header="Дата &#x0a;окончания" Width="auto" Binding="{Binding DataOkon}" />
+                        <DataGridTextColumn Header="Номер &#x0a;приказа" Width="auto" Binding="{Binding NumberPrikazSt}" />
+                        <DataGridTextColumn Header="Номер &#x0a;договора" Width="auto" Binding="{Binding NumberDogovorSt,TargetNullValue=Буджет}"  />                        
+                        <DataGridTemplateColumn Header="Фото" Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Foto}"  Width="100" Height="100" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

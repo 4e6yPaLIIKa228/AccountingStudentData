@@ -162,10 +162,10 @@
                                                     <DataTemplate>
                                                         <TextBlock>
                                                             <TextBlock.Text>
-                                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                                <MultiBinding StringFormat="{}{0} {1} {2}">
                                                                     <Binding Path="Name"/>
                                                                     <Binding Path="Surname"/>
-                                                                    <Binding Path="MiddleName"/>
+                                                                    <Binding Path="MidleName"/>
                                                                 </MultiBinding>
                                                             </TextBlock.Text>
                                                         </TextBlock>

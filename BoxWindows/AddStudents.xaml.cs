@@ -41,7 +41,7 @@ namespace AccountingStudentData.BoxWindows
                 {
                     connection.Open();
                     string query = $@"SELECT * FROM Polls";
-                    string query1 = $@"SELECT ID, Surname,Name,MiddleName  FROM Users where IDAllowance = 2 ";
+                    string query1 = $@"SELECT ID, Surname,Name,MidleName  FROM Users where IDAllowance = 2 ";
                     string query2 = $@"SELECT ID, Name as NameSpecial, NumberSpecial, Class from Specialties ";
                     string query3 = $@"SELECT ID, Name from Groups ";
                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
@@ -114,7 +114,7 @@ namespace AccountingStudentData.BoxWindows
                             else
                             {
                                 CheckDad = 0;
-                                Proverka1=0;
+                               
                             }
                         }
                         if (checkBoxMum.IsChecked == true)
@@ -130,12 +130,20 @@ namespace AccountingStudentData.BoxWindows
                             else
                             {
                                 CheckMum = 0;
-                                Proverka1 = 0;
+                              
                             }
                         }
                         if (checkBoxDad.IsChecked == false && checkBoxMum.IsChecked == false)
                         {
                             MessageBox.Show("Выберите хотябы одного родителя", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                            Proverka1 = 1;
+                        }
+                        if (CheckDad == 0 && CheckMum == 0)
+                        {
+                            Proverka1 = 0;
+                        }
+                        else
+                        {
                             Proverka1 = 1;
                         }
                     }
@@ -156,12 +164,12 @@ namespace AccountingStudentData.BoxWindows
                     using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                     {
                         connection.Open();
-                        string query = $@"SELECT count () FROM Students WHERE PassportNumber = '{NumberPasportSt.Text}' and PasssportSeria = '{SeriaPasportSt.Text}' ";
+                        string query = $@"SELECT count () FROM Students WHERE PassportNumber = '{NumberPasportSt.Text}' and PassportSeria = '{SeriaPasportSt.Text}' ";
                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
                         int ProverkaPassportSt = Convert.ToInt32(cmd.ExecuteScalar());
                         if (ProverkaPassportSt == 0) //Проверка номера и серии паспорта у студента
                         {
-                            query = $@"SELECT count () FROM Students WHERE SNILS = '{SNILSSt.Text}' and OMS = '{OMSSt.Text}' ";
+                            query = $@"SELECT count () FROM Students WHERE SNILS = '{SNILSSt.Text}' or OMS = '{OMSSt.Text}' ";
                             cmd = new SQLiteCommand(query, connection);
                             int ProverkaMedSt= Convert.ToInt32(cmd.ExecuteScalar());
                             if (ProverkaMedSt == 0)//Проверка снилса и омс у студента
@@ -215,13 +223,13 @@ namespace AccountingStudentData.BoxWindows
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
                                     query = $@"INSERT INTO Students('Surname','Name','MidleName','Phone1','Phone2','SNILS',
-                                    'OMS','Adress','PassportVid','PassportVidan','PassportNumber','PasssportSeria',
+                                    'OMS','Adress','PassportVid','PassportVidan','PassportNumber','PassportSeria',
                                     'PassportData','IDPoll','IDSpecual','IDGrop','IDMum','IDDad',
-                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto') 
+                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora') 
                                     values ('{SurnameSt.Text.ToLower()}','{NameSt.Text.ToLower()}','{MideleNameSt.Text.ToLower()}','{PhoneSt1.Text.ToLower()}','{PhoneSt2.Text.ToLower()}','{SNILSSt.Text.ToLower()}',
                                         '{OMSSt.Text.ToLower()}','{AdressSt.Text.ToLower()}','{PasportSt.Text.ToLower()}','{VudanPasportSt.Text.ToLower()}','{NumberPasportSt.Text.ToLower()}','{SeriaPasportSt.Text.ToLower()}','{DtpPasportSt.Text.ToLower()}'
                                         ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDMum}','{IDDad}','{IDPyk}','{LastObraz.Text.ToLower()}',
-                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto)";
+                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}','{NumberDogovora.Text.ToLower()}')";
                                     cmd = new SQLiteCommand(query, connection);                                   
                                     byte[] bytes = null;
                                     if (image_bytes == null)
@@ -254,12 +262,12 @@ namespace AccountingStudentData.BoxWindows
                             }
                             else
                             {
-                                MessageBox.Show("Такой СНИЛС и ОМС уже используется", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("Такой СНИЛС и ОМС уже используется у студента", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Такой номер и серия паспорта уже используется", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Такой номер и серия паспорта уже используется у студента", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                 }
@@ -269,12 +277,12 @@ namespace AccountingStudentData.BoxWindows
                 MessageBox.Show(ex.Message);
             }
         }
-        public static byte[] converterDemo(Image x)
-        {
-            ImageConverter _imageConverter = new ImageConverter();
-            byte[] xByte = (byte[])_imageConverter.ConvertTo(x, typeof(byte[]));
-            return xByte;
-        }
+        //public static byte[] converterDemo(Image x)
+        //{
+        //    ImageConverter _imageConverter = new ImageConverter();
+        //    byte[] xByte = (byte[])_imageConverter.ConvertTo(x, typeof(byte[]));
+        //    return xByte;
+        //}
 
         private void checkBoxMum_Checked(object sender, RoutedEventArgs e)
         {
