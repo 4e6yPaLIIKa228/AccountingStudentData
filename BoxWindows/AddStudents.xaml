@@ -26,100 +26,98 @@
             <TabControl TabStripPlacement="Right"  >               
                 <TabItem Header="Основаня информация">
                     <Border  BorderBrush="Black" BorderThickness="1" >
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-                            <Border>
-                                <StackPanel Orientation="Horizontal" >
-                                    <Border  BorderBrush="Black" BorderThickness="1" Margin="1,1,0,0">
-                                        <StackPanel Orientation="Vertical" >
-                                            <TextBlock Text="ОСНОВАНЯ ИНФОРМАЦИЯ"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock  Text="Фамилия"  VerticalAlignment="Center" Margin="0,0,10,0" />
-                                                <TextBox x:Name="SurnameSt"  VerticalAlignment="Bottom"  Margin="39.8,0,0,0"  Width="250" />                                                
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" >
+                                <Border  BorderBrush="Black" BorderThickness="1" Margin="1,1,0,0">
+                                    <StackPanel Orientation="Vertical" >
+                                        <TextBlock Text="ОСНОВАНЯ ИНФОРМАЦИЯ"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock  Text="Фамилия"  VerticalAlignment="Center" Margin="0,0,10,0" />
+                                            <TextBox x:Name="SurnameSt"  VerticalAlignment="Bottom"  Margin="39.8,0,0,0"  Width="255"  PreviewTextInput="TextValidationTextBox" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock  Text="Имя"  VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <TextBox  x:Name="NameSt"  Margin="73.18,0,0,0"  Width="255"  PreviewTextInput="TextValidationTextBox" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock  Text="Отчество"  VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <TextBox x:Name="MideleNameSt"  Margin="38.6,0,5,0"  Width="255"  PreviewTextInput="TextValidationTextBox" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Необязательное поле"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock  Text="Дата рождения"  VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <DatePicker Name="DtpSt"  Width="255"  PreviewTextInput="NumberValidationNumberDate" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock  Text="Пол"  VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <ComboBox x:Name="Poll" Margin="75,0,0,0" Width="255" materialDesign:HintAssist.Hint="Обязательное поле"/>
+
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                                <StackPanel Orientation="Horizontal" Margin="1,1,0,0"  >
+                                    <Border  BorderBrush="Black" BorderThickness="1">
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="ФОТОГРАФИЯ" HorizontalAlignment="Center"/>
+                                            <StackPanel Orientation="Vertical">
+                                                <Image x:Name="FotoStudenta" Source="/Foto/notfoto.jpg"  Width="120" Height="120" />
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock  Text="Имя"  VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                                <TextBox  x:Name="NameSt" Text="bdfy"  Margin="73.18,0,0,0"  Width="250" />
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock  Text="Отчество"  VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                                <TextBox x:Name="MideleNameSt" Text="bdfy"  Margin="38.6,0,0,0"  Width="250"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock  Text="Дата рождения"  VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                                <DatePicker Name="DtpSt"  Width="250"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock  Text="Пол"  VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                                <ComboBox x:Name="Poll" Margin="9.4,0,0,0" Width="250" Text="bdfy">
-                                                   
-                                                </ComboBox>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Button  x:Name="BtnAddFoto" Click="BtnAddFoto_Click">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Source="/Foto/openfoto.png" />
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button  Width="25" Height="25"/>
+                                                <Button x:Name="btn2" Click="btn2_Click" Width="25" Height="25"/>
+
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Margin="5,1,0,0">
-                                        <Border  BorderBrush="Black" BorderThickness="1">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock Text="ФОТОГРАФИЯ" HorizontalAlignment="Center"/>
-                                                <StackPanel Orientation="Vertical">
-                                                    <Image x:Name="FotoStudenta" Source="/Foto/notfoto.jpg"  Width="120" Height="120" />
-                                                </StackPanel>
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                    <Button  x:Name="BtnAddFoto" Click="BtnAddFoto_Click">
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <Image Source="/Foto/openfoto.png" />
-                                                        </StackPanel>
-                                                    </Button>
-                                                    <Button  Width="25" Height="25"/>
-                                                    <Button x:Name="btn2" Click="btn2_Click" Width="25" Height="25"/>
-                                                    
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </Border>
-                                    </StackPanel>
                                 </StackPanel>
-                            </Border>
-                            <Border BorderBrush="Black"  BorderThickness="1" Margin="1,1,6.1,0"  >
+                            </StackPanel>
+                            <Border BorderBrush="Black"  BorderThickness="1" Margin="1,5,6.1,0"  >
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="ПАСПОРТНЫЕ ДАННЫЕ"/>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Вид паспорта"  VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                            <TextBox  x:Name="PasportSt" Width="370" Text="bdfy"/>
+                                            <TextBox  x:Name="PasportSt" Width="385"  PreviewTextInput="TextValidationTextBox"  materialDesign:HintAssist.Hint="Обязательное поле"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock  Text="Номер"  VerticalAlignment="Center"/>
-                                            <TextBox x:Name="NumberPasportSt" Margin="10,0,0,0" Text="bdfy" Width="80"/>
-                                            <TextBlock  Text="Серия" Margin="10,0,10,0"  VerticalAlignment="Center"/>
-                                            <TextBox x:Name="SeriaPasportSt" Text="bdfy" Width="80"/>
+                                        <StackPanel Orientation="Horizontal">                                            
+                                            <TextBlock  Text="Серия" Margin="0,0,10,0"  VerticalAlignment="Center"/>
+                                            <TextBox x:Name="SeriaPasportSt"   Width="70" PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле"/>
+                                            <TextBlock  Text="Номер"  VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                            <TextBox x:Name="NumberPasportSt" Margin="10,0,0,0"  Width="90" PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле"/>
                                             <TextBlock Text="Дата выдачи" Margin="10,0,10,0"  VerticalAlignment="Center"/>
-                                            <DatePicker Name="DtpPasportSt" Width="90"/>
+                                            <DatePicker Name="DtpPasportSt" Width="106" PreviewTextInput="NumberValidationNumberDate" PreviewKeyDown="TextValidationTextBox"  materialDesign:HintAssist.Hint="Обяз. поле"/>
                                         </StackPanel>                                       
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Кем ваыдан"  VerticalAlignment="Center" />
-                                            <TextBox x:Name="VudanPasportSt"  Margin="17.4,0,0,0" Width="381.4" Text="bdfy"/>
+                                            <TextBox x:Name="VudanPasportSt"  Margin="17.4,0,0,0" Width="390.1"  PreviewTextInput="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Гражданство"  VerticalAlignment="Center" Margin="0,0,0,10"/>
-                                            <TextBox x:Name="GrStudent" Margin="10,0,0,10"  Width="381.4" Text="bdfy" />
+                                            <TextBox x:Name="GrStudent" Margin="10,0,0,10"  Width="390.04"  PreviewTextInput="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле" />
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
-                            <Border  BorderThickness="1" BorderBrush="Black" Margin="1,1,6.1,0">
+                            <Border  BorderThickness="1" BorderBrush="Black" Margin="1,5,6.1,0">
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="ОБУЧЕНИЕ"/>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Дата зачисления" VerticalAlignment="Center"/>
-                                            <DatePicker  x:Name="DataСredited" Margin="10,0,0,0" Width="130" Text="28.01.2023"/>
+                                            <DatePicker  x:Name="DataСredited" Margin="10,0,0,0" Width="120" PreviewTextInput="NumberValidationNumberDate" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле" />
                                             <TextBlock  Text="Дата окончания" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                                            <DatePicker  x:Name="DataEnd" Margin="10,0,0,0" Width="100"/>                                           
+                                            <DatePicker  x:Name="DataEnd" Margin="10,0,0,0" Width="123.04" PreviewTextInput="NumberValidationNumberDate" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле"/>                                           
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock  Text="№ Приказа" VerticalAlignment="Center"/>
-                                            <TextBox  x:Name="NumberPrigaz"  Margin="46.5,0,0,5" Width="130"  Text="bdfy"/>
-                                            <TextBlock  Text="№ Договора"  Margin="10,0,0,0" VerticalAlignment="Center"/>
-                                            <TextBox  x:Name="NumberDogovora" Margin="34,0,0,5" Width="100" Text="bdfy"/>                                            
+                                            <TextBlock  Text="№ Приказа" VerticalAlignment="Center"  Margin="0,0,0,10"/>
+                                            <TextBox  x:Name="NumberPrigaz"  Margin="46.5,0,0,10" Width="120" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле"/>
+                                            <TextBlock  Text="№ Договора"  Margin="10,0,0,10" VerticalAlignment="Center"/>
+                                            <TextBox  x:Name="NumberDogovora" Margin="34,0,0,10" Width="123.2"   PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Необяз. поле"/>                                            
                                         </StackPanel>                                       
                                     </StackPanel>
                                 </StackPanel>
@@ -136,28 +134,28 @@
                                         <TextBlock Text="ОБРАЗОВАНИЕ"/>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Пришел после" VerticalAlignment="Center"/>
-                                            <TextBox x:Name="LastObraz" Margin="10,0,0,0" Width="100"/>
+                                            <TextBox x:Name="LastObraz" Margin="10,0,0,0" Width="100"  PreviewTextInput="NumberValidationNumberClass" PreviewKeyDown="TextValidationTextBox"  materialDesign:HintAssist.Hint="Обяз. поле"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Название учебного заведения" VerticalAlignment="Center"/>
-                                            <TextBox x:Name="OrganizStudent" Margin="10,0,0,0" Text="3123" Width="275"/>
+                                            <TextBox x:Name="OrganizStudent" Margin="10,0,0,0"  Width="275"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Номер атестата"  VerticalAlignment="Center"/>
-                                            <TextBox x:Name="NumberAtestat" Margin="10,0,0,10" Text="3123" Width="140"/>
-                                            <TextBlock Text="Дата получения" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                                            <DatePicker Name="DtnPolucheyne" Margin="10,0,0,10" Width="100"/>
+                                            <TextBlock Text="Номер атестата"  VerticalAlignment="Center" Margin="0,0,0,10"/>
+                                            <TextBox x:Name="NumberAtestat" Margin="10,0,0,10" PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле" Width="140"/>
+                                            <TextBlock Text="Дата получения" Margin="10,0,0,10" VerticalAlignment="Center"/>
+                                            <DatePicker Name="DtnPolucheyne" Margin="10,0,0,10" Width="100" PreviewTextInput="NumberValidationNumberDate" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
-                            <Border BorderBrush="Black" BorderThickness="1" Margin="1,1,6.1,0">
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="1,5,6.1,0">
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="ИНФОРМАЦИЯ В КОЛЛЕДЖЕ"/>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Руководитель"  VerticalAlignment="Center" Margin="0,0,10,0"/>
-                                            <ComboBox x:Name="CbmPyk"  VerticalAlignment="Bottom"  Margin="0,0,0,0"  Width="380"  ItemsSource = "{Binding }">
+                                            <ComboBox x:Name="CbmPyk"  VerticalAlignment="Bottom"  Margin="15,0,0,0"  Width="365"  ItemsSource = "{Binding }"  materialDesign:HintAssist.Hint="Обязательное поле">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock>
@@ -175,7 +173,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Специальность"  VerticalAlignment="Center" Margin="0,0,10,0" />
-                                            <ComboBox x:Name="CbmCpec"  VerticalAlignment="Bottom"  Margin="0,0,0,0"  Width="350"  ItemsSource = "{Binding }">
+                                            <ComboBox x:Name="CbmCpec"  VerticalAlignment="Bottom"  Margin="3.6,0,0,0"  Width="365"  ItemsSource = "{Binding }"  materialDesign:HintAssist.Hint="Обязательное поле">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock>
@@ -194,7 +192,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Группа"  VerticalAlignment="Center" Margin="0,0,10,10" />
-                                            <ComboBox x:Name="CbmGroup"  VerticalAlignment="Bottom"  Margin="0,0,0,10"  Width="380"  ItemsSource = "{Binding }">
+                                            <ComboBox x:Name="CbmGroup"  VerticalAlignment="Bottom"  Margin="59.7,0,0,10"  Width="364.98"  ItemsSource = "{Binding }"  materialDesign:HintAssist.Hint="Обязательное поле">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock>
@@ -211,7 +209,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
-                            <Border BorderBrush="Black" BorderThickness="1" Margin="1,1,6.1,0">
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="1,5,6.1,0">
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="МЕДИЦИНА"/>
@@ -224,13 +222,13 @@
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
-                            <Border BorderBrush="Black" BorderThickness="1" Margin="1,1,6.1,0">
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="1,5,6.1,0">
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="КОНТАКТЫ"/>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Телефон" VerticalAlignment="Center" Margin="0,0,0,10"/>
-                                            <TextBox x:Name="PhoneSt1" Margin="10,0,10,10" Text="bdfy" Width="155"/>
+                                            <TextBox x:Name="PhoneSt1" Margin="10,0,10,10"  Width="155"/>
                                             <TextBlock  Text="Доп. Телефон" VerticalAlignment="Center" Margin="0,0,0,10"/>
                                             <TextBox x:Name="PhoneSt2" Margin="10,0,0,10" Text="bdfy" Width="155"/>
                                         </StackPanel>

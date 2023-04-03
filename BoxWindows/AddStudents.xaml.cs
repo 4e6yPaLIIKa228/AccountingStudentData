@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -283,6 +284,37 @@ namespace AccountingStudentData.BoxWindows
         //    byte[] xByte = (byte[])_imageConverter.ConvertTo(x, typeof(byte[]));
         //    return xByte;
         //}
+
+        public void TextValidationTextBox(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space) e.Handled = true;
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9$]");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        private void NumberValidationNumberDate(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9.]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        private void NumberValidationNumberPassport(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        private void TextValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^a-zA-ZА-яА-я]");
+            e.Handled = regex.IsMatch(e.Text); 
+        }
+        private void NumberValidationNumberClass(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^911]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
 
         private void checkBoxMum_Checked(object sender, RoutedEventArgs e)
         {
