@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:AccountingStudentData"
-             StartupUri="BoxWindows/AddStudents.xaml">
+             StartupUri="BoxWindows/StudentBase.xaml">
     <!--StartupUri="BoxWindows/StudentBase.xaml">-->
     <!--StartupUri="BoxWindows/AddStudents.xaml">-->
     <!--StartupUri="BoxWindows/RegistrUser.xaml">-->

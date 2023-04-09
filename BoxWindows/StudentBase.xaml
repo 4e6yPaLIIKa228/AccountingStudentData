@@ -88,17 +88,17 @@
                                     <ContentPresenter Margin="10,0,0,0" Content="Студент" VerticalAlignment="Center" />
                                 </StackPanel>
                             </MenuItem.Header>
-                            <MenuItem>
+                            <MenuItem x:Name="MnItAddStudent" Click="MnItAddStudent_Click">
                                 <MenuItem.Header>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <Image  Source="/Foto/adduser.png"  Width="30" Height="30" Margin="-4,0,0,0"  />
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+                                        <Image x:Name="ImgAddstudent"  Source="/Foto/adduser.png"  Width="30" Height="30" Margin="-4,0,0,0"   />
                                         <ContentPresenter Margin="14,0,0,0" Content="Добавить" VerticalAlignment="Center" />
                                     </StackPanel>
                                 </MenuItem.Header>
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem x:Name="MnItEddStudent" Click="MnItEddStudent_Click" >
                                 <MenuItem.Header>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  >
                                         <Image  Source="/Foto/edit.png"  Width="30" Height="30"  />
                                         <ContentPresenter Margin="10,0,0,0" Content="Изменить" VerticalAlignment="Center" />
                                     </StackPanel>
@@ -138,7 +138,7 @@
                             </MenuItem>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem Click="MenuItem_Click" >
                         <MenuItem.Header>
                             <StackPanel>
                                 <Image Width="30" Height="30" Source="/Foto/excel.png" />
@@ -158,8 +158,8 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="5,0,5,5">
-            <ScrollViewer x:Name="ScrollSt" VerticalScrollBarVisibility="Visible">
-                <DataGrid  IsReadOnly="True" ColumnWidth="*" ScrollViewer.CanContentScroll="True" FontFamily="Times New Roman" FontSize="16"   x:Name="GridBaseStudent"  CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0"  Background="White"  >
+
+            <DataGrid  IsReadOnly="True" ColumnWidth="*" ScrollViewer.CanContentScroll="True" FontFamily="Times New Roman" FontSize="16"   x:Name="GridBaseStudent"  CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0"  Background="White" MouseDoubleClick="GridBaseStudent_MouseDoubleClick"   >
                     <DataGrid.Columns  >
                         <DataGridTextColumn Header="ФИО" Width="auto" >
                             <DataGridTextColumn.Binding>
@@ -197,7 +197,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </ScrollViewer>
+
         </Grid>
 
 

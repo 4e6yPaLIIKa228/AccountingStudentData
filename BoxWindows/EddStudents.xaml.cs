@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
@@ -23,16 +24,19 @@ using Image = System.Drawing.Image;
 namespace AccountingStudentData.BoxWindows
 {
     /// <summary>
-    /// Логика взаимодействия для AddStudents.xaml
+    /// Логика взаимодействия для EddStudents.xaml
     /// </summary>
-    public partial class AddStudents : Window
+    public partial class EddStudents : Window
     {
-        int CheckDad = 0, CheckMum = 0,Proverka1 = 0, ProverkaPlatObycen = 0;
+        int CheckDad = 0, CheckMum = 0, Proverka1 = 0, ProverkaPlatObycen = 0;
         byte[] image_bytes = null;
-        public AddStudents()
+
+        public EddStudents(DataRowView drv)
         {
             InitializeComponent();
             CombBoxDowmload();
+            //IDUser = drv["ID"].ToString();
+            
         }
         public void CombBoxDowmload()
         {
@@ -65,7 +69,7 @@ namespace AccountingStudentData.BoxWindows
                     Poll.DisplayMemberPath = "Name";
                     Poll.SelectedValuePath = "ID";
                     CbmPyk.ItemsSource = dt1.DefaultView;
-                    CbmPyk.SelectedValuePath = "ID";                  
+                    CbmPyk.SelectedValuePath = "ID";
                     CbmCpec.ItemsSource = dt2.DefaultView;
                     CbmCpec.SelectedValuePath = "ID";
                     CbmGroup.ItemsSource = dt3.DefaultView;
@@ -86,7 +90,7 @@ namespace AccountingStudentData.BoxWindows
                 if (String.IsNullOrEmpty(SurnameSt.Text) || String.IsNullOrEmpty(NameSt.Text) || String.IsNullOrEmpty(DtpSt.Text) || String.IsNullOrEmpty(Poll.Text) ||
                                     String.IsNullOrEmpty(PasportSt.Text) || String.IsNullOrEmpty(NumberPasportSt.Text) || String.IsNullOrEmpty(SeriaPasportSt.Text) || String.IsNullOrEmpty(VudanPasportSt.Text) ||
                                     String.IsNullOrEmpty(GrStudent.Text) || String.IsNullOrEmpty(DataСredited.Text) || String.IsNullOrEmpty(DataEnd.Text) || String.IsNullOrEmpty(NumberPrigaz.Text))
-                                  
+
                 {
                     MessageBox.Show("Заполните информацию в вкладке: Основаня информация", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                     Proverka1 = 1;
@@ -115,23 +119,23 @@ namespace AccountingStudentData.BoxWindows
                             else
                             {
                                 CheckDad = 0;
-                               
+
                             }
                         }
                         if (checkBoxMum.IsChecked == true)
                         {
                             if (String.IsNullOrEmpty(SurnameMum.Text) || String.IsNullOrEmpty(NameMum.Text) || String.IsNullOrEmpty(PhoneMum.Text) || String.IsNullOrEmpty(PasportMum.Text) ||
-                              String.IsNullOrEmpty(NumberPasportMum.Text) || String.IsNullOrEmpty(SeriaPasportMum.Text) || String.IsNullOrEmpty(VudanPasportMum.Text )|| String.IsNullOrEmpty(DtpPasportMum.Text)
+                              String.IsNullOrEmpty(NumberPasportMum.Text) || String.IsNullOrEmpty(SeriaPasportMum.Text) || String.IsNullOrEmpty(VudanPasportMum.Text) || String.IsNullOrEmpty(DtpPasportMum.Text)
                               || String.IsNullOrEmpty(GrStudentMum.Text))
                             {
                                 MessageBox.Show("Заполните информацию в данных родитель(Мать)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1=1;
+                                Proverka1 = 1;
                             }
                             else
                             {
                                 CheckMum = 0;
-                              
+
                             }
                         }
                         if (checkBoxDad.IsChecked == false && checkBoxMum.IsChecked == false)
@@ -172,7 +176,7 @@ namespace AccountingStudentData.BoxWindows
                         {
                             query = $@"SELECT count () FROM Students WHERE SNILS = '{SNILSSt.Text}' or OMS = '{OMSSt.Text}' ";
                             cmd = new SQLiteCommand(query, connection);
-                            int ProverkaMedSt= Convert.ToInt32(cmd.ExecuteScalar());
+                            int ProverkaMedSt = Convert.ToInt32(cmd.ExecuteScalar());
                             if (ProverkaMedSt == 0)//Проверка снилса и омс у студента
                             {
                                 int ProverkaMum = 0;
@@ -189,9 +193,9 @@ namespace AccountingStudentData.BoxWindows
                                     cmd = new SQLiteCommand(query, connection);
                                     ProverkaDad = Convert.ToInt32(cmd.ExecuteScalar());
                                 }
-                                    if (ProverkaMum == 0 && ProverkaDad == 0) //Проверка номера и серии паспорта у родителей
+                                if (ProverkaMum == 0 && ProverkaDad == 0) //Проверка номера и серии паспорта у родителей
                                 {
-                                    string IDMum = null; 
+                                    string IDMum = null;
                                     if (checkBoxMum.IsChecked == true)
                                     {
                                         query = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData')
@@ -201,8 +205,8 @@ namespace AccountingStudentData.BoxWindows
                                         cmd.ExecuteScalar();
                                         query = $@"SELECT ID FROM MumStudents WHERE Surname = '{SurnameMum.Text.ToLower()}' and Name = '{NameMum.Text.ToLower()}' and MidleName = '{MideleNameMum.Text.ToLower()}' and  Phone1 = '{PhoneMum.Text.ToLower()}' and Phone2 = '{PhoneMum2.Text.ToLower()}' and PassportVID = '{PasportMum.Text.ToLower()}'
                                         and PassportVidan = '{VudanPasportMum.Text.ToLower()}' and  PassportNumber = '{NumberPasportMum.Text.ToLower()}' and  PassportSeria ='{SeriaPasportMum.Text.ToLower()}' and PassportData = '{DtpPasportMum.Text.ToLower()}' ";
-                                        cmd = new SQLiteCommand(query, connection);                                        
-                                        int idmum  = Convert.ToInt32(cmd.ExecuteScalar());
+                                        cmd = new SQLiteCommand(query, connection);
+                                        int idmum = Convert.ToInt32(cmd.ExecuteScalar());
                                         IDMum = Convert.ToString(idmum);
                                     }
                                     string IDDad = null;
@@ -219,8 +223,8 @@ namespace AccountingStudentData.BoxWindows
                                         int iddad = Convert.ToInt32(cmd.ExecuteScalar());
                                         IDDad = Convert.ToString(iddad);
                                     }
-                                    bool result1= int.TryParse(Poll.SelectedValue.ToString(), out int IDPoll);
-                                    bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec); 
+                                    bool result1 = int.TryParse(Poll.SelectedValue.ToString(), out int IDPoll);
+                                    bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec);
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
                                     query = $@"INSERT INTO Students('Surname','Name','MidleName','Phone1','Phone2','SNILS',
@@ -231,7 +235,7 @@ namespace AccountingStudentData.BoxWindows
                                         '{OMSSt.Text.ToLower()}','{AdressSt.Text.ToLower()}','{PasportSt.Text.ToLower()}','{VudanPasportSt.Text.ToLower()}','{NumberPasportSt.Text.ToLower()}','{SeriaPasportSt.Text.ToLower()}','{DtpPasportSt.Text.ToLower()}'
                                         ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDMum}','{IDDad}','{IDPyk}','{LastObraz.Text.ToLower()}',
                                         '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora)";
-                                    cmd = new SQLiteCommand(query, connection);                                   
+                                    cmd = new SQLiteCommand(query, connection);
                                     byte[] bytes = null;
                                     if (image_bytes == null)
                                     {
@@ -260,10 +264,11 @@ namespace AccountingStudentData.BoxWindows
                                     {
                                         MessageBox.Show("Такой номер и серия паспорта уже используется(Мать)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                     }
-                                    else if (ProverkaDad ==1)
+                                    else if (ProverkaDad == 1)
                                     {
                                         MessageBox.Show("Такой номер и серия паспорта уже используется(Отец)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    }else if (ProverkaMum == 1 && ProverkaDad == 1)
+                                    }
+                                    else if (ProverkaMum == 1 && ProverkaDad == 1)
                                     {
                                         MessageBox.Show("Такой номер и серия паспорта уже используется(Мать и Отец)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                     }
@@ -285,7 +290,7 @@ namespace AccountingStudentData.BoxWindows
             {
                 MessageBox.Show(ex.Message);
             }
-        }      
+        }
 
         public void TextValidationTextBox(object sender, KeyEventArgs e)
         {
@@ -305,23 +310,23 @@ namespace AccountingStudentData.BoxWindows
         }
 
         private void NumberValidationNumberPassport(object sender, TextCompositionEventArgs e)
-        {                            
-                Regex regex = new Regex("[^0-9]+");                
-                e.Handled = regex.IsMatch(e.Text);            
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void TextValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^a-zA-ZА-яА-я]");
-            e.Handled = regex.IsMatch(e.Text); 
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void NumberValidationNumberClass(object sender, TextCompositionEventArgs e)
         {
             TextBox box = (TextBox)sender;
-            Regex regex = new Regex("[^91]+");            
-            e.Handled = regex.IsMatch(e.Text);            
-           
+            Regex regex = new Regex("[^91]+");
+            e.Handled = regex.IsMatch(e.Text);
+
         }
         private void TextInputForSeriaPassport(object sender, TextCompositionEventArgs e)
         {
@@ -375,7 +380,7 @@ namespace AccountingStudentData.BoxWindows
         {
             string num = Regex.Replace(PhoneSt1.Text, @"[^0-9]", "");
             return num;
-        }       
+        }
         private void ChangeCaretIndexSt1(string PhoneStudent1)
         {
             if (PhoneStudent1.Length <= 11)
@@ -500,7 +505,7 @@ namespace AccountingStudentData.BoxWindows
 
         private void checkBoxMum_Checked(object sender, RoutedEventArgs e)
         {
-            StpMum.IsEnabled= true;
+            StpMum.IsEnabled = true;
         }
 
         private void checkBoxMum_Unchecked(object sender, RoutedEventArgs e)
@@ -528,7 +533,7 @@ namespace AccountingStudentData.BoxWindows
             if (op.ShowDialog() == true)
             {
                 image_bytes = File.ReadAllBytes(op.FileName); // получаем байты выбранного файла
-                FotoStudenta.Source = new BitmapImage(new Uri(op.FileName));              
+                FotoStudenta.Source = new BitmapImage(new Uri(op.FileName));
             }
         }
 
@@ -539,7 +544,7 @@ namespace AccountingStudentData.BoxWindows
 
         private void ChBxPlatObych_Checked(object sender, RoutedEventArgs e)
         {
-            NumberDogovora.IsEnabled= true;            
+            NumberDogovora.IsEnabled = true;
         }
         private void ChBxPlatObych_Unchecked(object sender, RoutedEventArgs e)
         {
@@ -552,8 +557,8 @@ namespace AccountingStudentData.BoxWindows
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            CheackText();            
-            AddStudent();            
+            CheackText();
+            AddStudent();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -582,3 +587,4 @@ namespace AccountingStudentData.BoxWindows
         }
     }
 }
+
