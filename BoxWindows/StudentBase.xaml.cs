@@ -48,22 +48,23 @@ namespace AccountingStudentData.BoxWindows
                 {
                     connection.Open();
                     string query = $@"                    					
-                    SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt,Students.Phone1 as Phone1St,
+                    SELECT Students.ID as IDSt,Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt,Students.Phone1 as Phone1St,Students.Phone2 as Phone2St,Students.DataBirth as DataBirthSt,
                     Polls.Name as PollSt,Specialties.NumberSpecial as NumberSpecualSt, Groups.Name as GroupSt,Students.PocleKlass as KlassSt,
                     Users.ID as IDPyk,Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
-					Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt,
-					Students.DataСredited as DataPost, Students.DataEnd as DataOkon, Students.Foto,
-					Students.Phone2 as Phone2St, Students.SNILS as SNILSSt, Students.OMS as OMSSt, Students.Adress as AdressSt,
+					Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt,Students.NumberAtect as AtectSt,Students.DataPolycen as  DataPolecenSt,
+					Students.DataСredited as DataPost, Students.DataEnd as DataOkon, Students.Foto as FotoSt,Students.NameSchool as NameSchoolSt,
+					Students.SNILS as SNILSSt, Students.OMS as OMSSt, Students.Adress as AdressSt,
 					Students.PassportData as PassDataSt, Students.PassportNumber as PassNumSt,Students.PassportSeria as PassSeriaSt,
-					Students.PassportVID as PassVIDSt,Students.PassportVidan as PassVidanSt,
+					Students.PassportVID as PassVIDSt,Students.PassportVidan as PassVidanSt,Students.PassportCountry as PassCountrySt,
+                    Students.IDSpecual as IDSpecSt,Students.IDGrop as IDGropSt,
 					
 					MumStudents.ID as IDMumSt, MumStudents.Surname as SurnameMum, MumStudents.Name as NameMum, MumStudents.MidleName as MidleNameMum,
 					MumStudents.PassportData as PassDataMum, MumStudents.PassportNumber as PassNumMum, MumStudents.PassportSeria as PassSeriaMum,
-					MumStudents.PassportVID as PassVIDMum,MumStudents.PassportVidan as PassVidanMum, MumStudents.Phone1 as Phone1Mum, MumStudents.Phone2 as Phone2Mum,
+					MumStudents.PassportVID as PassVIDMum,MumStudents.PassportVidan as PassVidanMum, MumStudents.Phone1 as Phone1Mum, MumStudents.Phone2 as Phone2Mum,MumStudents.PassportCountry as PassCountryMum,
 					
 					DadStudents.ID as IDDadSt, DadStudents.Surname as SurnameDad, DadStudents.Name as NameDad, DadStudents.MidleName as MidleNameDad,
 					DadStudents.PassportData as PassDataDad, DadStudents.PassportNumber as PassNumDad, DadStudents.PassportSeria as PassSeriaDad,
-					DadStudents.PassportVID as PassVIDDad,DadStudents.PassportVidan as PassVidanDad, DadStudents.Phone1 as Phone1Dad, DadStudents.Phone2 as Phone2Dad
+					DadStudents.PassportVID as PassVIDDad,DadStudents.PassportVidan as PassVidanDad, DadStudents.Phone1 as Phone1Dad, DadStudents.Phone2 as Phone2Dad,DadStudents.PassportCountry as PassCountryDad
 
                     from Students
 

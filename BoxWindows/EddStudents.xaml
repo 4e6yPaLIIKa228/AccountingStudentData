@@ -61,7 +61,7 @@
                                         <StackPanel Orientation="Vertical">
                                             <TextBlock Text="ФОТОГРАФИЯ" HorizontalAlignment="Center"/>
                                             <StackPanel Orientation="Vertical">
-                                                <Image x:Name="FotoStudenta" Source="/Foto/notfoto.jpg"  Width="120" Height="120" />
+                                                <Image x:Name="FotoStudenta"  Width="120" Height="120" />
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                                 <Button  x:Name="BtnAddFoto" Click="BtnAddFoto_Click">
@@ -162,7 +162,7 @@
                                         <TextBlock Text="ИНФОРМАЦИЯ В КОЛЛЕДЖЕ" Margin="2,0,0,0"/>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Руководитель"  VerticalAlignment="Center" Margin="2,0,10,0"/>
-                                            <ComboBox x:Name="CbmPyk"  VerticalAlignment="Bottom"  Margin="15,0,0,0"  Width="365"  ItemsSource = "{Binding }"  materialDesign:HintAssist.Hint="Обязательное поле">
+                                            <ComboBox x:Name="CbmPyk"  VerticalAlignment="Bottom" Margin="15,0,0,0"  Width="365"  ItemsSource = "{Binding }"  materialDesign:HintAssist.Hint="Обязательное поле" DropDownOpened="CbmPyk_DropDownOpened" DropDownClosed="CbmPyk_DropDownClosed">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock>
@@ -180,16 +180,15 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Специальность"  VerticalAlignment="Center" Margin="2,0,10,0" />
-                                            <ComboBox x:Name="CbmCpec"  VerticalAlignment="Bottom"  Margin="3.6,0,0,0"  Width="365"  ItemsSource = "{Binding }"  materialDesign:HintAssist.Hint="Обязательное поле">
+                                            <ComboBox x:Name="CbmCpec"  VerticalAlignment="Bottom"  Margin="3.6,0,0,0"  Width="365"  materialDesign:HintAssist.Hint="Обязательное поле" DropDownClosed="CbmCpec_DropDownClosed" DropDownOpened="CbmCpec_DropDownOpened">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock>
-                                                            <TextBlock.Text>
+                                                            <TextBlock.Text >
                                                                 <MultiBinding StringFormat="{}{0} ,после {1} класса, КОД: {2} ">
                                                                     <Binding Path="NameSpecial"/>
                                                                     <Binding Path="Class"/>
                                                                     <Binding Path="NumberSpecial"/>
-
                                                                 </MultiBinding>
                                                             </TextBlock.Text>
                                                         </TextBlock>
@@ -199,19 +198,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Группа"  VerticalAlignment="Center" Margin="2,0,10,10" />
-                                            <ComboBox x:Name="CbmGroup"  VerticalAlignment="Bottom"  Margin="59.7,0,0,10"  Width="364.98"  ItemsSource = "{Binding }"  materialDesign:HintAssist.Hint="Обязательное поле">
-                                                <ComboBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock>
-                                                            <TextBlock.Text>
-                                                                <MultiBinding StringFormat="{}{0}">
-                                                                    <Binding Path="Name"/>
-                                                                </MultiBinding>
-                                                            </TextBlock.Text>
-                                                        </TextBlock>
-                                                    </DataTemplate>
-                                                </ComboBox.ItemTemplate>
-                                            </ComboBox>
+                                            <ComboBox x:Name="CbmGroup"  VerticalAlignment="Bottom" IsEditable="False" Margin="59.7,0,0,10"  Width="364.98"   materialDesign:HintAssist.Hint="Обязательное поле"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>

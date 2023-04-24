@@ -194,9 +194,9 @@ namespace AccountingStudentData.BoxWindows
                                     string IDMum = null; 
                                     if (checkBoxMum.IsChecked == true)
                                     {
-                                        query = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData')
+                                        query = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry')
                                         values ('{SurnameMum.Text.ToLower()}','{NameMum.Text.ToLower()}','{MideleNameMum.Text.ToLower()}','{PhoneMum.Text.ToLower()}','{PhoneMum2.Text.ToLower()}','{PasportMum.Text.ToLower()}',
-                                        '{VudanPasportMum.Text.ToLower()}','{NumberPasportMum.Text.ToLower()}','{SeriaPasportMum.Text.ToLower()}','{DtpPasportMum.Text.ToLower()}')";
+                                        '{VudanPasportMum.Text.ToLower()}','{NumberPasportMum.Text.ToLower()}','{SeriaPasportMum.Text.ToLower()}','{DtpPasportMum.Text.ToLower()}','{GrStudentMum.Text.ToUpper()}')";
                                         cmd = new SQLiteCommand(query, connection);
                                         cmd.ExecuteScalar();
                                         query = $@"SELECT ID FROM MumStudents WHERE Surname = '{SurnameMum.Text.ToLower()}' and Name = '{NameMum.Text.ToLower()}' and MidleName = '{MideleNameMum.Text.ToLower()}' and  Phone1 = '{PhoneMum.Text.ToLower()}' and Phone2 = '{PhoneMum2.Text.ToLower()}' and PassportVID = '{PasportMum.Text.ToLower()}'
@@ -208,9 +208,9 @@ namespace AccountingStudentData.BoxWindows
                                     string IDDad = null;
                                     if (checkBoxDad.IsChecked == true)
                                     {
-                                        query = $@"INSERT INTO DadStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData')
+                                        query = $@"INSERT INTO DadStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry')
                                         values ('{SurnameDad.Text.ToLower()}','{NameDad.Text.ToLower()}','{MideleNameDad.Text.ToLower()}','{PhoneDad.Text.ToLower()}','{PhoneDad.Text.ToLower()}','{PasportDad.Text.ToLower()}',
-                                        '{VudanPasportDad.Text.ToLower()}','{NumberPasportDad.Text.ToLower()}','{SeriaPasportDad.Text.ToLower()}','{DtpPasportDad.Text.ToLower()}')";
+                                        '{VudanPasportDad.Text.ToLower()}','{NumberPasportDad.Text.ToLower()}','{SeriaPasportDad.Text.ToLower()}','{DtpPasportDad.Text.ToLower()}','{GrStudentDad.Text.ToUpper()}')";
                                         cmd = new SQLiteCommand(query, connection);
                                         cmd.ExecuteScalar();
                                         query = $@"SELECT ID FROM DadStudents WHERE Surname = '{SurnameDad.Text.ToLower()}' and Name = '{NameDad.Text.ToLower()}' and MidleName = '{MideleNameDad.Text.ToLower()}' and  Phone1 = '{PhoneDad.Text.ToLower()}' and Phone2 = '{PhoneDad2.Text.ToLower()}' and PassportVID = '{PasportDad.Text.ToLower()}'
@@ -226,11 +226,11 @@ namespace AccountingStudentData.BoxWindows
                                     query = $@"INSERT INTO Students('Surname','Name','MidleName','Phone1','Phone2','SNILS',
                                     'OMS','Adress','PassportVid','PassportVidan','PassportNumber','PassportSeria',
                                     'PassportData','IDPoll','IDSpecual','IDGrop','IDMum','IDDad',
-                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora') 
+                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora','DataBirth','PassportCountry') 
                                     values ('{SurnameSt.Text.ToLower()}','{NameSt.Text.ToLower()}','{MideleNameSt.Text.ToLower()}','{PhoneSt1.Text.ToLower()}','{PhoneSt2.Text.ToLower()}','{SNILSSt.Text.ToLower()}',
                                         '{OMSSt.Text.ToLower()}','{AdressSt.Text.ToLower()}','{PasportSt.Text.ToLower()}','{VudanPasportSt.Text.ToLower()}','{NumberPasportSt.Text.ToLower()}','{SeriaPasportSt.Text.ToLower()}','{DtpPasportSt.Text.ToLower()}'
                                         ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDMum}','{IDDad}','{IDPyk}','{LastObraz.Text.ToLower()}',
-                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora)";
+                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora,'{DtpSt.Text.ToLower()}','{GrStudent.Text.ToUpper()}')";
                                     cmd = new SQLiteCommand(query, connection);                                   
                                     byte[] bytes = null;
                                     if (image_bytes == null)
