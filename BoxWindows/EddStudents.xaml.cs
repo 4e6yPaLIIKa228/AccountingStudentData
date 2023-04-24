@@ -37,7 +37,6 @@ namespace AccountingStudentData.BoxWindows
         int CheckDad = 0, CheckMum = 0, Proverka1 = 0, ProverkaPlatObycen = 0;
         string IDSt = string.Empty, IDMum = string.Empty, IDDad = string.Empty, IDGroup = string.Empty, IDPyk = string.Empty, IDSpec = string.Empty, Foto = string.Empty;
         byte[] image_bytes = null;
-        bool[] img312 = null;
 
         public EddStudents(DataRowView drv)
         {
@@ -116,27 +115,14 @@ namespace AccountingStudentData.BoxWindows
                 VudanPasportDad.Text = drv["PassVidanDad"].ToString();
                 GrStudentDad.Text = drv["PassCountryDad"].ToString();
             }
-            image_bytes = (byte[])drv["FotoSt"];
-
-            //image_bytes = Encoding.ASCII.GetBytes((char[])drv["FotoSt"]);
-            
-            //MemoryStream ms = new MemoryStream(Foto);
-
-            //Image image = Image.FromStream(ms);
-            //MessageBox.Show(image.ToString());
+            image_bytes = (byte[])drv["FotoSt"];           
             BitmapImage img = new BitmapImage();            
             img.BeginInit();
             img.CreateOptions = BitmapCreateOptions.None;
             img.CacheOption = BitmapCacheOption.Default;
             img.StreamSource = new MemoryStream(image_bytes);          
             img.EndInit();
-            FotoStudenta.Source = img;
-            //image_bytes = Convert.FromBase64String(Foto);
-            //var uriSource = new Uri(Foto, Uri.EscapeUriString(Foto)); UriKind.Relative
-            //FotoStudenta.Source = new BitmapImage(image_bytes);
-            // var FotoStudenta1 = new BitmapImage();
-
-            //FotoStudenta.Source = new BitmapImage(new Uri(Foto));
+            FotoStudenta.Source = img;            
             CombBoxDowmload();
 
         }
