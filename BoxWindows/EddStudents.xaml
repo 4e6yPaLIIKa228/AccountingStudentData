@@ -269,10 +269,10 @@
                                             <TextBox  x:Name="PasportMum" Width="370" PreviewTextInput="TextValidationTextBox"  materialDesign:HintAssist.Hint="Обязательное поле"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock  Text="Номер"  VerticalAlignment="Center" Margin="2,0,0,10"/>
-                                            <TextBox x:Name="NumberPasportMum" Margin="10,0,0,10" MaxLength="4"  Width="80" PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле" />
                                             <TextBlock  Text="Серия" Margin="10,0,10,10"  VerticalAlignment="Center"/>
                                             <TextBox x:Name="SeriaPasportMum" Width="80" Margin="0,0,0,10" MaxLength="4"  PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле"/>
+                                            <TextBlock  Text="Номер"  VerticalAlignment="Center" Margin="2,0,0,10"/>
+                                            <TextBox x:Name="NumberPasportMum" Margin="10,0,0,10" MaxLength="6"  Width="80" PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле" />
                                             <TextBlock Text="Дата выдачи" Margin="10,0,10,0"  VerticalAlignment="Center"/>
                                             <DatePicker Name="DtpPasportMum" Width="90" PreviewTextInput="NumberValidationNumberDate" PreviewKeyDown="TextValidationTextBox"  materialDesign:HintAssist.Hint="Обяз. поле"/>
                                         </StackPanel>
@@ -316,10 +316,10 @@
                                             <TextBox  x:Name="PasportDad" Width="370"  PreviewTextInput="TextValidationTextBox"  materialDesign:HintAssist.Hint="Обязательное поле"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock  Text="Номер"  VerticalAlignment="Center" Margin="2,0,0,10"/>
-                                            <TextBox x:Name="NumberPasportDad" MaxLength="4" Margin="10,0,0,10"  Width="80"  PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле" />
                                             <TextBlock  Text="Серия" Margin="10,0,10,10"  VerticalAlignment="Center"/>
-                                            <TextBox x:Name="SeriaPasportDad"  Width="80" Margin="0,0,0,10"   MaxLength="6" PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле"/>
+                                            <TextBox x:Name="SeriaPasportDad"  Width="80" Margin="0,0,0,10"   MaxLength="4" PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле"/>
+                                            <TextBlock  Text="Номер"  VerticalAlignment="Center" Margin="2,0,0,10"/>
+                                            <TextBox x:Name="NumberPasportDad" MaxLength="6" Margin="10,0,0,10"  Width="80"  PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле" />
                                             <TextBlock Text="Дата выдачи" Margin="10,0,10,10"  VerticalAlignment="Center"/>
                                             <DatePicker Name="DtpPasportDad" Width="90" Margin="0,0,0,10"   PreviewTextInput="NumberValidationNumberDate" PreviewKeyDown="TextValidationTextBox"  materialDesign:HintAssist.Hint="Обяз. поле"/>
                                         </StackPanel>

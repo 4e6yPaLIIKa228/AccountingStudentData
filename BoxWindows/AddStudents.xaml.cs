@@ -79,19 +79,34 @@ namespace AccountingStudentData.BoxWindows
             }
         }
 
-        public void CheackText()
+        public void CheckText()
         {
             try
             {
                 if (String.IsNullOrEmpty(SurnameSt.Text) || String.IsNullOrEmpty(NameSt.Text) || String.IsNullOrEmpty(DtpSt.Text) || String.IsNullOrEmpty(Poll.Text) ||
                                     String.IsNullOrEmpty(PasportSt.Text) || String.IsNullOrEmpty(NumberPasportSt.Text) || String.IsNullOrEmpty(SeriaPasportSt.Text) || String.IsNullOrEmpty(VudanPasportSt.Text) ||
                                     String.IsNullOrEmpty(GrStudent.Text) || String.IsNullOrEmpty(DataСredited.Text) || String.IsNullOrEmpty(DataEnd.Text) || String.IsNullOrEmpty(NumberPrigaz.Text))
-                                  
+
                 {
                     MessageBox.Show("Заполните информацию в вкладке: Основаня информация", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                     Proverka1 = 1;
                 }
-                else
+                else if (SeriaPasportSt.Text.Length != 4)
+                {
+                    MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Proverka1 = 1;
+                }
+                else if (NumberPasportSt.Text.Length != 6)
+                {
+                    MessageBox.Show("В номере паспорта должно быть 6 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Proverka1 = 1;
+                }
+                else if (ChBxPlatObych.IsChecked == true && NumberDogovora.Text == string.Empty)
+                {
+                    MessageBox.Show("Должен быть номер приказа при платном обучении", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Proverka1 = 1;
+                }
+                else if (SeriaPasportSt.Text.Length == 4 && NumberPasportSt.Text.Length == 6)
                 {
                     if (String.IsNullOrEmpty(LastObraz.Text) || String.IsNullOrEmpty(OrganizStudent.Text) || String.IsNullOrEmpty(NumberAtestat.Text) || String.IsNullOrEmpty(DtnPolucheyne.Text)
                         || String.IsNullOrEmpty(CbmPyk.Text) || String.IsNullOrEmpty(CbmCpec.Text) || String.IsNullOrEmpty(CbmGroup.Text) || String.IsNullOrEmpty(SNILSSt.Text)
@@ -100,7 +115,32 @@ namespace AccountingStudentData.BoxWindows
                         MessageBox.Show("Заполните информацию в вкладке: Доп. Информация", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                         Proverka1 = 1;
                     }
-                    else
+                    else if (NumberAtestat.Text.Length != 14)
+                    {
+                        MessageBox.Show("В номер атестата должно быть 14 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Proverka1 = 1;
+                    }
+                    else if (SNILSSt.Text.Length != 11)
+                    {
+                        MessageBox.Show("В номере СНИЛСа должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Proverka1 = 1;
+                    }
+                    else if (OMSSt.Text.Length != 16)
+                    {
+                        MessageBox.Show("В номере ОМСа должно быть 16 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Proverka1 = 1;
+                    }
+                    else if (PhoneSt1.Text.Length != 11)
+                    {
+                        MessageBox.Show("В номер телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Proverka1 = 1;
+                    }
+                    else if (PhoneSt2.Text.Length != 11 && PhoneSt2.Text != string.Empty)
+                    {
+                        MessageBox.Show("В номер телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Proverka1 = 1;
+                    }
+                    else if (NumberAtestat.Text.Length == 14 && OMSSt.Text.Length == 16 && PhoneSt1.Text.Length == 11 && PhoneSt1.Text.Length == 11)
                     {
                         if (checkBoxDad.IsChecked == true)
                         {
@@ -112,26 +152,73 @@ namespace AccountingStudentData.BoxWindows
                                 CheckDad = 1;
                                 Proverka1 = 1;
                             }
-                            else
+                            else if (PhoneDad.Text.Length != 11)
+                            {
+                                MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckDad = 1;
+                                Proverka1 = 1;
+                            }
+                            else if (PhoneDad2.Text.Length != 11 && PhoneDad2.Text != string.Empty)
+                            {
+                                MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckDad = 1;
+                                Proverka1 = 1;
+                            }
+                            else if (NumberPasportDad.Text.Length != 4)
+                            {
+                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckDad = 1;
+                                Proverka1 = 1;
+                            }
+                            else if (SeriaPasportDad.Text.Length != 11)
+                            {
+                                MessageBox.Show("В номере паспорта должно быть 6 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckDad = 1;
+                                Proverka1 = 1;
+                            }
+                            else if (PhoneDad.Text.Length == 11 && NumberPasportDad.Text.Length == 4 && SeriaPasportDad.Text.Length == 11)
                             {
                                 CheckDad = 0;
-                               
                             }
                         }
                         if (checkBoxMum.IsChecked == true)
                         {
                             if (String.IsNullOrEmpty(SurnameMum.Text) || String.IsNullOrEmpty(NameMum.Text) || String.IsNullOrEmpty(PhoneMum.Text) || String.IsNullOrEmpty(PasportMum.Text) ||
-                              String.IsNullOrEmpty(NumberPasportMum.Text) || String.IsNullOrEmpty(SeriaPasportMum.Text) || String.IsNullOrEmpty(VudanPasportMum.Text )|| String.IsNullOrEmpty(DtpPasportMum.Text)
+                              String.IsNullOrEmpty(NumberPasportMum.Text) || String.IsNullOrEmpty(SeriaPasportMum.Text) || String.IsNullOrEmpty(VudanPasportMum.Text) || String.IsNullOrEmpty(DtpPasportMum.Text)
                               || String.IsNullOrEmpty(GrStudentMum.Text))
                             {
                                 MessageBox.Show("Заполните информацию в данных родитель(Мать)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1=1;
+                                Proverka1 = 1;
                             }
-                            else
+                            else if (PhoneMum.Text.Length != 11)
+                            {
+                                MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckMum = 1;
+                                Proverka1 = 1;
+                            }
+                            else if (PhoneMum2.Text.Length != 11 && PhoneMum2.Text != string.Empty)
+                            {
+                                MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckMum = 1;
+                                Proverka1 = 1;
+                            }
+                            else if (NumberPasportMum.Text.Length != 4)
+                            {
+                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckMum = 1;
+                                Proverka1 = 1;
+                            }
+                            else if (SeriaPasportMum.Text.Length != 11)
+                            {
+                                MessageBox.Show("В номере паспорта должно быть 6 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckMum = 1;
+                                Proverka1 = 1;
+                            }
+                            else if (PhoneMum.Text.Length == 11 && NumberPasportMum.Text.Length == 4 && SeriaPasportMum.Text.Length == 11)
                             {
                                 CheckMum = 0;
-                              
+
                             }
                         }
                         if (checkBoxDad.IsChecked == false && checkBoxMum.IsChecked == false)
@@ -139,7 +226,7 @@ namespace AccountingStudentData.BoxWindows
                             MessageBox.Show("Выберите хотябы одного родителя", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                             Proverka1 = 1;
                         }
-                        if (CheckDad == 0 && CheckMum == 0)
+                        else if (CheckDad == 0 && CheckMum == 0)
                         {
                             Proverka1 = 0;
                         }
@@ -552,7 +639,7 @@ namespace AccountingStudentData.BoxWindows
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            CheackText();            
+            CheckText();            
             AddStudent();            
         }
 

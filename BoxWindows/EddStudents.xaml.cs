@@ -35,7 +35,9 @@ namespace AccountingStudentData.BoxWindows
     public partial class EddStudents : Window
     {
         int CheckDad = 0, CheckMum = 0, Proverka1 = 0, ProverkaPlatObycen = 0;
-        string IDSt = string.Empty, IDMum = string.Empty, IDDad = string.Empty, IDGroup = string.Empty, IDPyk = string.Empty, IDSpec = string.Empty, Foto = string.Empty;
+        string IDSt = string.Empty, IDMum = string.Empty, IDDad = string.Empty, IDGroup = string.Empty, IDPyk = string.Empty, IDSpec = string.Empty,Foto = string.Empty,
+        OldNumberPasportSt = null, OldSeriaPasportSt=null, OldSNILSSt=null, OldOMSSt=null,
+        OldNumberPasportMum=null, OldSeriaPasportMum=null, OldNumberPasportDad = null, OldSeriaPasportDad = null;
         byte[] image_bytes = null;
 
         public EddStudents(DataRowView drv)
@@ -50,8 +52,10 @@ namespace AccountingStudentData.BoxWindows
             DtpSt.Text = drv["DataBirthSt"].ToString();
             Poll.Text = drv["PollSt"].ToString();
             PasportSt.Text = drv["PassVIDSt"].ToString();
+            OldSeriaPasportSt = drv["PassSeriaSt"].ToString();
             SeriaPasportSt.Text = drv["PassSeriaSt"].ToString();
             NumberPasportSt.Text = drv["PassNumSt"].ToString();
+            OldNumberPasportSt = drv["PassNumSt"].ToString();
             DtpPasportSt.Text = drv["PassDataSt"].ToString();
             VudanPasportSt.Text = drv["PassVidanSt"].ToString();
             GrStudent.Text = drv["PassCountrySt"].ToString();
@@ -76,13 +80,15 @@ namespace AccountingStudentData.BoxWindows
             IDSpec =  drv["IDSpecSt"].ToString();
             CbmGroup.Text = drv["GroupSt"].ToString();
             IDGroup = drv["IDGropSt"].ToString();
+            OldSNILSSt = drv["SNILSSt"].ToString();
             SNILSSt.Text = drv["SNILSSt"].ToString();
             OMSSt.Text = drv["OMSSt"].ToString();
+            OldOMSSt = drv["OMSSt"].ToString();
             PhoneSt1.Text = drv["Phone1St"].ToString();
             PhoneSt2.Text = drv["Phone2St"].ToString();
             AdressSt.Text = drv["AdressSt"].ToString();
             IDMum = drv["IDMumSt"].ToString();
-            if (IDMum != null)
+            if (IDMum != null && IDMum != "")
             {                  
                 checkBoxMum.IsChecked = true;                
                 StpMum.IsEnabled = true;
@@ -93,13 +99,15 @@ namespace AccountingStudentData.BoxWindows
                 PhoneMum2.Text = drv["Phone2Mum"].ToString();
                 PasportMum.Text = drv["PassVIDMum"].ToString();
                 NumberPasportMum.Text = drv["PassNumMum"].ToString();
+                OldNumberPasportMum = drv["PassNumMum"].ToString();
                 SeriaPasportMum.Text = drv["PassSeriaMum"].ToString();
+                OldSeriaPasportMum = drv["PassSeriaMum"].ToString();
                 DtpPasportMum.Text = drv["PassDataMum"].ToString();
                 VudanPasportMum.Text = drv["PassVidanMum"].ToString();
                 GrStudentMum.Text = drv["PassCountryMum"].ToString();
             }
             IDDad = drv["IDDadSt"].ToString();           
-            if (IDDad != "")
+            if (IDDad != null && IDDad != "")
             {
                 checkBoxDad.IsChecked = true;
                 StpDad.IsEnabled = true;
@@ -207,7 +215,7 @@ namespace AccountingStudentData.BoxWindows
             }
         }
 
-        public void CheackText()
+        public void CheckText()
         {
             try
             {
@@ -274,35 +282,39 @@ namespace AccountingStudentData.BoxWindows
                             {
                                 MessageBox.Show("Заполните информацию в данных родитель(Отец)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckDad = 1;
-                                Proverka1 = 1;
+                               // Proverka1 = 1;
                             }else if (PhoneDad.Text.Length != 11)
                             {
                                 MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckDad = 1;
-                                Proverka1 = 1;
+                               // Proverka1 = 1;
                             }
                             else if (PhoneDad2.Text.Length != 11 && PhoneDad2.Text != string.Empty)
                             {
                                 MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckDad = 1;
-                                Proverka1 = 1;
+                               // Proverka1 = 1;
                             }
-                            else if (NumberPasportDad.Text.Length != 4)
-                            {
-                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckDad = 1;
-                                Proverka1 = 1;
-                            }
-                            else if (SeriaPasportDad.Text.Length != 11)
+                            else if (NumberPasportDad.Text.Length !=6)
                             {
                                 MessageBox.Show("В номере паспорта должно быть 6 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckDad = 1;
-                                Proverka1 = 1;
+                              //  Proverka1 = 1;
                             }
-                            else if (PhoneDad.Text.Length == 11  && NumberPasportDad.Text.Length == 4 && SeriaPasportDad.Text.Length == 11)
+                            else if (SeriaPasportDad.Text.Length != 4)
+                            {
+                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckDad = 1;
+                               // Proverka1 = 1;
+                            }
+                            else if (PhoneDad.Text.Length == 11  && NumberPasportDad.Text.Length == 6 && SeriaPasportDad.Text.Length == 4)
                             {
                                 CheckDad = 0;
                             }
+                            //else
+                            //{
+                            //    CheckDad = 0;
+                            //}
                         }
                         if (checkBoxMum.IsChecked == true)
                         {
@@ -312,37 +324,40 @@ namespace AccountingStudentData.BoxWindows
                             {
                                 MessageBox.Show("Заполните информацию в данных родитель(Мать)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1 = 1;
+                               // Proverka1 = 1;
                             }
                             else if (PhoneMum.Text.Length != 11)
                             {
                                 MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1 = 1;
+                               // Proverka1 = 1;
                             }
                             else if (PhoneMum2.Text.Length != 11 && PhoneMum2.Text != string.Empty)
                             {
                                 MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1 = 1;
+                                //Proverka1 = 1;
                             }
-                            else if (NumberPasportMum.Text.Length != 4)
-                            {
-                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckMum = 1;
-                                Proverka1 = 1;
-                            }
-                            else if (SeriaPasportMum.Text.Length != 11)
+                            else if (NumberPasportMum.Text.Length != 6)
                             {
                                 MessageBox.Show("В номере паспорта должно быть 6 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1 = 1;
+                               // Proverka1 = 1;
                             }
-                            else if (PhoneMum.Text.Length == 11 && NumberPasportMum.Text.Length == 4 && SeriaPasportMum.Text.Length == 11)
+                            else if (SeriaPasportMum.Text.Length != 4)
+                            {
+                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckMum = 1;
+                                //Proverka1 = 1;
+                            }
+                            else if (PhoneMum.Text.Length == 11 && NumberPasportMum.Text.Length == 6 && SeriaPasportMum.Text.Length == 4)
                             {
                                 CheckMum = 0;
-
                             }
+                            //else
+                            //{
+                            //    CheckMum = 0;
+                            //}
                         }
                         if (checkBoxDad.IsChecked == false && checkBoxMum.IsChecked == false)
                         {
@@ -366,7 +381,7 @@ namespace AccountingStudentData.BoxWindows
             }
         }
 
-        public void AddStudent()
+        public void EddStudent()
         {
             try
             {
@@ -375,88 +390,114 @@ namespace AccountingStudentData.BoxWindows
                     using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                     {
                         connection.Open();
-                        string query = $@"SELECT count () FROM Students WHERE PassportNumber = '{NumberPasportSt.Text}' and PassportSeria = '{SeriaPasportSt.Text}' ";
-                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                        int ProverkaPassportSt = Convert.ToInt32(cmd.ExecuteScalar());
+                        int ProverkaPassportSt = 0;
+                        if (OldNumberPasportSt != NumberPasportSt.Text && OldSeriaPasportSt != SeriaPasportSt.Text)
+                        {
+                            string query = $@"SELECT count () FROM Students WHERE PassportNumber = '{NumberPasportSt.Text}' and PassportSeria = '{SeriaPasportSt.Text}' ";
+                            SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                            ProverkaPassportSt = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
                         if (ProverkaPassportSt == 0) //Проверка номера и серии паспорта у студента
                         {
-                            query = $@"SELECT count () FROM Students WHERE SNILS = '{SNILSSt.Text}' or OMS = '{OMSSt.Text}' ";
-                            cmd = new SQLiteCommand(query, connection);
-                            int ProverkaMedSt = Convert.ToInt32(cmd.ExecuteScalar());
+                            int ProverkaMedSt = 0;
+                            if (OldOMSSt != OMSSt.Text && OldSNILSSt != SNILSSt.Text)
+                            {
+                                string query = $@"SELECT count () FROM Students WHERE SNILS = '{SNILSSt.Text}' or OMS = '{OMSSt.Text}' ";
+                                SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                                ProverkaMedSt = Convert.ToInt32(cmd.ExecuteScalar());
+                            }
                             if (ProverkaMedSt == 0)//Проверка снилса и омс у студента
                             {
                                 int ProverkaMum = 0;
                                 int ProverkaDad = 0;
                                 if (checkBoxMum.IsChecked == true)
                                 {
-                                    query = $@"SELECT count () FROM MumStudents WHERE PassportSeria = '{NumberPasportMum.Text}' and PassportNumber = '{NumberPasportMum.Text}' ";
-                                    cmd = new SQLiteCommand(query, connection);
-                                    ProverkaMum = Convert.ToInt32(cmd.ExecuteScalar());
+                                    if (OldNumberPasportMum != NumberPasportMum.Text && OldSeriaPasportMum != NumberPasportMum.Text)
+                                    {
+                                        string query = $@"SELECT count () FROM MumStudents WHERE PassportSeria = '{NumberPasportMum.Text}' and PassportNumber = '{NumberPasportMum.Text}' ";
+                                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                                        ProverkaMum = Convert.ToInt32(cmd.ExecuteScalar());
+                                    }
                                 }
                                 if (checkBoxDad.IsChecked == true)
                                 {
-                                    query = $@"SELECT count () FROM DadStudents WHERE PassportSeria = '{NumberPasportDad.Text}' and PassportNumber = '{SeriaPasportDad.Text}' ";
-                                    cmd = new SQLiteCommand(query, connection);
-                                    ProverkaDad = Convert.ToInt32(cmd.ExecuteScalar());
+                                    if (OldNumberPasportDad != NumberPasportMum.Text && OldSeriaPasportDad != NumberPasportMum.Text)
+                                    {
+                                        string query = $@"SELECT count () FROM DadStudents WHERE PassportSeria = '{NumberPasportDad.Text}' and PassportNumber = '{SeriaPasportDad.Text}' ";
+                                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                                        ProverkaDad = Convert.ToInt32(cmd.ExecuteScalar());
+                                    }
                                 }
                                 if (ProverkaMum == 0 && ProverkaDad == 0) //Проверка номера и серии паспорта у родителей
                                 {
-                                   // string IDMum = null;
-                                    if (checkBoxMum.IsChecked == true)
+                                    // string IDMum = null;
+                                    //if (checkBoxMum.IsChecked == true)
+                                    // {
+                                    if ((IDMum == null || IDMum== "") && checkBoxMum.IsChecked == true)
                                     {
-                                        if (IDMum == string.Empty)
-                                        {
-                                            query = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData')
+                                        string qwert = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry')
                                         values ('{SurnameMum.Text}','{NameMum.Text}','{MideleNameMum.Text}','{PhoneMum.Text.ToLower()}','{PhoneMum2.Text.ToLower()}','{PasportMum.Text.ToLower()}',
-                                        '{VudanPasportMum.Text.ToLower()}','{NumberPasportMum.Text.ToLower()}','{SeriaPasportMum.Text.ToLower()}','{DtpPasportMum.Text.ToLower()}')";
-                                            cmd = new SQLiteCommand(query, connection);
-                                            cmd.ExecuteScalar();
-                                            query = $@"SELECT ID FROM MumStudents WHERE Surname = '{SurnameMum.Text}' and Name = '{NameMum.Text}' and MidleName = '{MideleNameMum.Text}' and  Phone1 = '{PhoneMum.Text.ToLower()}' and Phone2 = '{PhoneMum2.Text.ToLower()}' and PassportVID = '{PasportMum.Text}'
-                                        and PassportVidan = '{VudanPasportMum.Text.ToUpper()}' and  PassportNumber = '{NumberPasportMum.Text.ToLower()}' and  PassportSeria ='{SeriaPasportMum.Text.ToLower()}' and PassportData = '{DtpPasportMum.Text.ToLower()}' ";
-                                            cmd = new SQLiteCommand(query, connection);
-                                            int idmum = Convert.ToInt32(cmd.ExecuteScalar());
-                                            IDMum = Convert.ToString(idmum);
-                                        }else
-                                        {
-                                            query = $@"UPDATE MumStudents SET Surname='{SurnameMum.Text}', Name='{NameMum.Text}',MidleName='{MideleNameMum}',Phone1='{PhoneMum.Text.ToLower()}', Phone2='{PhoneMum2.Text}', 
-                                            PassportVID='{PasportMum.Text}',PassportVidan= '{VudanPasportMum.Text.ToUpper()}', PassportNumber='{NumberPasportMum.Text}',PassportSeria='{SeriaPasportMum.Text}',PassportData='{DtpPasportMum.Text.ToLower()}' WHERE ID='{IDMum}';";
-                                            cmd = new SQLiteCommand(query, connection);
-                                            cmd.ExecuteScalar();
-                                        }
-                                       
+                                        '{VudanPasportMum.Text.ToUpper()}','{NumberPasportMum.Text.ToLower()}','{SeriaPasportMum.Text.ToLower()}','{DtpPasportMum.Text.ToLower()}','{GrStudentMum.Text.ToUpper()}')";
+                                        SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
+                                        cmd1.ExecuteScalar();
+                                        qwert = $@"SELECT ID FROM MumStudents WHERE Surname = '{SurnameMum.Text}' and Name = '{NameMum.Text}' and MidleName = '{MideleNameMum.Text}' and  Phone1 = '{PhoneMum.Text.ToLower()}' and Phone2 = '{PhoneMum2.Text.ToLower()}' and PassportVID = '{PasportMum.Text}'
+                                        and PassportVidan = '{VudanPasportMum.Text.ToUpper()}' and  PassportNumber = '{NumberPasportMum.Text.ToLower()}' and  PassportSeria ='{SeriaPasportMum.Text.ToLower()}' and PassportData = '{DtpPasportMum.Text.ToLower()}' and PassportCountry = '{GrStudentMum.Text.ToUpper()}'";
+                                        cmd1 = new SQLiteCommand(qwert, connection);
+                                        int idmum = Convert.ToInt32(cmd1.ExecuteScalar());
+                                        IDMum = Convert.ToString(idmum);
                                     }
-                                    //string IDDad = null;
-                                    if (checkBoxDad.IsChecked == true)
+                                    else if ((IDMum != "" || IDMum != null) && checkBoxMum.IsChecked == true)
                                     {
-                                        if (IDDad == string.Empty)
-                                        {
-                                            query = $@"INSERT INTO DadStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData')
-                                        values ('{SurnameDad.Text}','{NameDad.Text}','{MideleNameDad.Text}','{PhoneDad.Text.ToLower()}','{PhoneDad.Text.ToLower()}','{PasportDad.Text}',
-                                        '{VudanPasportDad.Text.ToUpper()}','{NumberPasportDad.Text.ToLower()}','{SeriaPasportDad.Text.ToLower()}','{DtpPasportDad.Text.ToLower()}')";
-                                            cmd = new SQLiteCommand(query, connection);
-                                            cmd.ExecuteScalar();
-                                            query = $@"SELECT ID FROM DadStudents WHERE Surname = '{SurnameDad.Text}' and Name = '{NameDad.Text}' and MidleName = '{MideleNameDad.Text}' and  Phone1 = '{PhoneDad.Text.ToLower()}' and Phone2 = '{PhoneDad2.Text.ToLower()}' and PassportVID = '{PasportDad.Text}'
-                                        and PassportVidan = '{VudanPasportDad.Text.ToUpper()}' and  PassportNumber = '{NumberPasportDad.Text.ToLower()}' and  PassportSeria ='{SeriaPasportDad.Text.ToLower()}' and PassportData = '{DtpPasportDad.Text.ToLower()}' ";
-                                            cmd = new SQLiteCommand(query, connection);
-                                            int iddad = Convert.ToInt32(cmd.ExecuteScalar());
-                                            IDDad = Convert.ToString(iddad);
-                                        }
-                                        else
-                                        {
-                                            query = $@"UPDATE MumStudents SET Surname='{SurnameDad.Text}', Name='{NameDad.Text}',MidleName='{MideleNameDad.Text}',Phone1='{PhoneDad.Text.ToLower()}', Phone2='{PhoneDad2.Text}', 
-                                            PassportVID='{PasportDad.Text}',PassportVidan= '{VudanPasportDad.Text.ToUpper()}', PassportNumber='{NumberPasportDad.Text}',PassportSeria='{SeriaPasportDad.Text}',PassportData='{DtpPasportDad.Text.ToLower()}' WHERE ID='{IDDad}';";
-                                            cmd = new SQLiteCommand(query, connection);
-                                            cmd.ExecuteScalar();
-                                        }
-                                           
+                                        string qwert = $@"UPDATE MumStudents SET Surname='{SurnameMum.Text}', Name='{NameMum.Text}',MidleName='{MideleNameMum.Text}',Phone1='{PhoneMum.Text.ToLower()}', Phone2='{PhoneMum2.Text}', 
+                                            PassportVID='{PasportMum.Text}',PassportVidan= '{VudanPasportMum.Text.ToUpper()}', PassportNumber='{NumberPasportMum.Text}',PassportSeria='{SeriaPasportMum.Text}',PassportData='{DtpPasportMum.Text.ToLower()}',PassportCountry = '{GrStudentMum.Text.ToUpper()}'  WHERE ID='{IDMum}';";
+                                        SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
+                                        cmd1.ExecuteScalar();
                                     }
+                                    else if ((IDMum != "" || IDMum != null) && checkBoxMum.IsChecked == false)
+                                    {
+                                        string qwert = $@"Delete from  MumStudents where ID = '{IDMum}'";
+                                        SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
+                                        cmd1.ExecuteScalar();
+                                        IDMum = null;
+                                    }
+                                    //}
+                                    //string IDDad = null;
+                                    //if (checkBoxDad.IsChecked == true)
+                                    //{
+                                    if ((IDDad == null || IDDad == "") && checkBoxDad.IsChecked == true)
+                                    {
+                                        string qwert = $@"INSERT INTO DadStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry')
+                                        values ('{SurnameDad.Text}','{NameDad.Text}','{MideleNameDad.Text}','{PhoneDad.Text.ToLower()}','{PhoneDad2.Text.ToLower()}','{PasportDad.Text}',
+                                        '{VudanPasportDad.Text.ToUpper()}','{NumberPasportDad.Text.ToLower()}','{SeriaPasportDad.Text.ToLower()}','{DtpPasportDad.Text.ToLower()}','{GrStudentDad.Text.ToUpper()}')";
+                                        SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
+                                        cmd1.ExecuteScalar();
+                                        qwert = $@"SELECT ID FROM DadStudents WHERE Surname = '{SurnameDad.Text}' and Name = '{NameDad.Text}' and MidleName = '{MideleNameDad.Text}' and  Phone1 = '{PhoneDad.Text.ToLower()}' and Phone2 = '{PhoneDad2.Text.ToLower()}' and PassportVID = '{PasportDad.Text}'
+                                        and PassportVidan = '{VudanPasportDad.Text.ToUpper()}' and  PassportNumber = '{NumberPasportDad.Text.ToLower()}' and  PassportSeria ='{SeriaPasportDad.Text.ToLower()}' and PassportData = '{DtpPasportDad.Text.ToLower()}' and PassportCountry = '{GrStudentDad.Text.ToUpper()}' ";
+                                        cmd1 = new SQLiteCommand(qwert, connection);
+                                        int iddad = Convert.ToInt32(cmd1.ExecuteScalar()); //PasportDad
+                                        IDDad = Convert.ToString(iddad);
+                                    }
+                                    else if ((IDDad != "" || IDDad != null) && checkBoxDad.IsChecked == true)
+                                    {
+                                        string qwert = $@"UPDATE DadStudents SET Surname='{SurnameDad.Text}', Name='{NameDad.Text}',MidleName='{MideleNameDad.Text}',Phone1='{PhoneDad.Text.ToLower()}', Phone2='{PhoneDad2.Text.ToLower()}', 
+                                            PassportVID='{PasportDad.Text}',PassportVidan= '{VudanPasportDad.Text.ToUpper()}', PassportNumber='{NumberPasportDad.Text.ToLower()}',PassportSeria ='{SeriaPasportDad.Text.ToLower()}',PassportData ='{DtpPasportDad.Text.ToLower()}', PassportCountry = '{GrStudentDad.Text.ToUpper()}'  WHERE ID='{IDDad}';";
+                                        SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
+                                        cmd1.ExecuteScalar();
+                                    }
+                                    else if ((IDDad != "" || IDDad != null) && checkBoxDad.IsChecked == false)
+                                    {
+                                        string qwert = $@"Delete from  DadStudents where ID = '{IDDad}'";
+                                        SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
+                                        cmd1.ExecuteScalar();
+                                        IDDad = null;
+                                    } 
                                     bool result1 = int.TryParse(Poll.SelectedValue.ToString(), out int IDPoll);
                                     bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec);
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
-                                    query = $@"UPDATE  Students Set Surname='{SurnameSt.Text}',Name = '{NameSt.Text}',MidleName= '{MideleNameSt.Text}', Phone1= '{PhoneSt1.Text}', Phone2= '{PhoneSt2.Text}', SNILS = '{SNILSSt.Text}', OMS= '{OMSSt.Text}', 
+                                    string query = $@"UPDATE  Students Set Surname='{SurnameSt.Text}',Name = '{NameSt.Text}',MidleName= '{MideleNameSt.Text}', Phone1= '{PhoneSt1.Text}', Phone2= '{PhoneSt2.Text}', SNILS = '{SNILSSt.Text}', OMS= '{OMSSt.Text}', 
                                     Adress= '{AdressSt.Text}', PassportVid= '{PasportSt.Text}', PassportVidan= '{VudanPasportSt.Text.ToUpper()}', PassportNumber= '{NumberPasportSt.Text}', PassportSeria= '{SeriaPasportSt.Text}',
-                                    PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}',IDMum= '{IDMum}', IDDad= '{IDDad}', IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz= '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora";
+                                    PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}',IDMum= @IDMum, IDDad= @IDDad, IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz= '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora";
                                     //query = $@"INSERT INTO Students('Surname','Name','MidleName','Phone1','Phone2','SNILS',
                                     //'OMS','Adress','PassportVid','PassportVidan','PassportNumber','PassportSeria',
                                     //'PassportData','IDPoll','IDSpecual','IDGrop','IDMum','IDDad',
@@ -465,8 +506,24 @@ namespace AccountingStudentData.BoxWindows
                                     //    '{OMSSt.Text.ToLower()}','{AdressSt.Text.ToLower()}','{PasportSt.Text.ToLower()}','{VudanPasportSt.Text.ToLower()}','{NumberPasportSt.Text.ToLower()}','{SeriaPasportSt.Text.ToLower()}','{DtpPasportSt.Text.ToLower()}'
                                     //    ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDMum}','{IDDad}','{IDPyk}','{LastObraz.Text.ToLower()}',
                                     //    '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora)";
-                                    cmd = new SQLiteCommand(query, connection);
+                                    SQLiteCommand cmd = new SQLiteCommand(query, connection);
                                     byte[] bytes = null;
+                                    if (IDMum == "" || IDMum == null)
+                                    {
+                                        cmd.Parameters.AddWithValue("@IDMum", null);
+                                    }
+                                    else
+                                    {
+                                        cmd.Parameters.AddWithValue("@IDMum", IDMum);
+                                    }
+                                    if (IDDad == "" || IDDad == null)
+                                    {
+                                        cmd.Parameters.AddWithValue("@IDDad", null);
+                                    }
+                                    else
+                                    {
+                                        cmd.Parameters.AddWithValue("@IDDad", IDDad);
+                                    }
                                     if (image_bytes == null)
                                     {
                                         bytes = File.ReadAllBytes("Foto/notfoto.jpg");
@@ -485,7 +542,7 @@ namespace AccountingStudentData.BoxWindows
                                         cmd.Parameters.AddWithValue("@NumberDogovora", "Бюджет");
                                     }
                                     cmd.ExecuteScalar();
-                                    MessageBox.Show("Студент добавлен", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    MessageBox.Show("Данные студента изменены", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
 
                                 }
                                 else
@@ -563,176 +620,7 @@ namespace AccountingStudentData.BoxWindows
             TextBox box = (TextBox)sender;
             e.Handled = box.Text.Length > 4;
         }
-
-        private void PhoneMaskSt1(string PhoneStudent1)
-        {
-            var newVal = PhoneStudent1;
-            PhoneStudent1 = string.Empty;
-            switch (newVal.Length)
-            {
-                case 1:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})", "+7(___)___-__-__");
-                    break;
-                case 2:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2__)___-__-__");
-                    break;
-                case 3:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2_)___-__-__");
-                    break;
-                case 4:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2)___-__-__");
-                    break;
-                case 5:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3__-__-__");
-                    break;
-                case 6:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3_-__-__");
-                    break;
-                case 7:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3-__-__");
-                    break;
-                case 8:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})", "+7($2)$3-$4_-__");
-                    break;
-                case 9:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})", "+7($2)$3-$4-__");
-                    break;
-                case 10:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})", "+7($2)$3-$4-$5_");
-                    break;
-                case 11:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})", "+7($2)$3-$4-$5");
-                    break;
-            }
-            PhoneSt1.Text = PhoneStudent1;
-        }
-        private string ReplacenumberSt1()
-        {
-            string num = Regex.Replace(PhoneSt1.Text, @"[^0-9]", "");
-            return num;
-        }
-        private void ChangeCaretIndexSt1(string PhoneStudent1)
-        {
-            if (PhoneStudent1.Length <= 11)
-            {
-                PhoneMaskSt1(PhoneStudent1);
-            }
-            if (PhoneStudent1.Length <= 4)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent1.Length + 2;
-            }
-            else if (PhoneStudent1.Length <= 7)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent1.Length + 3;
-            }
-            else if (PhoneStudent1.Length <= 9)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent1.Length + 4;
-            }
-            else if (PhoneStudent1.Length <= 11)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent1.Length + 5;
-            }
-
-        }
-        private void TbPhone_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ChangeCaretIndexSt1(ReplacenumberSt1());
-        }
-        private void TbPhone_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            ChangeCaretIndexSt1(ReplacenumberSt1() + e.Text);
-            e.Handled = true;
-        }
-        private void TbPhone_GotFocus(object sender, RoutedEventArgs e)
-        {
-            ChangeCaretIndexSt1(ReplacenumberSt1());
-        }
-
-        private void PhoneMaskSt2(string PhoneStudent2)
-        {
-            var newVal = PhoneStudent2;
-            PhoneStudent2 = string.Empty;
-            switch (newVal.Length)
-            {
-                case 1:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})", "+7(___)___-__-__");
-                    break;
-                case 2:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2__)___-__-__");
-                    break;
-                case 3:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2_)___-__-__");
-                    break;
-                case 4:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2)___-__-__");
-                    break;
-                case 5:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3__-__-__");
-                    break;
-                case 6:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3_-__-__");
-                    break;
-                case 7:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3-__-__");
-                    break;
-                case 8:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})", "+7($2)$3-$4_-__");
-                    break;
-                case 9:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})", "+7($2)$3-$4-__");
-                    break;
-                case 10:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})", "+7($2)$3-$4-$5_");
-                    break;
-                case 11:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})", "+7($2)$3-$4-$5");
-                    break;
-            }
-            PhoneSt2.Text = PhoneStudent2;
-        }
-        private string ReplacenumberSt2()
-        {
-            string num = Regex.Replace(PhoneSt2.Text, @"[^0-9]", "");
-            return num;
-        }
-        private void ChangeCaretIndexSt2(string PhoneStudent2)
-        {
-            if (PhoneStudent2.Length <= 11)
-            {
-                PhoneMaskSt2(PhoneStudent2);
-            }
-            if (PhoneStudent2.Length <= 4)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent2.Length + 2;
-            }
-            else if (PhoneStudent2.Length <= 7)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent2.Length + 3;
-            }
-            else if (PhoneStudent2.Length <= 9)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent2.Length + 4;
-            }
-            else if (PhoneStudent2.Length <= 11)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent2.Length + 5;
-            }
-        }
-        private void TbPhoneSt2_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ChangeCaretIndexSt2(ReplacenumberSt2());
-        }
-        private void TbPhoneSt2_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            ChangeCaretIndexSt2(ReplacenumberSt2() + e.Text);
-            e.Handled = true;
-        }
-        private void TbPhoneSt2_GotFocus(object sender, RoutedEventArgs e)
-        {
-            ChangeCaretIndexSt2(ReplacenumberSt2());
-        }
-
+ 
         private void checkBoxMum_Checked(object sender, RoutedEventArgs e)
         {
             StpMum.IsEnabled = true;
@@ -890,8 +778,8 @@ namespace AccountingStudentData.BoxWindows
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            CheackText();
-            AddStudent();
+            CheckText();
+            EddStudent();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
