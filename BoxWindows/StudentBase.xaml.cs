@@ -329,5 +329,23 @@ namespace AccountingStudentData.BoxWindows
         {
             EdditStudent();
         }
+
+        private void MnItAddComponet_Click(object sender, RoutedEventArgs e)
+        {
+           // int checkopen = 0;
+            AddComponets addst = new AddComponets();
+            //this.IsEnabled = false;
+            //addst.ShowDialog();
+            //this.IsEnabled = true;
+            //this.IsActive = false;
+           // addst.Show();
+            bool? result = addst.ShowDialog();
+            switch (result)
+            {
+                default:
+                    LoadBase();
+                    break;
+            }
+        }
     }
 }

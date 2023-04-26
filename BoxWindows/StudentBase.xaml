@@ -73,6 +73,14 @@
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Image  Source="/Foto/archive.png"  Width="30" Height="30"  />
+                                    <ContentPresenter Margin="10,0,0,0" Content="Архив" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
                     </MenuItem>
                     <MenuItem>
                         <MenuItem.Header>
@@ -120,7 +128,7 @@
                                     <ContentPresenter Margin="10,0,0,0" Content="Компонент" VerticalAlignment="Center" />
                                 </StackPanel>
                             </MenuItem.Header>
-                            <MenuItem>
+                            <MenuItem x:Name="MnItAddComponet" Click="MnItAddComponet_Click" >
                                 <MenuItem.Header>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <Image  Source="/Foto/plus.png"  Width="30" Height="30"  />

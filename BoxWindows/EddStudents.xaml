@@ -350,7 +350,7 @@
                 <TextBlock Text="Version 0.1 "/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  >
-                <TextBlock Text="Окно добавление нового студента" FontSize="30" />
+                <TextBlock Text="Окно изменение данных студента" FontSize="30" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="2">
                 <Menu>
@@ -374,7 +374,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
                 <Button x:Name="BtnBack" Content="Назад"  Margin="0,0,5,0" Click="BtnBack_Click"/>
-                <Button Name="BtnAdd" Click="BtnAdd_Click" Content="Добавить" Margin="0,0,3,0" />
+                <Button Name="BtnAdd" Click="BtnAdd_Click" Content="Изменить" Margin="0,0,3,0" />
             </StackPanel>
         </Grid>
 
