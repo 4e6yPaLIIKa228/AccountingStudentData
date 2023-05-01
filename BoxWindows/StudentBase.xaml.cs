@@ -26,6 +26,7 @@ using DBConnection = AccountingStudentData.Connection.DBConnection;
 using Microsoft.Win32;
 using Spire.Xls.Core;
 using System.IO;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace AccountingStudentData.BoxWindows
 {
@@ -347,5 +348,164 @@ namespace AccountingStudentData.BoxWindows
                     break;
             }
         }
+
+        private void MnItDellComponet_Click(object sender, RoutedEventArgs e)
+        {
+            DellComponets addst = new DellComponets();
+            bool? result = addst.ShowDialog();
+            switch (result)
+            {
+                default:
+                    LoadBase();
+                    break;
+            }
+        }
+
+        public void ExportToExcel()
+        {
+            try
+            {
+                Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
+                Microsoft.Office.Interop.Excel.Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
+                Microsoft.Office.Interop.Excel.Worksheet sheet1 = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Sheets[1];
+                excel.Visible = true;
+                excel.Interactive = false;
+                excel.ScreenUpdating = false;
+                excel.UserControl = false;
+                excel.DisplayAlerts = false;        
+                for (int j = 2; j < GridBaseStudent.Columns.Count - 1; j++) //Столбцы
+                {
+                    Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[1, j + 5];
+                    sheet1.Columns[j + 1].NumberFormat = "@";
+                    myRange.Value2 = GridBaseStudent.Columns[j].Header;
+                    myRange.Font.Name = "Times New Roman";
+                    myRange.Cells.Font.Size = 16;
+                    myRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                    myRange.HorizontalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                    myRange.Style.WrapText = false;
+                    myRange.Columns.ColumnWidth = 200;
+
+                }
+                Excel.Range myRang2 = sheet1.get_Range("A1", "C1");
+                myRang2.Value = "ФИО";
+                myRang2.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                myRang2.HorizontalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                myRang2.Merge(Type.Missing);
+                myRang2.Font.Name = "Times New Roman";
+                myRang2.Font.Bold = true;
+                myRang2.Cells.Font.Size = 16;
+                Excel.Range myRang3 = sheet1.get_Range("D1", "F1");
+                myRang3.Value = "Руководитель";
+                myRang3.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                myRang3.HorizontalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                myRang3.Merge(Type.Missing);
+                myRang3.Font.Name = "Times New Roman";
+                myRang3.Cells.Font.Size = 14;
+                using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                {
+                    connection.Open();
+                    string query = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
+                                        Polls.Name as PollSt, Students.Phone1 as Phone1St, Students.PocleKlass as KlassSt,
+                                        Specialties.NumberSpecial as NumberSpecualSt,Groups.Name as GroupSt,                                       
+                                        Students.DataСredited as DataPost,Students.DataEnd as DataOkon,
+                                        Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt from  Students
+                                        LEFT JOIN Polls on Students.IDPoll = Polls.ID
+                                        LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
+                                        LEFT JOIN Groups on Students.IDGrop = Groups.ID
+                                        LEFT JOIN Users on Students.IDPyku = Users.ID";
+                    SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                    DataTable DT = new DataTable("Students");
+                    SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                    SDA.Fill(DT);
+                    if (CombSearchInfo.SelectedIndex != -1)
+                    {
+                        DT = SerchInfo();
+                    }
+                    DataTable dt = DT;
+                    int collInd = 0;
+                    int rowInd = 0;
+                    string data = "";
+                    for (rowInd = 0; rowInd < dt.Rows.Count; rowInd++)
+                    {
+                        for (collInd = 0; collInd < dt.Columns.Count; collInd++)
+                        {
+                            data = dt.Rows[rowInd].ItemArray[collInd].ToString();
+                            sheet1.Cells[rowInd + 2, collInd + 1] = data;
+                            Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[rowInd + 2, collInd + 1];
+                            myRange.Font.Name = "Times New Roman";
+                            myRange.Cells.Font.Size = 14;
+                            myRange = sheet1.UsedRange;
+                            myRange.Borders.LineStyle = XlLineStyle.xlContinuous;
+                        }
+                    }
+                }
+                sheet1.Columns.AutoFit();
+                sheet1.Rows.AutoFit();
+                excel.Interactive = true;
+                excel.ScreenUpdating = true;
+                excel.UserControl = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public DataTable SerchInfo()
+        {
+            DataTable DT = new DataTable();
+            try
+            {
+               
+                using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                {
+                   
+                    connection.Open();
+                    String combtext = CombSearchInfo.Text;
+                    string DBSerach = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
+                                        Polls.Name as PollSt, Students.Phone1 as Phone1St, Students.PocleKlass as KlassSt,
+                                        Specialties.NumberSpecial as NumberSpecualSt,Groups.Name as GroupSt,                                       
+                                        Students.DataСredited as DataPost,Students.DataEnd as DataOkon,
+                                        Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt from  Students
+                                        LEFT JOIN Polls on Students.IDPoll = Polls.ID
+                                        LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
+                                        LEFT JOIN Groups on Students.IDGrop = Groups.ID
+                                        LEFT JOIN Users on Students.IDPyku = Users.ID";                   
+                    if (combtext == "Фамилия")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSerach}   WHERE Students.Surname like '%{TxtSearch.Text}%'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("MenuPerTech");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        return DT;
+                    }
+
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            return DT;          
+        }
+
+        private void MnItClose_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void MnItExcel_Click(object sender, RoutedEventArgs e)
+        {
+            ExportToExcel();
+        }
+
+        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SerchInfo();
+        }      
     }
 }

@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:converter="clr-namespace:AccountingStudentData.Converter"
-        
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -13,7 +12,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"     
         
-        Title="StudentBase" Height="680" Width="1450" FontFamily="Times New Roman" FontSize="18">
+        Title="StudentBase" Height="680" Width="1450"  AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Times New Roman" FontSize="18">
     <Window.Resources>
         <converter:TextConverter x:Key="TextOneCumvl"/>
     </Window.Resources>
@@ -29,24 +28,6 @@
             <ColumnDefinition Width="180" />
             <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="0"  Orientation="Vertical">
-            <Border Background="Black" Width="Auto" Height="Auto"   BorderBrush="Black" BorderThickness="1,1,1,1">
-            </Border>
-        </StackPanel>
-        <StackPanel Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom" Height="2">
-            <Border Background="Black" Width="Auto" Height="Auto"  BorderBrush="Black" BorderThickness="1,1,1,1">
-            </Border>
-        </StackPanel>
-        <Grid Grid.Column="0"  Grid.Row="0"  Grid.RowSpan="3" HorizontalAlignment="Left" Width="2"  >
-            <Border  Width="Auto" Height="Auto"  BorderBrush="Black"  BorderThickness="1,1,1,1" >
-            </Border>
-        </Grid>
-        <Grid Grid.Column="3"  Grid.Row="0"  Grid.RowSpan="3" HorizontalAlignment="Right" Width="2"  >
-            <Border  Width="Auto" Height="Auto"  BorderBrush="Black"  BorderThickness="1,1,1,1" >
-            </Border>
-        </Grid>
-
         <Grid  Grid.Column="0" Grid.ColumnSpan="1"  VerticalAlignment="Center" Margin="5,0,0,0"  HorizontalAlignment="Left"   >
             <StackPanel Orientation="Vertical"  VerticalAlignment="Bottom" >
                 <Menu>
@@ -136,7 +117,7 @@
                                     </StackPanel>
                                 </MenuItem.Header>
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem x:Name="MnItDellComponet" Click="MnItDellComponet_Click" >
                                 <MenuItem.Header>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <Image  Source="/Foto/delete.png"  Width="30" Height="30"  />
@@ -146,7 +127,7 @@
                             </MenuItem>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem Click="MenuItem_Click" >
+                    <MenuItem x:Name="MnItExcel" Click="MnItExcel_Click" >
                         <MenuItem.Header>
                             <StackPanel>
                                 <Image Width="30" Height="30" Source="/Foto/excel.png" />
@@ -165,7 +146,7 @@
                 </Menu>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="5,0,5,5">
+        <Grid Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="1" Margin="5,0,5,5">
             <DataGrid  IsReadOnly="True" ColumnWidth="*" ScrollViewer.CanContentScroll="True" FontFamily="Times New Roman" FontSize="16"   x:Name="GridBaseStudent"  CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0"  Background="White" MouseDoubleClick="GridBaseStudent_MouseDoubleClick"   >
                 <DataGrid.Columns  >
                     <DataGridTextColumn Header="ФИО" Width="auto" >
@@ -177,11 +158,6 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Телефон"   Width="auto"  Binding="{Binding Phone1St}"/>
-                    <DataGridTextColumn Header="Пол"   Width="auto"  Binding="{Binding PollSt, Converter={StaticResource TextOneCumvl}, ConverterParameter=1}" />
-                    <DataGridTextColumn Header="После"   Width="auto"  Binding="{Binding KlassSt}"/>
-                    <DataGridTextColumn Header="Код &#x0a;специальности" Width="auto" Binding="{Binding NumberSpecualSt}" />
-                    <DataGridTextColumn Header="Группа" Width="auto" Binding="{Binding GroupSt}" />
                     <DataGridTextColumn Header="Руководитель" Width="auto" >
                         <DataGridTextColumn.Binding>
                             <MultiBinding StringFormat="{} {0} &#x0a; {1} &#x0a; {2}">
@@ -192,6 +168,11 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
+                    <DataGridTextColumn Header="Пол"   Binding="{Binding PollSt, Converter={StaticResource TextOneCumvl}, ConverterParameter=1}" />
+                    <DataGridTextColumn Header="Телефон"    Binding="{Binding Phone1St}"/>                
+                    <DataGridTextColumn Header="После"   Width="auto"  Binding="{Binding KlassSt}"/>
+                    <DataGridTextColumn Header="Код &#x0a;специальности" Width="auto" Binding="{Binding NumberSpecualSt}" />
+                    <DataGridTextColumn Header="Группа" Width="auto" Binding="{Binding GroupSt}" />                   
                     <DataGridTextColumn Header="Дата &#x0a;зачисления" Width="auto" Binding="{Binding DataPost}" />
                     <DataGridTextColumn Header="Дата &#x0a;окончания" Width="auto" Binding="{Binding DataOkon}" />
                     <DataGridTextColumn Header="Номер &#x0a;приказа" Width="auto" Binding="{Binding NumberPrikazSt}" />
@@ -205,6 +186,55 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <StackPanel Grid.Row= "0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" >
+                <DockPanel  LastChildFill="True">
+                    <ComboBox x:Name="CombSearchInfo" Width="290" FontFamily="Times New Roman" FontSize="14" Height="52" Margin="10,0,0,2" VerticalAlignment="Bottom" MaxDropDownHeight="100"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Критерий">
+                        <TextBlock>Фамилия</TextBlock>
+                        <TextBlock>Имя</TextBlock>
+                        <TextBlock>Отчество</TextBlock>
+                        <TextBlock>Пол</TextBlock>
+                        <TextBlock>Телефон</TextBlock>
+                        <TextBlock>Пришел после</TextBlock>
+                        <TextBlock>Код специальности</TextBlock>
+                        <TextBlock>Группа</TextBlock>
+                        <TextBlock>Руководитель</TextBlock>
+                        <TextBlock>Дата зачисления</TextBlock>
+                        <TextBlock>Дата окончания</TextBlock>
+                        <TextBlock>Номер приказа</TextBlock>
+                        <TextBlock>Номер договора</TextBlock>                       
+                    </ComboBox>
+                    <TextBox x:Name="TxtSearch" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="Times New Roman" FontSize="14" VerticalAlignment="Bottom" TextWrapping="Wrap"    Width="290" Height="52"  materialDesign:HintAssist.Hint="Поиск" Margin="5,0,0,2" TextChanged="TxtSearch_TextChanged" />
+                </DockPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="3" Margin="0,5,0,0"  Grid.ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" >
+                <TextBlock Text="Version 0.1 "/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  >
+                <TextBlock Text="Список студентов группы" FontSize="20" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+                <Menu>
+                    <MenuItem Height="40" Width="48"  Click="MenuItem_Click" >
+                        <MenuItem.Icon>
+                            <Image Source="\Foto\minimize.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Height="40" Width="48"  x:Name="MnItClose" Click="MnItClose_Click" >
+                        <MenuItem.Icon>
+                            <Image Source="\Foto\close.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
