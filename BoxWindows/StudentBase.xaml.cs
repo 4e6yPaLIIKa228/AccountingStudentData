@@ -379,7 +379,7 @@ namespace AccountingStudentData.BoxWindows
                     doc.Bookmarks["FirstNameKlass"].Range.Text = drv["MidleNamePyk"].ToString();
                     doc.Bookmarks["DateNow"].Range.Text = DateTime.Now.ToString("D");
                     string DirectoryFale = System.IO.Path.GetDirectoryName(source);
-                    doc.SaveAs($@"{DirectoryFale}\{drv["SurnameSt"]}+ {drv["NameSt"]} + {drv["MidleNameSt"]}");
+                    doc.SaveAs($@"{DirectoryFale}\{drv["SurnameSt"]}{drv["NameSt"]}{drv["MidleNameSt"]}");
                     doc.Close();
                     doc = null;
                     app.Quit();
