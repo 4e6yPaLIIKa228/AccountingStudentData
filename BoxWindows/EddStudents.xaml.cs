@@ -63,6 +63,15 @@ namespace AccountingStudentData.BoxWindows
             DataEnd.Text = drv["DataOkon"].ToString();
             NumberPrigaz.Text = drv["NumberPrikazSt"].ToString();
             NumberDogovora.Text = drv["NumberDogovorSt"].ToString();
+            TxtNumberzatechBook.Text = drv["NumberZatechBook"].ToString();
+            NumberPrigazKyrs1.Text = drv["NumberPrigazKyrs1"].ToString();
+            DataСreditedKyrs1.Text = drv["DataСreditedKyrs1"].ToString();
+            NumberPrigazKyrs2.Text = drv["NumberPrigazKyrs2"].ToString();
+            DataСreditedKyrs2.Text = drv["DataСreditedKyrs2"].ToString();
+            NumberPrigazKyrs3.Text = drv["NumberPrigazKyrs3"].ToString();
+            DataСreditedKyrs3.Text = drv["DataСreditedKyrs3"].ToString();
+            NumberPrigazKyrs4.Text = drv["NumberPrigazKyrs4"].ToString();
+            DataСreditedKyrs4.Text = drv["DataСreditedKyrs4"].ToString();
             if (NumberDogovora.Text == "Бюджет")
             {
                 ChBxPlatObych.IsChecked = false;
@@ -105,6 +114,8 @@ namespace AccountingStudentData.BoxWindows
                 DtpPasportMum.Text = drv["PassDataMum"].ToString();
                 VudanPasportMum.Text = drv["PassVidanMum"].ToString();
                 GrStudentMum.Text = drv["PassCountryMum"].ToString();
+                WorkMum.Text = drv["WorkMum"].ToString();
+                WorkDolMum.Text = drv["WorkDolMum"].ToString();
             }
             IDDad = drv["IDDadSt"].ToString();           
             if (IDDad != null && IDDad != "")
@@ -122,6 +133,8 @@ namespace AccountingStudentData.BoxWindows
                 DtpPasportDad.Text = drv["PassDataDad"].ToString();
                 VudanPasportDad.Text = drv["PassVidanDad"].ToString();
                 GrStudentDad.Text = drv["PassCountryDad"].ToString();
+                WorkDad.Text = drv["WorkDad"].ToString();
+                WorkDolDad.Text = drv["WorkDolDad"].ToString();
             }
             image_bytes = (byte[])drv["FotoSt"];           
             BitmapImage img = new BitmapImage();            
@@ -435,13 +448,13 @@ namespace AccountingStudentData.BoxWindows
                                     // {
                                     if ((IDMum == null || IDMum== "") && checkBoxMum.IsChecked == true)
                                     {
-                                        string qwert = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry')
+                                        string qwert = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','WorkMum','WorkDolMum')
                                         values ('{SurnameMum.Text}','{NameMum.Text}','{MideleNameMum.Text}','{PhoneMum.Text.ToLower()}','{PhoneMum2.Text.ToLower()}','{PasportMum.Text.ToLower()}',
-                                        '{VudanPasportMum.Text.ToUpper()}','{NumberPasportMum.Text.ToLower()}','{SeriaPasportMum.Text.ToLower()}','{DtpPasportMum.Text.ToLower()}','{GrStudentMum.Text.ToUpper()}')";
+                                        '{VudanPasportMum.Text.ToUpper()}','{NumberPasportMum.Text.ToLower()}','{SeriaPasportMum.Text.ToLower()}','{DtpPasportMum.Text.ToLower()}','{GrStudentMum.Text.ToUpper()}','{WorkMum.Text}','{WorkDolMum.Text}')";
                                         SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
                                         cmd1.ExecuteScalar();
                                         qwert = $@"SELECT ID FROM MumStudents WHERE Surname = '{SurnameMum.Text}' and Name = '{NameMum.Text}' and MidleName = '{MideleNameMum.Text}' and  Phone1 = '{PhoneMum.Text.ToLower()}' and Phone2 = '{PhoneMum2.Text.ToLower()}' and PassportVID = '{PasportMum.Text}'
-                                        and PassportVidan = '{VudanPasportMum.Text.ToUpper()}' and  PassportNumber = '{NumberPasportMum.Text.ToLower()}' and  PassportSeria ='{SeriaPasportMum.Text.ToLower()}' and PassportData = '{DtpPasportMum.Text.ToLower()}' and PassportCountry = '{GrStudentMum.Text.ToUpper()}'";
+                                        and PassportVidan = '{VudanPasportMum.Text.ToUpper()}' and  PassportNumber = '{NumberPasportMum.Text.ToLower()}' and  PassportSeria ='{SeriaPasportMum.Text.ToLower()}' and PassportData = '{DtpPasportMum.Text.ToLower()}' and PassportCountry = '{GrStudentMum.Text.ToUpper()}' and WorkMum ='{WorkMum.Text}' and WorkDolMum ='{WorkDolMum.Text}'";
                                         cmd1 = new SQLiteCommand(qwert, connection);
                                         int idmum = Convert.ToInt32(cmd1.ExecuteScalar());
                                         IDMum = Convert.ToString(idmum);
@@ -449,7 +462,7 @@ namespace AccountingStudentData.BoxWindows
                                     else if ((IDMum != "" || IDMum != null) && checkBoxMum.IsChecked == true)
                                     {
                                         string qwert = $@"UPDATE MumStudents SET Surname='{SurnameMum.Text}', Name='{NameMum.Text}',MidleName='{MideleNameMum.Text}',Phone1='{PhoneMum.Text.ToLower()}', Phone2='{PhoneMum2.Text}', 
-                                            PassportVID='{PasportMum.Text}',PassportVidan= '{VudanPasportMum.Text.ToUpper()}', PassportNumber='{NumberPasportMum.Text}',PassportSeria='{SeriaPasportMum.Text}',PassportData='{DtpPasportMum.Text.ToLower()}',PassportCountry = '{GrStudentMum.Text.ToUpper()}'  WHERE ID='{IDMum}';";
+                                            PassportVID='{PasportMum.Text}',PassportVidan= '{VudanPasportMum.Text.ToUpper()}', PassportNumber='{NumberPasportMum.Text}',PassportSeria='{SeriaPasportMum.Text}',PassportData='{DtpPasportMum.Text.ToLower()}',PassportCountry = '{GrStudentMum.Text.ToUpper()}' , WorkMum ='{WorkMum.Text}', WorkDolMum ='{WorkDolMum.Text}' WHERE ID='{IDMum}';";
                                         SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
                                         cmd1.ExecuteScalar();
                                     }
@@ -466,13 +479,13 @@ namespace AccountingStudentData.BoxWindows
                                     //{
                                     if ((IDDad == null || IDDad == "") && checkBoxDad.IsChecked == true)
                                     {
-                                        string qwert = $@"INSERT INTO DadStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry')
+                                        string qwert = $@"INSERT INTO DadStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','WorkDad','WorkDolDad')
                                         values ('{SurnameDad.Text}','{NameDad.Text}','{MideleNameDad.Text}','{PhoneDad.Text.ToLower()}','{PhoneDad2.Text.ToLower()}','{PasportDad.Text}',
-                                        '{VudanPasportDad.Text.ToUpper()}','{NumberPasportDad.Text.ToLower()}','{SeriaPasportDad.Text.ToLower()}','{DtpPasportDad.Text.ToLower()}','{GrStudentDad.Text.ToUpper()}')";
+                                        '{VudanPasportDad.Text.ToUpper()}','{NumberPasportDad.Text.ToLower()}','{SeriaPasportDad.Text.ToLower()}','{DtpPasportDad.Text.ToLower()}','{GrStudentDad.Text.ToUpper()}','{WorkDad.Text}','{WorkDolDad.Text}')";
                                         SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
                                         cmd1.ExecuteScalar();
                                         qwert = $@"SELECT ID FROM DadStudents WHERE Surname = '{SurnameDad.Text}' and Name = '{NameDad.Text}' and MidleName = '{MideleNameDad.Text}' and  Phone1 = '{PhoneDad.Text.ToLower()}' and Phone2 = '{PhoneDad2.Text.ToLower()}' and PassportVID = '{PasportDad.Text}'
-                                        and PassportVidan = '{VudanPasportDad.Text.ToUpper()}' and  PassportNumber = '{NumberPasportDad.Text.ToLower()}' and  PassportSeria ='{SeriaPasportDad.Text.ToLower()}' and PassportData = '{DtpPasportDad.Text.ToLower()}' and PassportCountry = '{GrStudentDad.Text.ToUpper()}' ";
+                                        and PassportVidan = '{VudanPasportDad.Text.ToUpper()}' and  PassportNumber = '{NumberPasportDad.Text.ToLower()}' and  PassportSeria ='{SeriaPasportDad.Text.ToLower()}' and PassportData = '{DtpPasportDad.Text.ToLower()}' and PassportCountry = '{GrStudentDad.Text.ToUpper()}' and WorkDad ='{WorkDad.Text}' and WorkDolDad ='{WorkDolDad.Text}' ";
                                         cmd1 = new SQLiteCommand(qwert, connection);
                                         int iddad = Convert.ToInt32(cmd1.ExecuteScalar()); //PasportDad
                                         IDDad = Convert.ToString(iddad);
@@ -480,7 +493,7 @@ namespace AccountingStudentData.BoxWindows
                                     else if ((IDDad != "" || IDDad != null) && checkBoxDad.IsChecked == true)
                                     {
                                         string qwert = $@"UPDATE DadStudents SET Surname='{SurnameDad.Text}', Name='{NameDad.Text}',MidleName='{MideleNameDad.Text}',Phone1='{PhoneDad.Text.ToLower()}', Phone2='{PhoneDad2.Text.ToLower()}', 
-                                            PassportVID='{PasportDad.Text}',PassportVidan= '{VudanPasportDad.Text.ToUpper()}', PassportNumber='{NumberPasportDad.Text.ToLower()}',PassportSeria ='{SeriaPasportDad.Text.ToLower()}',PassportData ='{DtpPasportDad.Text.ToLower()}', PassportCountry = '{GrStudentDad.Text.ToUpper()}'  WHERE ID='{IDDad}';";
+                                            PassportVID='{PasportDad.Text}',PassportVidan= '{VudanPasportDad.Text.ToUpper()}', PassportNumber='{NumberPasportDad.Text.ToLower()}',PassportSeria ='{SeriaPasportDad.Text.ToLower()}',PassportData ='{DtpPasportDad.Text.ToLower()}', PassportCountry = '{GrStudentDad.Text.ToUpper()}', WorkDad ='{WorkDad.Text}', WorkDolDad ='{WorkDolDad.Text}'  WHERE ID='{IDDad}';";
                                         SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
                                         cmd1.ExecuteScalar();
                                     }
@@ -497,15 +510,8 @@ namespace AccountingStudentData.BoxWindows
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
                                     string query = $@"UPDATE  Students Set Surname='{SurnameSt.Text}',Name = '{NameSt.Text}',MidleName= '{MideleNameSt.Text}', Phone1= '{PhoneSt1.Text}', Phone2= '{PhoneSt2.Text}', SNILS = '{SNILSSt.Text}', OMS= '{OMSSt.Text}', 
                                     Adress= '{AdressSt.Text}', PassportVid= '{PasportSt.Text}', PassportVidan= '{VudanPasportSt.Text.ToUpper()}', PassportNumber= '{NumberPasportSt.Text}', PassportSeria= '{SeriaPasportSt.Text}',
-                                    PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}',IDMum= @IDMum, IDDad= @IDDad, IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz= '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora";
-                                    //query = $@"INSERT INTO Students('Surname','Name','MidleName','Phone1','Phone2','SNILS',
-                                    //'OMS','Adress','PassportVid','PassportVidan','PassportNumber','PassportSeria',
-                                    //'PassportData','IDPoll','IDSpecual','IDGrop','IDMum','IDDad',
-                                    //'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora') 
-                                    //values ('{SurnameSt.Text.ToLower()}','{NameSt.Text.ToLower()}','{MideleNameSt.Text.ToLower()}','{PhoneSt1.Text.ToLower()}','{PhoneSt2.Text.ToLower()}','{SNILSSt.Text.ToLower()}',
-                                    //    '{OMSSt.Text.ToLower()}','{AdressSt.Text.ToLower()}','{PasportSt.Text.ToLower()}','{VudanPasportSt.Text.ToLower()}','{NumberPasportSt.Text.ToLower()}','{SeriaPasportSt.Text.ToLower()}','{DtpPasportSt.Text.ToLower()}'
-                                    //    ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDMum}','{IDDad}','{IDPyk}','{LastObraz.Text.ToLower()}',
-                                    //    '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora)";
+                                    PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}',IDMum= @IDMum, IDDad= @IDDad, IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz= '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora,
+                                    NumberzatechBook = '{TxtNumberzatechBook.Text}',NumberPrigazKyrs1 = '{NumberPrigazKyrs1.Text}' ,DataСreditedKyrs1 ='{DataСreditedKyrs1.Text}' ,NumberPrigazKyrs2 = '{NumberPrigazKyrs2.Text}',DataСreditedKyrs2 = '{DataСreditedKyrs1.Text}',NumberPrigazKyrs3 = '{NumberPrigazKyrs3.Text}',DataСreditedKyrs3= '{DataСreditedKyrs1.Text}',NumberPrigazKyrs4= '{NumberPrigazKyrs1.Text}',DataСreditedKyrs4='{DataСreditedKyrs1.Text}'";
                                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
                                     byte[] bytes = null;
                                     if (IDMum == "" || IDMum == null)

@@ -127,19 +127,51 @@
                             </MenuItem>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem x:Name="MnItExcel" Click="MnItExcel_Click" >
+                    <MenuItem>
                         <MenuItem.Header>
                             <StackPanel>
                                 <Image Width="30" Height="30" Source="/Foto/excel.png" />
                                 <ContentPresenter Content="Отчет" />
                             </StackPanel>
                         </MenuItem.Header>
+                        <MenuItem x:Name="MnItExcel" Click="MnItExcel_Click" >
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Image Width="30" Height="30" Source="/Foto/refresh.png" />
+                                    <ContentPresenter Margin="14,0,0,0" Content="Excel" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem x:Name="MnItYchetSt">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Image Width="30" Height="30" Source="/Foto/refresh.png" />
+                                    <ContentPresenter Margin="14,0,0,0" Content="Учетная карточка" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem x:Name="MnItLichSt">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Image Width="30" Height="30" Source="/Foto/refresh.png" />
+                                    <ContentPresenter Margin="14,0,0,0" Content="Личная карточка" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem >
                         <MenuItem.Header>
                             <StackPanel>
                                 <Image Width="30" Height="30" Source="/Foto/refresh.png" />
                                 <ContentPresenter Content="Обновить"   />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem x:Name="MnItTest" Click="MnItTest_Click">
+                        <MenuItem.Header>
+                            <StackPanel>
+                                <Image Width="30" Height="30" Source="/Foto/refresh.png" />
+                                <ContentPresenter Content="Отчет"   />
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
