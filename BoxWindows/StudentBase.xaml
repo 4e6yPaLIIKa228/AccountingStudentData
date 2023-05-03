@@ -142,7 +142,7 @@
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
-                        <MenuItem x:Name="MnItYchetSt">
+                        <MenuItem x:Name="MnItYchetSt" Click="MnItYchetSt_Click" >
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Image Width="30" Height="30" Source="/Foto/refresh.png" />

@@ -33,6 +33,7 @@ using XlLineStyle = Microsoft.Office.Interop.Excel.XlLineStyle;
 using static System.Net.Mime.MediaTypeNames;
 using Spire.Pdf.Exporting.XPS.Schema;
 using System.Xml.Linq;
+using System.Reflection;
 
 namespace AccountingStudentData.BoxWindows
 {
@@ -56,7 +57,7 @@ namespace AccountingStudentData.BoxWindows
                     connection.Open();
                     string query = $@"                    					
                     SELECT Students.ID as IDSt,Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt,Students.Phone1 as Phone1St,Students.Phone2 as Phone2St,Students.DataBirth as DataBirthSt,
-                    Polls.Name as PollSt,Specialties.NumberSpecial as NumberSpecualSt, Groups.Name as GroupSt,Students.PocleKlass as KlassSt,
+                    Polls.Name as PollSt,Specialties.NumberSpecial as NumberSpecualSt,Specialties.Name as NameSpecial, Groups.Name as GroupSt,Students.PocleKlass as KlassSt,
                     Users.ID as IDPyk,Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
 					Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt,Students.NumberAtect as AtectSt,Students.DataPolycen as  DataPolecenSt,
 					Students.DataСredited as DataPost, Students.DataEnd as DataOkon, Students.Foto as FotoSt,Students.NameSchool as NameSchoolSt,
@@ -341,9 +342,54 @@ namespace AccountingStudentData.BoxWindows
 
         public void KartochkaYchetSt()
         {
-            if (GridBaseStudent.SelectedIndex != -1)
-            { 
+            try
+            {
+                if (GridBaseStudent.SelectedIndex != -1)
+                {
+                    Microsoft.Office.Interop.Word.Document doc = null;
+                    Word._Application oWord = new Word.Application();
+                    DataRowView drv = (DataRowView)GridBaseStudent.SelectedItem;
+                    Microsoft.Office.Interop.Word.Application app = new Word.Application();
+                    // Путь до шаблона документа
+                    string source = System.IO.Path.Combine(Environment.CurrentDirectory, "Учётная карточка студента.doc");
+                    // Открываем
+                    doc = app.Documents.Open(source);
+                    doc.Activate();
+                    doc.Bookmarks["Surname"].Range.Text = drv["SurnameSt"].ToString();
+                    doc.Bookmarks["Name"].Range.Text = drv["NameSt"].ToString();
+                    doc.Bookmarks["FirstName"].Range.Text = drv["MidleNameSt"].ToString();
+                    doc.Bookmarks["Birthday"].Range.Text = drv["DataBirthSt"].ToString();
+                    doc.Bookmarks["Group"].Range.Text = drv["IDGropSt"].ToString();
+                    doc.Bookmarks["KodSpecial"].Range.Text = drv["NumberSpecualSt"].ToString();
+                    doc.Bookmarks["NameSpecial"].Range.Text = drv["NameSpecial"].ToString();
+                    doc.Bookmarks["NamePrikazePost"].Range.Text = drv["NumberPrikazSt"].ToString();
+                    doc.Bookmarks["EndDate"].Range.Text = drv["DataOkon"].ToString();
+                    doc.Bookmarks["Adress"].Range.Text = drv["AdressSt"].ToString();
+                    doc.Bookmarks["RegistrAdress"].Range.Text = drv["AdressSt"].ToString(); 
+                    doc.Bookmarks["MumSt"].Range.Text = drv["SurnameMum"].ToString() + "" + drv["NameMum"].ToString() + "" + drv["MidleNameMum"].ToString();
+                    doc.Bookmarks["WorkMum"].Range.Text = drv["WorkMum"].ToString() + "" + drv["WorkDolMum"].ToString();
+                    doc.Bookmarks["DadSt"].Range.Text = drv["SurnameDad"].ToString() + "" + drv["NameDad"].ToString() + "" + drv["MidleNameDad"].ToString();
+                    doc.Bookmarks["WorkDad"].Range.Text = drv["WorkDad"].ToString() + "" + drv["WorkDolDad"].ToString();
+                    string txtSurnKlss = drv["SurnamePyk"].ToString();
+                    char chr = txtSurnKlss[0];
+                    doc.Bookmarks["SurnameKlass"].Range.Text = chr.ToString();
+                    string txtnameKlss = drv["NamePyk"].ToString();
+                    char chr1 = txtnameKlss[0];
+                    doc.Bookmarks["NameKlass"].Range.Text = chr1.ToString();
+                    doc.Bookmarks["FirstNameKlass"].Range.Text = drv["MidleNamePyk"].ToString();
+                    doc.Bookmarks["DateNow"].Range.Text = DateTime.Now.ToString("D");
+                    string DirectoryFale = System.IO.Path.GetDirectoryName(source);
+                    doc.SaveAs($@"{DirectoryFale}\{drv["SurnameSt"]}+ {drv["NameSt"]} + {drv["MidleNameSt"]}");
+                    doc.Close();
+                    doc = null;
+                    app.Quit();
 
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -405,6 +451,11 @@ namespace AccountingStudentData.BoxWindows
         private void MnItTest_Click(object sender, RoutedEventArgs e)
         {
             TestWord();
+        }
+
+        private void MnItYchetSt_Click(object sender, RoutedEventArgs e)
+        {
+            KartochkaYchetSt();
         }
     }
 }
