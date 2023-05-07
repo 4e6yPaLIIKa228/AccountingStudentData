@@ -27,7 +27,7 @@ namespace AccountingStudentData.BoxWindows
     /// </summary>
     public partial class AddStudents : Window
     {
-        int CheckDad = 0, CheckMum = 0,Proverka1 = 0, ProverkaPlatObycen = 0;
+        int CheckDad = 0, CheckMum = 0,Proverka1 = 0;
         byte[] image_bytes = null;
         public AddStudents()
         {
@@ -332,11 +332,11 @@ namespace AccountingStudentData.BoxWindows
                                     query = $@"INSERT INTO Students('Surname','Name','MidleName','Phone1','Phone2','SNILS',
                                     'OMS','Adress','PassportVid','PassportVidan','PassportNumber','PassportSeria',
                                     'PassportData','IDPoll','IDSpecual','IDGrop','IDMum','IDDad',
-                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora','DataBirth','PassportCountry','TxtNumberzatechBook','NumberPrigazKyrs1','DataСreditedKyrs1','NumberPrigazKyrs2','DataСreditedKyrs2','NumberPrigazKyrs3','DataСreditedKyrs3','NumberPrigazKyrs4','DataСreditedKyrs4','TxtNumberzatechBook') 
+                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora','DataBirth','PassportCountry','TxtNumberzatechBook','NumberPrigazKyrs1','DataСreditedKyrs1','NumberPrigazKyrs2','DataСreditedKyrs2','NumberPrigazKyrs3','DataСreditedKyrs3','NumberPrigazKyrs4','DataСreditedKyrs4','TxtNumberzatechBook','MestoBirthday') 
                                     values ('{SurnameSt.Text.ToLower()}','{NameSt.Text.ToLower()}','{MideleNameSt.Text.ToLower()}','{PhoneSt1.Text.ToLower()}','{PhoneSt2.Text.ToLower()}','{SNILSSt.Text.ToLower()}',
                                         '{OMSSt.Text.ToLower()}','{AdressSt.Text.ToLower()}','{PasportSt.Text.ToLower()}','{VudanPasportSt.Text.ToLower()}','{NumberPasportSt.Text.ToLower()}','{SeriaPasportSt.Text.ToLower()}','{DtpPasportSt.Text.ToLower()}'
                                         ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDMum}','{IDDad}','{IDPyk}','{LastObraz.Text.ToLower()}',
-                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora,'{DtpSt.Text.ToLower()}','{GrStudent.Text.ToUpper()}','{TxtNumberzatechBook.Text}',{NumberPrigazKyrs1.Text},'{DataСreditedKyrs1.Text}',{NumberPrigazKyrs2.Text},'{DataСreditedKyrs2.Text}',{NumberPrigazKyrs3.Text},'{DataСreditedKyrs3.Text}',{NumberPrigazKyrs4.Text},'{DataСreditedKyrs4.Text}')";
+                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora,'{DtpSt.Text.ToLower()}','{GrStudent.Text.ToUpper()}','{TxtNumberzatechBook.Text}',{NumberPrigazKyrs1.Text},'{DataСreditedKyrs1.Text}',{NumberPrigazKyrs2.Text},'{DataСreditedKyrs2.Text}',{NumberPrigazKyrs3.Text},'{DataСreditedKyrs3.Text}',{NumberPrigazKyrs4.Text},'{DataСreditedKyrs4.Text}','{AdressStBirht.Text}')";
                                     cmd = new SQLiteCommand(query, connection);                                   
                                     byte[] bytes = null;
                                     if (image_bytes == null)

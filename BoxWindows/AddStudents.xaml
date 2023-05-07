@@ -12,10 +12,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Title="AddStudents" Height="770" Width="693" AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Times New Roman" FontSize="16" MouseLeftButtonDown="Window_MouseLeftButtonDown"   >
-        <Window.Resources>      
-
-        </Window.Resources>
-    <Grid>
+     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition  />
             <RowDefinition />
@@ -25,9 +22,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"  />
         </Grid.ColumnDefinitions>
+
+
        
-        
-        
         <Grid Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="2" MouseLeftButtonDown="Window_MouseLeftButtonDown">
             <TabControl TabStripPlacement="Right" MouseLeftButtonDown="Window_MouseLeftButtonDown"  >
                 <TabItem Header="Основаня информация">
@@ -167,6 +164,9 @@
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-5,40,0,0">
+                                <Image Margin="5" Source="\Foto\books1.jpg" Height="70" Width="80"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
                 </TabItem>
@@ -284,9 +284,14 @@
                                             <!--TextChanged="TbPhoneSt2_TextChanged" PreviewTextInput="TbPhoneSt2_PreviewTextInput" GotFocus="TbPhoneSt2_GotFocus"/>-->
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
+                                            <TextBlock  Text="Адресс рождения" VerticalAlignment="Center" Margin="2,0,0,10"/>
+                                            <TextBox x:Name="AdressStBirht" Margin="10,0,10,10"  Width="363"  materialDesign:HintAssist.Hint="Обяз. поле"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Адресс" VerticalAlignment="Center" Margin="2,0,0,10"/>
                                             <TextBox x:Name="AdressSt" Margin="10,0,10,10"  Width="430"  materialDesign:HintAssist.Hint="Обяз. поле"/>
                                         </StackPanel>
+                                      
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
@@ -441,6 +446,7 @@
                 <ColumnDefinition  />
                 <ColumnDefinition Width="168"  />
             </Grid.ColumnDefinitions>
+           
             <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
                 <Button x:Name="BtnBack" Content="Назад"  Margin="0,0,5,0" Click="BtnBack_Click"/>
                 <Button Name="BtnAdd" Click="BtnAdd_Click" Content="Добавить" Margin="0,0,3,0" />

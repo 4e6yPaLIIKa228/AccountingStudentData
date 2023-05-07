@@ -34,7 +34,7 @@ namespace AccountingStudentData.BoxWindows
     /// </summary>
     public partial class EddStudents : Window
     {
-        int CheckDad = 0, CheckMum = 0, Proverka1 = 0, ProverkaPlatObycen = 0;
+        int CheckDad = 0, CheckMum = 0, Proverka1 = 0;
         string IDSt = string.Empty, IDMum = string.Empty, IDDad = string.Empty, IDGroup = string.Empty, IDPyk = string.Empty, IDSpec = string.Empty,Foto = string.Empty,
         OldNumberPasportSt = null, OldSeriaPasportSt=null, OldSNILSSt=null, OldOMSSt=null,
         OldNumberPasportMum=null, OldSeriaPasportMum=null, OldNumberPasportDad = null, OldSeriaPasportDad = null;
@@ -72,6 +72,7 @@ namespace AccountingStudentData.BoxWindows
             DataСreditedKyrs3.Text = drv["DataСreditedKyrs3"].ToString();
             NumberPrigazKyrs4.Text = drv["NumberPrigazKyrs4"].ToString();
             DataСreditedKyrs4.Text = drv["DataСreditedKyrs4"].ToString();
+            AdressStBirht.Text = drv["MestoBirthday"].ToString();
             if (NumberDogovora.Text == "Бюджет")
             {
                 ChBxPlatObych.IsChecked = false;
@@ -461,6 +462,15 @@ namespace AccountingStudentData.BoxWindows
                                     }
                                     else if ((IDMum != "" || IDMum != null) && checkBoxMum.IsChecked == true)
                                     {
+                                        if (String.IsNullOrEmpty(WorkMum.Text))
+                                        {
+                                            WorkMum.Text = "Не рабоает";
+                                            WorkDolMum.Text = "Не рабоает";
+                                        }
+                                        if (String.IsNullOrEmpty(WorkDolMum.Text))
+                                        {
+                                            WorkDolMum.Text = "Нет данных";
+                                        }
                                         string qwert = $@"UPDATE MumStudents SET Surname='{SurnameMum.Text}', Name='{NameMum.Text}',MidleName='{MideleNameMum.Text}',Phone1='{PhoneMum.Text.ToLower()}', Phone2='{PhoneMum2.Text}', 
                                             PassportVID='{PasportMum.Text}',PassportVidan= '{VudanPasportMum.Text.ToUpper()}', PassportNumber='{NumberPasportMum.Text}',PassportSeria='{SeriaPasportMum.Text}',PassportData='{DtpPasportMum.Text.ToLower()}',PassportCountry = '{GrStudentMum.Text.ToUpper()}' , WorkMum ='{WorkMum.Text}', WorkDolMum ='{WorkDolMum.Text}' WHERE ID='{IDMum}';";
                                         SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
@@ -468,6 +478,7 @@ namespace AccountingStudentData.BoxWindows
                                     }
                                     else if ((IDMum != "" || IDMum != null) && checkBoxMum.IsChecked == false)
                                     {
+                                        
                                         string qwert = $@"Delete from  MumStudents where ID = '{IDMum}'";
                                         SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
                                         cmd1.ExecuteScalar();
@@ -492,8 +503,17 @@ namespace AccountingStudentData.BoxWindows
                                     }
                                     else if ((IDDad != "" || IDDad != null) && checkBoxDad.IsChecked == true)
                                     {
+                                        if (String.IsNullOrEmpty(WorkDad.Text))
+                                        {
+                                            WorkDad.Text = "Не рабоает";
+                                            WorkDolDad.Text = "Не рабоает";
+                                        }
+                                        if (String.IsNullOrEmpty(WorkDolDad.Text))
+                                        {
+                                            WorkDolDad.Text = "Нет данных";
+                                        }
                                         string qwert = $@"UPDATE DadStudents SET Surname='{SurnameDad.Text}', Name='{NameDad.Text}',MidleName='{MideleNameDad.Text}',Phone1='{PhoneDad.Text.ToLower()}', Phone2='{PhoneDad2.Text.ToLower()}', 
-                                            PassportVID='{PasportDad.Text}',PassportVidan= '{VudanPasportDad.Text.ToUpper()}', PassportNumber='{NumberPasportDad.Text.ToLower()}',PassportSeria ='{SeriaPasportDad.Text.ToLower()}',PassportData ='{DtpPasportDad.Text.ToLower()}', PassportCountry = '{GrStudentDad.Text.ToUpper()}', WorkDad ='{WorkDad.Text}', WorkDolDad ='{WorkDolDad.Text}'  WHERE ID='{IDDad}';";
+                                            PassportVID='{PasportDad.Text}',PassportVidan = '{VudanPasportDad.Text.ToUpper()}', PassportNumber='{NumberPasportDad.Text.ToLower()}',PassportSeria ='{SeriaPasportDad.Text.ToLower()}',PassportData ='{DtpPasportDad.Text.ToLower()}', PassportCountry = '{GrStudentDad.Text.ToUpper()}', WorkDad ='{WorkDad.Text}', WorkDolDad ='{WorkDolDad.Text}'  WHERE ID='{IDDad}';";
                                         SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
                                         cmd1.ExecuteScalar();
                                     }
@@ -511,7 +531,7 @@ namespace AccountingStudentData.BoxWindows
                                     string query = $@"UPDATE  Students Set Surname='{SurnameSt.Text}',Name = '{NameSt.Text}',MidleName= '{MideleNameSt.Text}', Phone1= '{PhoneSt1.Text}', Phone2= '{PhoneSt2.Text}', SNILS = '{SNILSSt.Text}', OMS= '{OMSSt.Text}', 
                                     Adress= '{AdressSt.Text}', PassportVid= '{PasportSt.Text}', PassportVidan= '{VudanPasportSt.Text.ToUpper()}', PassportNumber= '{NumberPasportSt.Text}', PassportSeria= '{SeriaPasportSt.Text}',
                                     PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}',IDMum= @IDMum, IDDad= @IDDad, IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz= '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora,
-                                    NumberzatechBook = '{TxtNumberzatechBook.Text}',NumberPrigazKyrs1 = '{NumberPrigazKyrs1.Text}' ,DataСreditedKyrs1 ='{DataСreditedKyrs1.Text}' ,NumberPrigazKyrs2 = '{NumberPrigazKyrs2.Text}',DataСreditedKyrs2 = '{DataСreditedKyrs1.Text}',NumberPrigazKyrs3 = '{NumberPrigazKyrs3.Text}',DataСreditedKyrs3= '{DataСreditedKyrs1.Text}',NumberPrigazKyrs4= '{NumberPrigazKyrs1.Text}',DataСreditedKyrs4='{DataСreditedKyrs1.Text}'";
+                                    NumberzatechBook = '{TxtNumberzatechBook.Text}',NumberPrigazKyrs1 = '{NumberPrigazKyrs1.Text}' ,DataСreditedKyrs1 ='{DataСreditedKyrs1.Text}' ,NumberPrigazKyrs2 = '{NumberPrigazKyrs2.Text}',DataСreditedKyrs2 = '{DataСreditedKyrs1.Text}',NumberPrigazKyrs3 = '{NumberPrigazKyrs3.Text}',DataСreditedKyrs3= '{DataСreditedKyrs1.Text}',NumberPrigazKyrs4= '{NumberPrigazKyrs1.Text}',DataСreditedKyrs4='{DataСreditedKyrs1.Text}',MestoBirthday= {AdressStBirht.Text}";
                                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
                                     byte[] bytes = null;
                                     if (IDMum == "" || IDMum == null)

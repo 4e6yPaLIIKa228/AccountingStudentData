@@ -1,0 +1,99 @@
+﻿<Window x:Class="AccountingStudentData.BoxWindows.Authorization"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"     
+        Title="Authorization" Height="400" Width="450" AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>            
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140" />
+            <ColumnDefinition/>
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="Login_In" Visibility="Hidden" Grid.RowSpan="2" >
+            <TextBlock HorizontalAlignment="Left" Height="21.334" Margin="4,0,0,0" TextWrapping="Wrap" Text="ITBankBigFarm" VerticalAlignment="Top" Width="132.667" FontWeight="Bold" FontSize="16" Foreground="#FF2222C5"/>
+            <TextBlock HorizontalAlignment="Left" Height="21.334" Margin="0,0,0,0" TextWrapping="Wrap" Text="Войдите в свою учетную запись" VerticalAlignment="Top" Width="354.25" FontWeight="Bold" FontSize="16" Foreground="#FF02020C" TextAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Left" Height="40" Margin="0,0,0,0" TextWrapping="Wrap" Text="Войдите в свою учетную запись, чтобы продолжить свою работу" VerticalAlignment="Top" Width="320.917" Foreground="#FF02020C" TextAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Left" Height="19.999" Margin="0,0,0,0" TextWrapping="Wrap" Text="Забыл пароль?" VerticalAlignment="Top" Width="170"  Background="{x:Null}" TextAlignment="Right" Foreground="#FF151580" />
+        </Grid>
+
+        <Grid Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="0">
+            <TextBlock  Margin="4,0,0,0" TextWrapping="Wrap" Visibility="Collapsed" Text="Талант - Учета" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Foreground="#FF2222C5"/>
+        </Grid>
+        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"  Orientation="Horizontal" Width="90">
+            <Image Margin="5" HorizontalAlignment="Left" Source="\Foto\books1.jpg" Height="50" Width="80"/>
+        </StackPanel>
+
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Grid.RowSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Top"  Margin="0,2,0,0"  >
+            <StackPanel Orientation="Vertical">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Войдите в свою учетную запись" VerticalAlignment="Top"  FontWeight="Bold" FontSize="16" Foreground="#FF02020C" TextAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" Text="Войдите в свою учетную запись, чтобы продолжить получить доступ к разным возможностям приложения." VerticalAlignment="Top" Width="320.917" Foreground="#FF02020C" TextAlignment="Center" Margin="0,10,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="0,0,0,0" >
+            <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                    <TextBox Width="350" HorizontalAlignment="Left" FontSize="20" Name="TextBoxLogin"  Style="{StaticResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Логин" TextChanged="TextBoxLogin_TextChanged" Margin="0,10,0,0" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,10,0,0">
+                    <PasswordBox Width="350"  FontSize="20" Name="PassBox" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" materialDesign:HintAssist.Hint="Пароль" PasswordChanged="PassBox_PasswordChanged"  Margin="0,10,0,0" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,0,0,0"  >
+            <StackPanel Orientation="Vertical">
+                <Button x:Name="BtnAvtoriz" Content="Войти" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="350"   BorderBrush="White"  FontWeight="Bold" Click="BtnAvtoriz_Click"/>
+                <Button x:Name="BtnAvtorizvisitor" Visibility="Collapsed" Content="Гость" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="350"   BorderBrush="White"  FontWeight="Bold" Margin="0,5,0,5" Click="BtnAvtorizvisitor_Click"/>
+            </StackPanel>
+        </Grid>
+
+      
+        <Grid Grid.Row="4" Margin="0,5,0,0"  Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" >
+                <TextBlock Text="Version 0.1 "/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  >
+                <TextBlock Text="Авторизация" FontSize="20" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+                <Menu>
+                    <MenuItem Height="40" Width="48"  Click="MenuItem_Click" >
+                        <MenuItem.Icon>
+                            <Image Source="\Foto\minimize.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Height="40" Width="48"  x:Name="MnItClose" Click="MnItClose_Click" >
+                        <MenuItem.Icon>
+                            <Image Source="\Foto\close.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>

@@ -40,9 +40,9 @@ namespace AccountingStudentData.BoxWindows
     /// <summary>
     /// Логика взаимодействия для StudentBase.xaml
     /// </summary>
-    public partial class StudentBase : Window
+    public partial class UsersBase : Window
     {
-        public StudentBase()
+        public UsersBase()
         {
             InitializeComponent();
             LoadBase();
@@ -66,7 +66,7 @@ namespace AccountingStudentData.BoxWindows
 					Students.PassportVID as PassVIDSt,Students.PassportVidan as PassVidanSt,Students.PassportCountry as PassCountrySt,
                     Students.IDSpecual as IDSpecSt,Students.IDGrop as IDGropSt,
                     Students.NumberZatechBook,Students.NumberPrigazKyrs1,Students.DataСreditedKyrs1,Students.NumberPrigazKyrs2,Students.DataСreditedKyrs2,Students.NumberPrigazKyrs3,Students.DataСreditedKyrs3,
-                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,MestoBirthday,
+                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,
 					
 					MumStudents.ID as IDMumSt, MumStudents.Surname as SurnameMum, MumStudents.Name as NameMum, MumStudents.MidleName as MidleNameMum,
 					MumStudents.PassportData as PassDataMum, MumStudents.PassportNumber as PassNumMum, MumStudents.PassportSeria as PassSeriaMum,

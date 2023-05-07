@@ -37,6 +37,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>books2.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
@@ -98,6 +101,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BoxWindows\Authorization.xaml.cs">
+      <DependentUpon>Authorization.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BoxWindows\DellComponets.xaml.cs">
       <DependentUpon>DellComponets.xaml</DependentUpon>
     </Compile>
@@ -107,11 +113,26 @@
     <Compile Include="BoxWindows\EddStudents.xaml.cs">
       <DependentUpon>EddStudents.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BoxWindows\UsersBase.xaml.cs">
+      <DependentUpon>UsersBase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BoxWindows\StudentBase.xaml.cs">
       <DependentUpon>StudentBase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BoxWindows\LichDeloStudenta.xaml.cs">
+      <DependentUpon>LichDeloStudenta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converter\TextConverter.cs" />
-    <Compile Include="SimpleComand.cs" />
+    <Compile Include="Saver.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="SimpleComand.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Page Include="BoxWindows\Authorization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BoxWindows\DellComponets.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -132,6 +153,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BoxWindows\UsersBase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BoxWindows\StudentBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,6 +172,10 @@
       <DependentUpon>RegistrUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Connection\DBConnection.cs" />
+    <Page Include="BoxWindows\LichDeloStudenta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -162,10 +191,23 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="books2.ico" />
+    <Content Include="Foto\books1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Foto\books2.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Foto\doc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Учётная карточка студента.doc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="№ 0 Личная карточка новый  шаблон.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Личная карточка студента  NEW.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Foto\adduser.png">

@@ -24,7 +24,9 @@
             <ColumnDefinition/>
             <ColumnDefinition  />
         </Grid.ColumnDefinitions>
-
+        <StackPanel Grid.Column="3" HorizontalAlignment="Right" Grid.RowSpan="2">
+            <Image Margin="5" Source="\Foto\books1.jpg" Height="70" Width="80"/>
+        </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Top" >
             <TextBlock Text="Выберите критерий:" HorizontalAlignment="Center" Margin="0,0,0,15" FontFamily="Times New Roman" FontSize="14"/>
             <ComboBox x:Name="CombKruterui" Width="350" FontFamily="Times New Roman" FontSize="14" Height="50" Margin="0,0,0,10" VerticalAlignment="Center" MaxDropDownHeight="100"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Критерий"  DropDownClosed="CombSearchInfo_DropDownClosed" SelectionChanged="CombKruterui_SelectionChanged">
