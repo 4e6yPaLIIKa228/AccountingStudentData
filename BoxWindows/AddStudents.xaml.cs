@@ -150,36 +150,37 @@ namespace AccountingStudentData.BoxWindows
                             {
                                 MessageBox.Show("Заполните информацию в данных родитель(Отец)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckDad = 1;
-                                Proverka1 = 1;
+                                // Proverka1 = 1;
                             }
                             else if (PhoneDad.Text.Length != 11)
                             {
                                 MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckDad = 1;
-                                Proverka1 = 1;
+                                // Proverka1 = 1;
                             }
                             else if (PhoneDad2.Text.Length != 11 && PhoneDad2.Text != string.Empty)
                             {
                                 MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckDad = 1;
-                                Proverka1 = 1;
+                                // Proverka1 = 1;
                             }
-                            else if (NumberPasportDad.Text.Length != 4)
-                            {
-                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckDad = 1;
-                                Proverka1 = 1;
-                            }
-                            else if (SeriaPasportDad.Text.Length != 11)
+                            else if (NumberPasportDad.Text.Length != 6)
                             {
                                 MessageBox.Show("В номере паспорта должно быть 6 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckDad = 1;
-                                Proverka1 = 1;
+                                //  Proverka1 = 1;
                             }
-                            else if (PhoneDad.Text.Length == 11 && NumberPasportDad.Text.Length == 4 && SeriaPasportDad.Text.Length == 11)
+                            else if (SeriaPasportDad.Text.Length != 4)
+                            {
+                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckDad = 1;
+                                // Proverka1 = 1;
+                            }
+                            else if (PhoneDad.Text.Length == 11 && NumberPasportDad.Text.Length == 6 && SeriaPasportDad.Text.Length == 4)
                             {
                                 CheckDad = 0;
                             }
+
                         }
                         if (checkBoxMum.IsChecked == true)
                         {
@@ -189,36 +190,35 @@ namespace AccountingStudentData.BoxWindows
                             {
                                 MessageBox.Show("Заполните информацию в данных родитель(Мать)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1 = 1;
+                                // Proverka1 = 1;
                             }
                             else if (PhoneMum.Text.Length != 11)
                             {
                                 MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1 = 1;
+                                // Proverka1 = 1;
                             }
                             else if (PhoneMum2.Text.Length != 11 && PhoneMum2.Text != string.Empty)
                             {
                                 MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1 = 1;
+                                //Proverka1 = 1;
                             }
-                            else if (NumberPasportMum.Text.Length != 4)
-                            {
-                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckMum = 1;
-                                Proverka1 = 1;
-                            }
-                            else if (SeriaPasportMum.Text.Length != 11)
+                            else if (NumberPasportMum.Text.Length != 6)
                             {
                                 MessageBox.Show("В номере паспорта должно быть 6 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                                 CheckMum = 1;
-                                Proverka1 = 1;
+                                // Proverka1 = 1;
                             }
-                            else if (PhoneMum.Text.Length == 11 && NumberPasportMum.Text.Length == 4 && SeriaPasportMum.Text.Length == 11)
+                            else if (SeriaPasportMum.Text.Length != 4)
+                            {
+                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
+                                CheckMum = 1;
+                                //Proverka1 = 1;
+                            }
+                            else if (PhoneMum.Text.Length == 11 && NumberPasportMum.Text.Length == 6 && SeriaPasportMum.Text.Length == 4)
                             {
                                 CheckMum = 0;
-
                             }
                         }
                         if (checkBoxDad.IsChecked == false && checkBoxMum.IsChecked == false)
@@ -276,9 +276,9 @@ namespace AccountingStudentData.BoxWindows
                                     cmd = new SQLiteCommand(query, connection);
                                     ProverkaDad = Convert.ToInt32(cmd.ExecuteScalar());
                                 }
-                                    if (ProverkaMum == 0 && ProverkaDad == 0) //Проверка номера и серии паспорта у родителей
+                                if (ProverkaMum == 0 && ProverkaDad == 0) //Проверка номера и серии паспорта у родителей
                                 {
-                                    string IDMum = null; 
+                                    string IDMum = null;
                                     if (checkBoxMum.IsChecked == true)
                                     {
                                         if (String.IsNullOrEmpty(WorkMum.Text))
@@ -290,16 +290,15 @@ namespace AccountingStudentData.BoxWindows
                                         {
                                             WorkDolMum.Text = "Нет данных";
                                         }
-                                        if (String.IsNullOrEmpty(WorkMum.Text))
                                         query = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','WorkMum','WorkDolMum')
-                                        values ('{SurnameMum.Text.ToLower()}','{NameMum.Text.ToLower()}','{MideleNameMum.Text.ToLower()}','{PhoneMum.Text.ToLower()}','{PhoneMum2.Text.ToLower()}','{PasportMum.Text.ToLower()}',
+                                        values ('{SurnameMum.Text}','{NameMum.Text}','{MideleNameMum.Text}','{PhoneMum.Text.ToLower()}','{PhoneMum2.Text.ToLower()}','{PasportMum.Text.ToLower()}',
                                         '{VudanPasportMum.Text.ToLower()}','{NumberPasportMum.Text.ToLower()}','{SeriaPasportMum.Text.ToLower()}','{DtpPasportMum.Text.ToLower()}','{GrStudentMum.Text.ToUpper()}','{WorkMum.Text}','{WorkDolMum.Text}')";
                                         cmd = new SQLiteCommand(query, connection);
                                         cmd.ExecuteScalar();
-                                        query = $@"SELECT ID FROM MumStudents WHERE Surname = '{SurnameMum.Text.ToLower()}' and Name = '{NameMum.Text.ToLower()}' and MidleName = '{MideleNameMum.Text.ToLower()}' and  Phone1 = '{PhoneMum.Text.ToLower()}' and Phone2 = '{PhoneMum2.Text.ToLower()}' and PassportVID = '{PasportMum.Text.ToLower()}'
+                                        query = $@"SELECT ID FROM MumStudents WHERE Surname = '{SurnameMum.Text}' and Name = '{NameMum.Text}' and MidleName = '{MideleNameMum.Text}' and  Phone1 = '{PhoneMum.Text.ToLower()}' and Phone2 = '{PhoneMum2.Text.ToLower()}' and PassportVID = '{PasportMum.Text.ToLower()}'
                                         and PassportVidan = '{VudanPasportMum.Text.ToLower()}' and  PassportNumber = '{NumberPasportMum.Text.ToLower()}' and  PassportSeria ='{SeriaPasportMum.Text.ToLower()}' and PassportData = '{DtpPasportMum.Text.ToLower()}' and WorkMum ='{WorkMum.Text}' and WorkDolMum ='{WorkDolMum.Text}' ";
-                                        cmd = new SQLiteCommand(query, connection);                                        
-                                        int idmum  = Convert.ToInt32(cmd.ExecuteScalar());
+                                        cmd = new SQLiteCommand(query, connection);
+                                        int idmum = Convert.ToInt32(cmd.ExecuteScalar());
                                         IDMum = Convert.ToString(idmum);
                                     }
                                     string IDDad = null;
@@ -315,29 +314,29 @@ namespace AccountingStudentData.BoxWindows
                                             WorkDolMum.Text = "Нет данных";
                                         }
                                         query = $@"INSERT INTO DadStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','WorkDad','WorkDolDad')
-                                        values ('{SurnameDad.Text.ToLower()}','{NameDad.Text.ToLower()}','{MideleNameDad.Text.ToLower()}','{PhoneDad.Text.ToLower()}','{PhoneDad.Text.ToLower()}','{PasportDad.Text.ToLower()}',
+                                        values ('{SurnameDad.Text}','{NameDad.Text}','{MideleNameDad.Text}','{PhoneDad.Text.ToLower()}','{PhoneDad.Text.ToLower()}','{PasportDad.Text.ToLower()}',
                                         '{VudanPasportDad.Text.ToLower()}','{NumberPasportDad.Text.ToLower()}','{SeriaPasportDad.Text.ToLower()}','{DtpPasportDad.Text.ToLower()}','{GrStudentDad.Text.ToUpper()}','{WorkDad.Text}','{WorkDolDad.Text}')";
                                         cmd = new SQLiteCommand(query, connection);
                                         cmd.ExecuteScalar();
-                                        query = $@"SELECT ID FROM DadStudents WHERE Surname = '{SurnameDad.Text.ToLower()}' and Name = '{NameDad.Text.ToLower()}' and MidleName = '{MideleNameDad.Text.ToLower()}' and  Phone1 = '{PhoneDad.Text.ToLower()}' and Phone2 = '{PhoneDad2.Text.ToLower()}' and PassportVID = '{PasportDad.Text.ToLower()}'
+                                        query = $@"SELECT ID FROM DadStudents WHERE Surname = '{SurnameDad.Text}' and Name = '{NameDad.Text}' and MidleName = '{MideleNameDad.Text}' and  Phone1 = '{PhoneDad.Text.ToLower()}' and Phone2 = '{PhoneDad2.Text.ToLower()}' and PassportVID = '{PasportDad.Text.ToLower()}'
                                         and PassportVidan = '{VudanPasportDad.Text.ToLower()}' and  PassportNumber = '{NumberPasportDad.Text.ToLower()}' and  PassportSeria ='{SeriaPasportDad.Text.ToLower()}' and PassportData = '{DtpPasportDad.Text.ToLower()}' and WorkDad ='{WorkDad.Text}' and WorkDolDad ='{WorkDolDad.Text}' ";
                                         cmd = new SQLiteCommand(query, connection);
                                         int iddad = Convert.ToInt32(cmd.ExecuteScalar());
                                         IDDad = Convert.ToString(iddad);
                                     }
-                                    bool result1= int.TryParse(Poll.SelectedValue.ToString(), out int IDPoll);
-                                    bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec); 
+                                    bool result1 = int.TryParse(Poll.SelectedValue.ToString(), out int IDPoll);
+                                    bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec);
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
-                                    query = $@"INSERT INTO Students('Surname','Name','MidleName','Phone1','Phone2','SNILS',
+                                    query = $@" INSERT INTO Students ('Surname','Name','MidleName','Phone1','Phone2','SNILS',
                                     'OMS','Adress','PassportVid','PassportVidan','PassportNumber','PassportSeria',
                                     'PassportData','IDPoll','IDSpecual','IDGrop','IDMum','IDDad',
-                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora','DataBirth','PassportCountry','TxtNumberzatechBook','NumberPrigazKyrs1','DataСreditedKyrs1','NumberPrigazKyrs2','DataСreditedKyrs2','NumberPrigazKyrs3','DataСreditedKyrs3','NumberPrigazKyrs4','DataСreditedKyrs4','TxtNumberzatechBook','MestoBirthday') 
-                                    values ('{SurnameSt.Text.ToLower()}','{NameSt.Text.ToLower()}','{MideleNameSt.Text.ToLower()}','{PhoneSt1.Text.ToLower()}','{PhoneSt2.Text.ToLower()}','{SNILSSt.Text.ToLower()}',
+                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora','DataBirth','PassportCountry','NumberZatechBook','NumberPrigazKyrs1','DataСreditedKyrs1','NumberPrigazKyrs2','DataСreditedKyrs2','NumberPrigazKyrs3','DataСreditedKyrs3','NumberPrigazKyrs4','DataСreditedKyrs4','MestoBirthday') 
+                                    values ('{SurnameSt.Text}','{NameSt.Text}','{MideleNameSt.Text}','{PhoneSt1.Text.ToLower()}','{PhoneSt2.Text.ToLower()}','{SNILSSt.Text.ToLower()}',
                                         '{OMSSt.Text.ToLower()}','{AdressSt.Text.ToLower()}','{PasportSt.Text.ToLower()}','{VudanPasportSt.Text.ToLower()}','{NumberPasportSt.Text.ToLower()}','{SeriaPasportSt.Text.ToLower()}','{DtpPasportSt.Text.ToLower()}'
                                         ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDMum}','{IDDad}','{IDPyk}','{LastObraz.Text.ToLower()}',
-                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora,'{DtpSt.Text.ToLower()}','{GrStudent.Text.ToUpper()}','{TxtNumberzatechBook.Text}',{NumberPrigazKyrs1.Text},'{DataСreditedKyrs1.Text}',{NumberPrigazKyrs2.Text},'{DataСreditedKyrs2.Text}',{NumberPrigazKyrs3.Text},'{DataСreditedKyrs3.Text}',{NumberPrigazKyrs4.Text},'{DataСreditedKyrs4.Text}','{AdressStBirht.Text}')";
-                                    cmd = new SQLiteCommand(query, connection);                                   
+                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora,'{DtpSt.Text.ToLower()}','{GrStudent.Text.ToUpper()}','{TxtNumberzatechBook.Text}','{NumberPrigazKyrs1.Text}','{DataСreditedKyrs1.Text}','{NumberPrigazKyrs2.Text}','{DataСreditedKyrs2.Text}','{NumberPrigazKyrs3.Text}','{DataСreditedKyrs3.Text}','{NumberPrigazKyrs4.Text}','{DataСreditedKyrs4.Text}','{AdressStBirht.Text}')";
+                                    cmd = new SQLiteCommand(query, connection);
                                     byte[] bytes = null;
                                     if (image_bytes == null)
                                     {

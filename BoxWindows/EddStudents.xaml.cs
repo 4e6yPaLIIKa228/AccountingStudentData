@@ -325,10 +325,7 @@ namespace AccountingStudentData.BoxWindows
                             {
                                 CheckDad = 0;
                             }
-                            //else
-                            //{
-                            //    CheckDad = 0;
-                            //}
+                            
                         }
                         if (checkBoxMum.IsChecked == true)
                         {
@@ -367,11 +364,7 @@ namespace AccountingStudentData.BoxWindows
                             else if (PhoneMum.Text.Length == 11 && NumberPasportMum.Text.Length == 6 && SeriaPasportMum.Text.Length == 4)
                             {
                                 CheckMum = 0;
-                            }
-                            //else
-                            //{
-                            //    CheckMum = 0;
-                            //}
+                            }                          
                         }
                         if (checkBoxDad.IsChecked == false && checkBoxMum.IsChecked == false)
                         {
@@ -530,8 +523,8 @@ namespace AccountingStudentData.BoxWindows
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
                                     string query = $@"UPDATE  Students Set Surname='{SurnameSt.Text}',Name = '{NameSt.Text}',MidleName= '{MideleNameSt.Text}', Phone1= '{PhoneSt1.Text}', Phone2= '{PhoneSt2.Text}', SNILS = '{SNILSSt.Text}', OMS= '{OMSSt.Text}', 
                                     Adress= '{AdressSt.Text}', PassportVid= '{PasportSt.Text}', PassportVidan= '{VudanPasportSt.Text.ToUpper()}', PassportNumber= '{NumberPasportSt.Text}', PassportSeria= '{SeriaPasportSt.Text}',
-                                    PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}',IDMum= @IDMum, IDDad= @IDDad, IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz= '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora,
-                                    NumberzatechBook = '{TxtNumberzatechBook.Text}',NumberPrigazKyrs1 = '{NumberPrigazKyrs1.Text}' ,DataСreditedKyrs1 ='{DataСreditedKyrs1.Text}' ,NumberPrigazKyrs2 = '{NumberPrigazKyrs2.Text}',DataСreditedKyrs2 = '{DataСreditedKyrs1.Text}',NumberPrigazKyrs3 = '{NumberPrigazKyrs3.Text}',DataСreditedKyrs3= '{DataСreditedKyrs1.Text}',NumberPrigazKyrs4= '{NumberPrigazKyrs1.Text}',DataСreditedKyrs4='{DataСreditedKyrs1.Text}',MestoBirthday= {AdressStBirht.Text}";
+                                    PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}',IDMum= @IDMum, IDDad= @IDDad, IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz = '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora,
+                                    NumberzatechBook = '{TxtNumberzatechBook.Text}',NumberPrigazKyrs1 = '{NumberPrigazKyrs1.Text}' ,DataСreditedKyrs1 ='{DataСreditedKyrs1.Text}' ,NumberPrigazKyrs2 = '{NumberPrigazKyrs2.Text}',DataСreditedKyrs2 = '{DataСreditedKyrs1.Text}',NumberPrigazKyrs3 = '{NumberPrigazKyrs3.Text}',DataСreditedKyrs3= '{DataСreditedKyrs1.Text}',NumberPrigazKyrs4= '{NumberPrigazKyrs1.Text}',DataСreditedKyrs4 = '{DataСreditedKyrs1.Text}', MestoBirthday = '{AdressStBirht.Text}'";
                                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
                                     byte[] bytes = null;
                                     if (IDMum == "" || IDMum == null)
