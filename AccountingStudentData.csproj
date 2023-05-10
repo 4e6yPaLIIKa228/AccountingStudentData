@@ -129,6 +129,9 @@
     <Compile Include="SimpleComand.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="testwin.xaml.cs">
+      <DependentUpon>testwin.xaml</DependentUpon>
+    </Compile>
     <Page Include="BoxWindows\Authorization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -175,6 +178,10 @@
     <Page Include="BoxWindows\LichDeloStudenta.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="testwin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
