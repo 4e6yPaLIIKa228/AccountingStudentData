@@ -66,26 +66,15 @@ namespace AccountingStudentData.BoxWindows
 					Students.PassportVID as PassVIDSt,Students.PassportVidan as PassVidanSt,Students.PassportCountry as PassCountrySt,
                     Students.IDSpecual as IDSpecSt,Students.IDGrop as IDGropSt,
                     Students.NumberZatechBook,Students.NumberPrigazKyrs1,Students.DataСreditedKyrs1,Students.NumberPrigazKyrs2,Students.DataСreditedKyrs2,Students.NumberPrigazKyrs3,Students.DataСreditedKyrs3,
-                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,MestoBirthday,
+                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,MestoBirthday					
 					
-					MumStudents.ID as IDMumSt, MumStudents.Surname as SurnameMum, MumStudents.Name as NameMum, MumStudents.MidleName as MidleNameMum,
-					MumStudents.PassportData as PassDataMum, MumStudents.PassportNumber as PassNumMum, MumStudents.PassportSeria as PassSeriaMum,
-					MumStudents.PassportVID as PassVIDMum,MumStudents.PassportVidan as PassVidanMum, MumStudents.Phone1 as Phone1Mum, MumStudents.Phone2 as Phone2Mum,MumStudents.PassportCountry as PassCountryMum,
-                    MumStudents.WorkMum,MumStudents.WorkDolMum,
-					
-					DadStudents.ID as IDDadSt, DadStudents.Surname as SurnameDad, DadStudents.Name as NameDad, DadStudents.MidleName as MidleNameDad,
-					DadStudents.PassportData as PassDataDad, DadStudents.PassportNumber as PassNumDad, DadStudents.PassportSeria as PassSeriaDad,
-					DadStudents.PassportVID as PassVIDDad,DadStudents.PassportVidan as PassVidanDad, DadStudents.Phone1 as Phone1Dad, DadStudents.Phone2 as Phone2Dad,DadStudents.PassportCountry as PassCountryDad,
-                    DadStudents.WorkDad,DadStudents.WorkDolDad
-
                     from Students
 
                     LEFT JOIN Polls on Students.IDPoll = Polls.ID
                     LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
                     LEFT JOIN Groups on Students.IDGrop = Groups.ID
-                    LEFT JOIN Users on Students.IDPyku = Users.ID
-					LEFT JOIN MumStudents on Students.IDMum = MumStudents.ID
-					LEFT JOIN DadStudents on Students.IDDad = DadStudents.ID
+                    LEFT JOIN Users on Students.IDPyku = Users.ID					
+                    where Students.IsDelet = 0 
                     ORDER BY SurnameSt";
                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
                     DataTable DT = new DataTable("Students");
@@ -291,26 +280,15 @@ namespace AccountingStudentData.BoxWindows
 					Students.PassportVID as PassVIDSt,Students.PassportVidan as PassVidanSt,Students.PassportCountry as PassCountrySt,
                     Students.IDSpecual as IDSpecSt,Students.IDGrop as IDGropSt,
                     Students.NumberZatechBook,Students.NumberPrigazKyrs1,Students.DataСreditedKyrs1,Students.NumberPrigazKyrs2,Students.DataСreditedKyrs2,Students.NumberPrigazKyrs3,Students.DataСreditedKyrs3,
-                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,MestoBirthday,
-					
-					MumStudents.ID as IDMumSt, MumStudents.Surname as SurnameMum, MumStudents.Name as NameMum, MumStudents.MidleName as MidleNameMum,
-					MumStudents.PassportData as PassDataMum, MumStudents.PassportNumber as PassNumMum, MumStudents.PassportSeria as PassSeriaMum,
-					MumStudents.PassportVID as PassVIDMum,MumStudents.PassportVidan as PassVidanMum, MumStudents.Phone1 as Phone1Mum, MumStudents.Phone2 as Phone2Mum,MumStudents.PassportCountry as PassCountryMum,
-                    MumStudents.WorkMum,MumStudents.WorkDolMum,
-					
-					DadStudents.ID as IDDadSt, DadStudents.Surname as SurnameDad, DadStudents.Name as NameDad, DadStudents.MidleName as MidleNameDad,
-					DadStudents.PassportData as PassDataDad, DadStudents.PassportNumber as PassNumDad, DadStudents.PassportSeria as PassSeriaDad,
-					DadStudents.PassportVID as PassVIDDad,DadStudents.PassportVidan as PassVidanDad, DadStudents.Phone1 as Phone1Dad, DadStudents.Phone2 as Phone2Dad,DadStudents.PassportCountry as PassCountryDad,
-                    DadStudents.WorkDad,DadStudents.WorkDolDad
-
+                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,MestoBirthday,				
+				
                     from Students
 
                     LEFT JOIN Polls on Students.IDPoll = Polls.ID
                     LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
                     LEFT JOIN Groups on Students.IDGrop = Groups.ID
-                    LEFT JOIN Users on Students.IDPyku = Users.ID
-					LEFT JOIN MumStudents on Students.IDMum = MumStudents.ID
-					LEFT JOIN DadStudents on Students.IDDad = DadStudents.ID
+                    LEFT JOIN Users on Students.IDPyku = Users.ID					
+                    where Students.Delete != 1;
                     ";
                     string DBSearchExcel = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
                                         Polls.Name as PollSt, Students.Phone1 as Phone1St, Students.PocleKlass as KlassSt,
@@ -526,6 +504,31 @@ namespace AccountingStudentData.BoxWindows
                         break;
                 }
             }               
+        }
+
+        private void MnItDelStudent_Click(object sender, RoutedEventArgs e)
+        {
+            if (GridBaseStudent.SelectedIndex != -1)
+            {
+                try
+                {
+                    using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                    {
+                        connection.Open();
+                        string ID;
+                        DataRowView drv = GridBaseStudent.SelectedItem as DataRowView;
+                        ID = drv["IDSt"].ToString();
+                        string query = $@"Update Students SET IsDelet = 1 WHERE ID = '{ID}'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        cmd.ExecuteNonQuery();
+                        LoadBase();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }                
+            }
         }
     }
 }

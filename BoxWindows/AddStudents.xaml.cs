@@ -142,6 +142,7 @@ namespace AccountingStudentData.BoxWindows
                     }
                     else if (NumberAtestat.Text.Length == 14 && OMSSt.Text.Length == 16 && PhoneSt1.Text.Length == 11 && PhoneSt1.Text.Length == 11)
                     {
+                       /*
                         if (checkBoxDad.IsChecked == true)
                         {
                             if (String.IsNullOrEmpty(SurnameDad.Text) || String.IsNullOrEmpty(NameDad.Text) || String.IsNullOrEmpty(PhoneDad.Text) || String.IsNullOrEmpty(PasportDad.Text) ||
@@ -225,8 +226,8 @@ namespace AccountingStudentData.BoxWindows
                         {
                             MessageBox.Show("Выберите хотябы одного родителя", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                             Proverka1 = 1;
-                        }
-                        else if (CheckDad == 0 && CheckMum == 0)
+                        }*/
+                       /* else*/ if (CheckDad == 0 && CheckMum == 0)
                         {
                             Proverka1 = 0;
                         }
@@ -264,7 +265,7 @@ namespace AccountingStudentData.BoxWindows
                             {
                                 int ProverkaMum = 0;
                                 int ProverkaDad = 0;
-                                if (checkBoxMum.IsChecked == true)
+                               /* if (checkBoxMum.IsChecked == true)
                                 {
                                     query = $@"SELECT count () FROM MumStudents WHERE PassportSeria = '{NumberPasportMum.Text}' and PassportNumber = '{NumberPasportMum.Text}' ";
                                     cmd = new SQLiteCommand(query, connection);
@@ -275,11 +276,11 @@ namespace AccountingStudentData.BoxWindows
                                     query = $@"SELECT count () FROM DadStudents WHERE PassportSeria = '{NumberPasportDad.Text}' and PassportNumber = '{SeriaPasportDad.Text}' ";
                                     cmd = new SQLiteCommand(query, connection);
                                     ProverkaDad = Convert.ToInt32(cmd.ExecuteScalar());
-                                }
+                                }*/
                                 if (ProverkaMum == 0 && ProverkaDad == 0) //Проверка номера и серии паспорта у родителей
                                 {
                                     string IDMum = null;
-                                    if (checkBoxMum.IsChecked == true)
+                                  /*  if (checkBoxMum.IsChecked == true)
                                     {
                                         if (String.IsNullOrEmpty(WorkMum.Text))
                                         {
@@ -300,9 +301,9 @@ namespace AccountingStudentData.BoxWindows
                                         cmd = new SQLiteCommand(query, connection);
                                         int idmum = Convert.ToInt32(cmd.ExecuteScalar());
                                         IDMum = Convert.ToString(idmum);
-                                    }
+                                    }*/
                                     string IDDad = null;
-                                    if (checkBoxDad.IsChecked == true)
+                                    /*if (checkBoxDad.IsChecked == true)
                                     {
                                         if (String.IsNullOrEmpty(WorkDad.Text))
                                         {
@@ -323,19 +324,19 @@ namespace AccountingStudentData.BoxWindows
                                         cmd = new SQLiteCommand(query, connection);
                                         int iddad = Convert.ToInt32(cmd.ExecuteScalar());
                                         IDDad = Convert.ToString(iddad);
-                                    }
+                                    }*/
                                     bool result1 = int.TryParse(Poll.SelectedValue.ToString(), out int IDPoll);
                                     bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec);
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
                                     query = $@" INSERT INTO Students ('Surname','Name','MidleName','Phone1','Phone2','SNILS',
                                     'OMS','Adress','PassportVid','PassportVidan','PassportNumber','PassportSeria',
-                                    'PassportData','IDPoll','IDSpecual','IDGrop','IDMum','IDDad',
-                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora','DataBirth','PassportCountry','NumberZatechBook','NumberPrigazKyrs1','DataСreditedKyrs1','NumberPrigazKyrs2','DataСreditedKyrs2','NumberPrigazKyrs3','DataСreditedKyrs3','NumberPrigazKyrs4','DataСreditedKyrs4','MestoBirthday') 
+                                    'PassportData','IDPoll','IDSpecual','IDGrop',
+                                    'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora','DataBirth','PassportCountry','NumberZatechBook','NumberPrigazKyrs1','DataСreditedKyrs1','NumberPrigazKyrs2','DataСreditedKyrs2','NumberPrigazKyrs3','DataСreditedKyrs3','NumberPrigazKyrs4','DataСreditedKyrs4','MestoBirthday','IsDelet') 
                                     values ('{SurnameSt.Text}','{NameSt.Text}','{MideleNameSt.Text}','{PhoneSt1.Text.ToLower()}','{PhoneSt2.Text.ToLower()}','{SNILSSt.Text.ToLower()}',
                                         '{OMSSt.Text.ToLower()}','{AdressSt.Text.ToLower()}','{PasportSt.Text.ToLower()}','{VudanPasportSt.Text.ToLower()}','{NumberPasportSt.Text.ToLower()}','{SeriaPasportSt.Text.ToLower()}','{DtpPasportSt.Text.ToLower()}'
-                                        ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDMum}','{IDDad}','{IDPyk}','{LastObraz.Text.ToLower()}',
-                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora,'{DtpSt.Text.ToLower()}','{GrStudent.Text.ToUpper()}','{TxtNumberzatechBook.Text}','{NumberPrigazKyrs1.Text}','{DataСreditedKyrs1.Text}','{NumberPrigazKyrs2.Text}','{DataСreditedKyrs2.Text}','{NumberPrigazKyrs3.Text}','{DataСreditedKyrs3.Text}','{NumberPrigazKyrs4.Text}','{DataСreditedKyrs4.Text}','{AdressStBirht.Text}')";
+                                        ,'{IDPoll}','{IDCpec}','{IDGroup}','{IDPyk}','{LastObraz.Text.ToLower()}',
+                                        '{OrganizStudent.Text.ToLower()}','{NumberAtestat.Text.ToLower()}','{DtnPolucheyne.Text.ToLower()}',@Foto,'{DataСredited.Text.ToLower()}','{DataEnd.Text.ToLower()}','{NumberPrigaz.Text.ToLower()}',@NumberDogovora,'{DtpSt.Text.ToLower()}','{GrStudent.Text.ToUpper()}','{TxtNumberzatechBook.Text}','{NumberPrigazKyrs1.Text}','{DataСreditedKyrs1.Text}','{NumberPrigazKyrs2.Text}','{DataСreditedKyrs2.Text}','{NumberPrigazKyrs3.Text}','{DataСreditedKyrs3.Text}','{NumberPrigazKyrs4.Text}','{DataСreditedKyrs4.Text}','{AdressStBirht.Text}','0')";
                                     cmd = new SQLiteCommand(query, connection);
                                     byte[] bytes = null;
                                     if (image_bytes == null)
@@ -356,8 +357,8 @@ namespace AccountingStudentData.BoxWindows
                                         cmd.Parameters.AddWithValue("@NumberDogovora", "Бюджет");
                                     }
                                     cmd.ExecuteScalar();
+                                    AddAndUpdateResosible();
                                     MessageBox.Show("Студент добавлен", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-
                                 }
                                 else
                                 {
@@ -390,7 +391,64 @@ namespace AccountingStudentData.BoxWindows
             {
                 MessageBox.Show(ex.Message);
             }
-        }      
+        }  
+        
+        public void AddAndUpdateResosible()
+        {
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                { 
+                    connection.Open();
+                    string qwert = $@"SELECT ID FROM Students WHERE Surname = '{SurnameSt.Text}' and Name = '{NameSt.Text}' and MidleName = '{MideleNameSt.Text}' and  Phone1 = '{PhoneSt1.Text.ToLower()}' and Phone2 = '{PhoneSt2.Text.ToLower()}' and PassportVid = '{PasportSt.Text.ToLower()}'
+                                        and PassportVidan = '{VudanPasportSt.Text.ToLower()}' and  PassportNumber = '{NumberPasportSt.Text.ToLower()}' and  PassportSeria ='{SeriaPasportSt.Text.ToLower()}' and PassportData = '{DtpPasportSt.Text.ToLower()}'";
+                    SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
+                    int idmum = Convert.ToInt32(cmd.ExecuteScalar());
+                    string IDSt = null;
+                    IDSt = Convert.ToString(idmum);
+                    if (SurnameOtved1.Text != string.Empty)
+                    {
+                        String txtOtved1 = CmbRodOtved1.Text;
+                        qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                                        values ('{IDSt}','{SurnameOtved1.Text}','{NameOtved1.Text}','{MideleNameOtved1.Text}','{txtOtved1}','{PhoneOtved1.Text.ToLower()}','{PhoneDopOtved1.Text.ToLower()}','{PasportOtved1.Text.ToLower()}',
+                                        '{VudanPasportOtved1.Text.ToLower()}','{NumberPasportOtved1.Text.ToLower()}','{SeriaPasportOtved1.Text.ToLower()}','{DtpPasportOtved1.Text.ToLower()}','{GrStudentOtved1.Text.ToUpper()}','{WorkOtved1.Text}','{WorkDolOtved1.Text}')";
+                        cmd = new SQLiteCommand(qwert, connection);
+                        cmd.ExecuteNonQuery();
+                        if (SurnameOtved2.Text != string.Empty)
+                        {
+                            String txtOtved2 = CmbRodOtved2.Text;
+                            qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MidleName','Pod',,'Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                                        values ('{IDSt}','{SurnameOtved2.Text}','{NameOtved2.Text}','{MideleNameOtved2.Text}','{txtOtved2}','{PhoneOtved2.Text.ToLower()}','{PhoneDopOtved2.Text.ToLower()}','{PasportOtved2.Text.ToLower()}',
+                                        '{VudanPasportOtved2.Text.ToLower()}','{NumberPasportOtved2.Text.ToLower()}','{SeriaPasportOtved2.Text.ToLower()}','{DtpPasportOtved2.Text.ToLower()}','{GrStudentOtved2.Text.ToUpper()}','{WorkOtved2.Text}','{WorkDolOtved2.Text}')";
+                            cmd = new SQLiteCommand(qwert, connection);
+                            cmd.ExecuteNonQuery();
+                        }
+                        if (SurnameOtved3.Text != string.Empty)
+                        {
+                            String txtOtved3 = CmbRodOtved3.Text;
+                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                                        values ('{IDSt}','{SurnameOtved3.Text}','{NameOtved3.Text}','{MideleNameOtved2.Text}','{txtOtved3}','{PhoneOtved3.Text.ToLower()}','{PhoneDopOtved3.Text.ToLower()}','{PasportOtved3.Text.ToLower()}',
+                                        '{VudanPasportOtved3.Text.ToLower()}','{NumberPasportOtved3.Text.ToLower()}','{SeriaPasportOtved3.Text.ToLower()}','{DtpPasportOtved3.Text.ToLower()}','{GrStudentOtved3.Text.ToUpper()}','{WorkOtved3.Text}','{WorkDolOtved3.Text}')";
+                            cmd = new SQLiteCommand(qwert, connection);
+                            cmd.ExecuteNonQuery();
+                        }
+                        if (SurnameOtved4.Text != string.Empty)
+                        {
+                            String txtOtved4 = CmbRodOtved3.Text;
+                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                                        values ('{IDSt}','{SurnameOtved4.Text}','{NameOtved4.Text}','{MideleNameOtved4.Text}','{txtOtved4}','{PhoneOtved4.Text.ToLower()}','{PhoneDopOtved4.Text.ToLower()}','{PasportOtved4.Text.ToLower()}',
+                                        '{VudanPasportOtved4.Text.ToLower()}','{NumberPasportOtved4.Text.ToLower()}','{SeriaPasportOtved4.Text.ToLower()}','{DtpPasportOtved4.Text.ToLower()}','{GrStudentOtved4.Text.ToUpper()}','{WorkOtved4.Text}','{WorkDolOtved4.Text}')";
+                            cmd = new SQLiteCommand(qwert, connection);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         public void TextValidationTextBox(object sender, KeyEventArgs e)
         {
@@ -615,12 +673,12 @@ namespace AccountingStudentData.BoxWindows
 
         private void checkBoxDad_Unchecked(object sender, RoutedEventArgs e)
         {
-            StpDad.IsEnabled = false;
+            //StpDad.IsEnabled = false;
         }
 
         private void checkBoxDad_Checked(object sender, RoutedEventArgs e)
         {
-            StpDad.IsEnabled = true;
+           // StpDad.IsEnabled = true;
         }
 
         public void AddFoto()
@@ -671,6 +729,31 @@ namespace AccountingStudentData.BoxWindows
             {
 
             }
+        }
+
+        private void Expander1_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander2.IsExpanded = false;
+            Expander3.IsExpanded = false;
+            Expander4.IsExpanded = false;
+        }
+        private void Expander2_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander1.IsExpanded = false;
+            Expander3.IsExpanded = false;
+            Expander4.IsExpanded = false;
+        }
+        private void Expander3_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander1.IsExpanded = false;
+            Expander2.IsExpanded = false;
+            Expander4.IsExpanded = false;
+        }
+        private void Expander4_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander1.IsExpanded = false;
+            Expander2.IsExpanded = false;
+            Expander3.IsExpanded = false;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

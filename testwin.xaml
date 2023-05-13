@@ -3,36 +3,84 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:AccountingStudentData"
         mc:Ignorable="d"
-        Title="testwin" Height="450" Width="800">
+        Title="testwin" Height="850" Width="800">
     <Grid>
-        <Button Margin="20,84,650,318" Click="Button_Click">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Margin="262,37,408,765" Click="Button_Click"/>
 
-        </Button>
-        <StackPanel Margin="20,276,-10,60" Name="myStackPanel">
+
+        <StackPanel Margin="20,339,35,60" Name="myStackPanel">
 
         </StackPanel>
-        <Expander x:Name="Expander1" Header="Слот оперативной память 1"  BorderBrush="Black" BorderThickness="2" Margin="20,129,70,235" >
-            <StackPanel Margin="24,0,24,16" Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                <StackPanel Orientation ="Horizontal"  Margin="0,10,0,0">
-                    <TextBlock   FontSize="20" Text="Модель"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                    <TextBox Width="300" FontSize="20" x:Name="TextRAMModel1"   MaxLength="25" Margin="214.8,0,0,0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
-                    <TextBlock   FontSize="20" Text="Объем памяти"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                    <TextBox Width="300" FontSize="20" x:Name="TextVmemory1"  MaxLength="3" Margin="151.1,0,0,0" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
-                    <TextBlock   FontSize="20" Text="Тип памяти"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                    <TextBox Width="300" FontSize="20" x:Name="TextTypeMemory1"  MaxLength="1" Margin="179.8,0,0,0"   />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
-                    <TextBlock   FontSize="20" Text="Производитель"  Margin="5,0,0,0" VerticalAlignment="Center" />
-                    <TextBox Width="300" FontSize="20" x:Name="TextMaker1"   MaxLength="25" Margin="141.9,0,0,0" />
+        <Expander x:Name="Expander1" Grid.Column="1"  Header="Ответственный"  BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top" IsExpanded="False"  >
+            <StackPanel  Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                <StackPanel x:Name="StpMum"  Orientation="Horizontal" IsEnabled="True" >
+                    <StackPanel Orientation="Vertical" >                      
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Фамилия" VerticalAlignment="Center" Margin="2,0,10,0"/>
+                            <TextBox x:Name="SurnameMum"  Width="420" PreviewTextInput="TextValidationTextBox" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Имя" VerticalAlignment="Center" Margin="2,0,10,0"/>
+                            <TextBox  x:Name="NameMum" Margin="33.5,0,0,0" Width="420" PreviewTextInput="TextValidationTextBox" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Отчество" VerticalAlignment="Center" Margin="2,0,9,0"/>
+                            <TextBox x:Name="MideleNameMum" Width="420" PreviewTextInput="TextValidationTextBox" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Необязательное поле"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Близость" VerticalAlignment="Center" Margin="2,0,9,0"/>
+                            <ComboBox x:Name="CmbRodOtvet" Width="200">
+                                <TextBlock Text="Мать"/>
+                                <TextBlock Text="Отец"/>
+                                <TextBlock Text="Бабушка"/>
+                                <TextBlock Text="Дедушка"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Телефон"  VerticalAlignment="Center" Margin="2,0,14.2,0" />
+                            <TextBox x:Name="PhoneMum" MaxLength="11"  Width="150" materialDesign:HintAssist.Hint="Обяз. поле" />
+                            <TextBlock  Text="Доп. Телефон" VerticalAlignment="Center" Margin="15,0,10,0"/>
+                            <TextBox x:Name="PhoneMum2" MaxLength="11"  Width="151" materialDesign:HintAssist.Hint="Необяз. поле"/>
+                        </StackPanel>
+                        <TextBlock Text="ПАСПОРТ" Margin="2,0,0,0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Вид паспорта"  VerticalAlignment="Center" Margin="2,0,10,0"/>
+                            <TextBox  x:Name="PasportMum" Width="370" PreviewTextInput="TextValidationTextBox"  materialDesign:HintAssist.Hint="Обязательное поле"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Номер"  VerticalAlignment="Center" Margin="2,0,0,10"/>
+                            <TextBox x:Name="NumberPasportMum" Margin="10,0,0,10" MaxLength="6"  Width="80" PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле" />
+                            <TextBlock  Text="Серия" Margin="10,0,10,10"  VerticalAlignment="Center"/>
+                            <TextBox x:Name="SeriaPasportMum" Width="80" Margin="0,0,0,10" MaxLength="4"  PreviewTextInput="NumberValidationNumberPassport" PreviewKeyDown="TextValidationTextBox" materialDesign:HintAssist.Hint="Обяз. поле"/>
+                            <TextBlock Text="Дата выдачи" Margin="10,0,10,0"  VerticalAlignment="Center"/>
+                            <DatePicker Name="DtpPasportMum" Width="90" PreviewTextInput="NumberValidationNumberDate" PreviewKeyDown="TextValidationTextBox"  materialDesign:HintAssist.Hint="Обяз. поле"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Кем выдан"  VerticalAlignment="Center" Margin="2,0,0,0" />
+                            <TextBox x:Name="VudanPasportMum"  Margin="17.4,0,0,0" Width="381.4"  PreviewTextInput="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Гражданство"  VerticalAlignment="Center" Margin="2,0,0,10"/>
+                            <TextBox x:Name="GrStudentMum" Margin="10,0,0,10"  Width="381.4"  PreviewTextInput="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле" />
+                        </StackPanel>
+                        <TextBlock Text="РАБОТА" Margin="2,0,0,0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Место работы"  VerticalAlignment="Center" Margin="2,0,0,10"/>
+                            <TextBox x:Name="WorkMum" Margin="10,0,0,10"  Width="140"  materialDesign:HintAssist.Hint="Необя. поле" />
+                            <TextBlock  Text="Должность"  VerticalAlignment="Center" Margin="5,0,0,10"/>
+                            <TextBox x:Name="WorkDolMum" Margin="10,0,0,10"  Width="140"  materialDesign:HintAssist.Hint="Необяз. поле" />
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Expander>
-        <Button Margin="175,84,495,318" Click="Button_Click_1"/>
+        <Button Margin="100,37,570,765" Click="Button_Click_1"/>
     </Grid>
 </Window>

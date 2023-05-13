@@ -19,9 +19,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using AccountingStudentData.Connection;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Win32;
+using static System.Net.Mime.MediaTypeNames;
 using DataTable = System.Data.DataTable;
 using Image = System.Drawing.Image;
 using TextBox = System.Windows.Controls.TextBox;
@@ -97,7 +99,9 @@ namespace AccountingStudentData.BoxWindows
             PhoneSt1.Text = drv["Phone1St"].ToString();
             PhoneSt2.Text = drv["Phone2St"].ToString();
             AdressSt.Text = drv["AdressSt"].ToString();
-            IDMum = drv["IDMumSt"].ToString();
+            LoadFamule();
+
+           /* IDMum = drv["IDMumSt"].ToString();
             if (IDMum != null && IDMum != "")
             {                  
                 checkBoxMum.IsChecked = true;                
@@ -136,7 +140,7 @@ namespace AccountingStudentData.BoxWindows
                 GrStudentDad.Text = drv["PassCountryDad"].ToString();
                 WorkDad.Text = drv["WorkDad"].ToString();
                 WorkDolDad.Text = drv["WorkDolDad"].ToString();
-            }
+            }*/
             image_bytes = (byte[])drv["FotoSt"];           
             BitmapImage img = new BitmapImage();            
             img.BeginInit();
@@ -147,6 +151,64 @@ namespace AccountingStudentData.BoxWindows
             FotoStudenta.Source = img;            
             CombBoxDowmload();
 
+        }
+
+        public void LoadFamule()
+        {
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                {
+                    connection.Open();
+                    string pr = "0";
+                    for (int i = 1; i <= 4; i++)
+                    {
+                        var Surname = (UIElement)FindName("SurnameOtved" + i);
+                        var Name = (UIElement)FindName("NameOtved" + i);
+                        var MidleName = (UIElement)FindName("MideleNameOtved" + i);
+                        var Pod = (UIElement)FindName("CmbRodOtved" + i);                       
+                        var Phone1 = (UIElement)FindName("PhoneOtved" + i);
+                        var Phone2 = (UIElement)FindName("PhoneDopOtved" + i);
+                        var PassportVID = (UIElement)FindName("PasportOtved" + i);
+                        var PassportVidan = (UIElement)FindName("VudanPasportOtved" + i);
+                        var PassportNumber = (UIElement)FindName("NumberPasportOtved" + i);
+                        var PassportSeria = (UIElement)FindName("SeriaPasportOtved" + i);
+                        var PassportData = (UIElement)FindName("DtpPasportOtved" + i);
+                        var PassportCountry = (UIElement)FindName("GrStudentOtved" + i);
+                        var Work = (UIElement)FindName("WorkOtved" + i);
+                        var WorkDol = (UIElement)FindName("WorkDolOtved" + i);
+                        string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Phone1,Phone2,PassportVID,PassportVidan,PassportNumber,PassportSeria,PassportData,
+                        PassportCountry,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  ";
+                        SQLiteCommand cmd = new SQLiteCommand(qwert, connection);                      
+                        cmd.ExecuteNonQuery();
+                        SQLiteDataReader dr = null;
+                        dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            pr = dr["ID"].ToString();                         
+                            (Surname as TextBox).Text = dr["Surname"].ToString();
+                            (Name as TextBox).Text = (string)dr["Name"];
+                            (MidleName as TextBox).Text = (string)dr["MidleName"];
+                            (Pod as ComboBox).Text = (string)dr["Pod"];
+                            (Phone1 as TextBox).Text = (string)dr["Phone1"];
+                            (Phone2 as TextBox).Text = (string)dr["Phone2"];
+                            (PassportVID as TextBox).Text = (string)dr["PassportVID"];
+                            (PassportVidan as TextBox).Text = (string)dr["PassportVidan"];
+                            (PassportNumber as TextBox).Text = (string)dr["PassportNumber"];
+                            (PassportSeria as TextBox).Text = (string)dr["PassportSeria"];
+                            (PassportData as DatePicker).Text = (string)dr["PassportData"];
+                            (PassportCountry as TextBox).Text = (string)dr["PassportCountry"];
+                            (Work as TextBox).Text = (string)dr["Work"];
+                            (WorkDol as TextBox).Text = (string)dr["WorkDol"];
+                            break;
+                        } 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void CobBoxLoadPoll()
@@ -287,7 +349,7 @@ namespace AccountingStudentData.BoxWindows
                         Proverka1 = 1;
                     }
                     else if (NumberAtestat.Text.Length == 14 && OMSSt.Text.Length == 16 && PhoneSt1.Text.Length == 11 && PhoneSt1.Text.Length == 11)
-                    {
+                    {/*
                         if (checkBoxDad.IsChecked == true)
                         {
                             if (String.IsNullOrEmpty(SurnameDad.Text) || String.IsNullOrEmpty(NameDad.Text) || String.IsNullOrEmpty(PhoneDad.Text) || String.IsNullOrEmpty(PasportDad.Text) ||
@@ -371,7 +433,7 @@ namespace AccountingStudentData.BoxWindows
                             MessageBox.Show("Выберите хотябы одного родителя", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
                             Proverka1 = 1;
                         }
-                        else if (CheckDad == 0 && CheckMum == 0)
+                        else*/ if (CheckDad == 0 && CheckMum == 0)
                         {
                             Proverka1 = 0;
                         }
@@ -417,7 +479,7 @@ namespace AccountingStudentData.BoxWindows
                             {
                                 int ProverkaMum = 0;
                                 int ProverkaDad = 0;
-                                if (checkBoxMum.IsChecked == true)
+                                /*if (checkBoxMum.IsChecked == true)
                                 {
                                     if (OldNumberPasportMum != NumberPasportMum.Text && OldSeriaPasportMum != NumberPasportMum.Text)
                                     {
@@ -434,13 +496,13 @@ namespace AccountingStudentData.BoxWindows
                                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
                                         ProverkaDad = Convert.ToInt32(cmd.ExecuteScalar());
                                     }
-                                }
+                                }*/
                                 if (ProverkaMum == 0 && ProverkaDad == 0) //Проверка номера и серии паспорта у родителей
                                 {
                                     // string IDMum = null;
                                     //if (checkBoxMum.IsChecked == true)
                                     // {
-                                    if ((IDMum == null || IDMum== "") && checkBoxMum.IsChecked == true)
+                                   /* if ((IDMum == null || IDMum== "") && checkBoxMum.IsChecked == true)
                                     {
                                         string qwert = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','WorkMum','WorkDolMum')
                                         values ('{SurnameMum.Text}','{NameMum.Text}','{MideleNameMum.Text}','{PhoneMum.Text.ToLower()}','{PhoneMum2.Text.ToLower()}','{PasportMum.Text.ToLower()}',
@@ -476,12 +538,12 @@ namespace AccountingStudentData.BoxWindows
                                         SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
                                         cmd1.ExecuteScalar();
                                         IDMum = null;
-                                    }
+                                    }*/
                                     //}
                                     //string IDDad = null;
                                     //if (checkBoxDad.IsChecked == true)
                                     //{
-                                    if ((IDDad == null || IDDad == "") && checkBoxDad.IsChecked == true)
+                                  /*  if ((IDDad == null || IDDad == "") && checkBoxDad.IsChecked == true)
                                     {
                                         string qwert = $@"INSERT INTO DadStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','WorkDad','WorkDolDad')
                                         values ('{SurnameDad.Text}','{NameDad.Text}','{MideleNameDad.Text}','{PhoneDad.Text.ToLower()}','{PhoneDad2.Text.ToLower()}','{PasportDad.Text}',
@@ -516,7 +578,7 @@ namespace AccountingStudentData.BoxWindows
                                         SQLiteCommand cmd1 = new SQLiteCommand(qwert, connection);
                                         cmd1.ExecuteScalar();
                                         IDDad = null;
-                                    } 
+                                    } */
                                     bool result1 = int.TryParse(Poll.SelectedValue.ToString(), out int IDPoll);
                                     bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec);
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
@@ -652,12 +714,12 @@ namespace AccountingStudentData.BoxWindows
 
         private void checkBoxDad_Unchecked(object sender, RoutedEventArgs e)
         {
-            StpDad.IsEnabled = false;
+            //StpDad.IsEnabled = false;
         }
 
         private void checkBoxDad_Checked(object sender, RoutedEventArgs e)
         {
-            StpDad.IsEnabled = true;
+           // StpDad.IsEnabled = true;
         }
 
         public void AddFoto()
@@ -811,6 +873,31 @@ namespace AccountingStudentData.BoxWindows
             {
 
             }
+        }
+
+        private void Expander1_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander2.IsExpanded = false;
+            Expander3.IsExpanded = false;
+            Expander4.IsExpanded = false;
+        }
+        private void Expander2_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander1.IsExpanded = false;
+            Expander3.IsExpanded = false;
+            Expander4.IsExpanded = false;
+        }
+        private void Expander3_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander1.IsExpanded = false;
+            Expander2.IsExpanded = false;
+            Expander4.IsExpanded = false;
+        }
+        private void Expander4_Expanded(object sender, RoutedEventArgs e)
+        {
+            Expander1.IsExpanded = false;
+            Expander2.IsExpanded = false;
+            Expander3.IsExpanded = false;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
