@@ -56,39 +56,13 @@ namespace AccountingStudentData.BoxWindows
                 {
                     connection.Open();
                     string query = $@"                    					
-                    SELECT Students.ID as IDSt,Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt,Students.Phone1 as Phone1St,Students.Phone2 as Phone2St,Students.DataBirth as DataBirthSt,
-                    Polls.Name as PollSt,Specialties.NumberSpecial as NumberSpecualSt,Specialties.Name as NameSpecial, Groups.Name as GroupSt,Students.PocleKlass as KlassSt,
-                    Users.ID as IDPyk,Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
-					Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt,Students.NumberAtect as AtectSt,Students.DataPolycen as  DataPolecenSt,
-					Students.DataСredited as DataPost, Students.DataEnd as DataOkon, Students.Foto as FotoSt,Students.NameSchool as NameSchoolSt,
-					Students.SNILS as SNILSSt, Students.OMS as OMSSt, Students.Adress as AdressSt,
-					Students.PassportData as PassDataSt, Students.PassportNumber as PassNumSt,Students.PassportSeria as PassSeriaSt,
-					Students.PassportVID as PassVIDSt,Students.PassportVidan as PassVidanSt,Students.PassportCountry as PassCountrySt,
-                    Students.IDSpecual as IDSpecSt,Students.IDGrop as IDGropSt,
-                    Students.NumberZatechBook,Students.NumberPrigazKyrs1,Students.DataСreditedKyrs1,Students.NumberPrigazKyrs2,Students.DataСreditedKyrs2,Students.NumberPrigazKyrs3,Students.DataСreditedKyrs3,
-                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,
-					
-					MumStudents.ID as IDMumSt, MumStudents.Surname as SurnameMum, MumStudents.Name as NameMum, MumStudents.MidleName as MidleNameMum,
-					MumStudents.PassportData as PassDataMum, MumStudents.PassportNumber as PassNumMum, MumStudents.PassportSeria as PassSeriaMum,
-					MumStudents.PassportVID as PassVIDMum,MumStudents.PassportVidan as PassVidanMum, MumStudents.Phone1 as Phone1Mum, MumStudents.Phone2 as Phone2Mum,MumStudents.PassportCountry as PassCountryMum,
-                    MumStudents.WorkMum,MumStudents.WorkDolMum,
-					
-					DadStudents.ID as IDDadSt, DadStudents.Surname as SurnameDad, DadStudents.Name as NameDad, DadStudents.MidleName as MidleNameDad,
-					DadStudents.PassportData as PassDataDad, DadStudents.PassportNumber as PassNumDad, DadStudents.PassportSeria as PassSeriaDad,
-					DadStudents.PassportVID as PassVIDDad,DadStudents.PassportVidan as PassVidanDad, DadStudents.Phone1 as Phone1Dad, DadStudents.Phone2 as Phone2Dad,DadStudents.PassportCountry as PassCountryDad,
-                    DadStudents.WorkDad,DadStudents.WorkDolDad
-
-                    from Students
-
-                    LEFT JOIN Polls on Students.IDPoll = Polls.ID
-                    LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
-                    LEFT JOIN Groups on Students.IDGrop = Groups.ID
-                    LEFT JOIN Users on Students.IDPyku = Users.ID
-					LEFT JOIN MumStudents on Students.IDMum = MumStudents.ID
-					LEFT JOIN DadStudents on Students.IDDad = DadStudents.ID
-                    ORDER BY SurnameSt";
+                     SELECT  Users.ID,Users.Login, Users.Password,Users.Surname,Users.Name,Users.MidleName,Users.DataRegist, StatusUsers.NameStatus, AllowanceUsers.Allowance  FROM Users
+                               LEFT JOIN StatusUsers on Users.IDStatus = StatusUsers.ID
+							   LEFT JOIN AllowanceUsers on Users.IDAllowance = AllowanceUsers.ID			
+                    where Users.IsDelet = 0 
+                    ORDER BY Login";
                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                    DataTable DT = new DataTable("Students");
+                    DataTable DT = new DataTable("Users");
                     SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
                     SDA.Fill(DT);
                     GridBaseStudent.ItemsSource = DT.DefaultView;
@@ -97,17 +71,7 @@ namespace AccountingStudentData.BoxWindows
                     dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        //Componets, ProccesID, MaterPlatID, VideCardID, IDRAM, Slot1ID1, Slot1ID2, Slot1ID3, Slot1ID4;
-                        //Saver.IDMenuPerPC = dr["IDMenuPer"].ToString();
-                        //Saver.IDComponets = dr["IDComponets"].ToString();
-                        //Saver.ProccesID = dr["ProccesID"].ToString();
-                        //Saver.MaterPlatID = dr["MaterPlatID"].ToString();
-                        //Saver.VideCardID = dr["VideoCardID"].ToString();
-                        //Saver.IDRAM = dr["IDRAM"].ToString();
-                        //Saver.SlotID1 = dr["SlotID1"].ToString();
-                        //Saver.SlotID2 = dr["SlotID2"].ToString();
-                        //Saver.SlotID3 = dr["SlotID3"].ToString();
-                        //Saver.SlotID4 = dr["SlotID4"].ToString();
+                      
                     }  
                 }
                 catch (Exception ex)
@@ -124,6 +88,7 @@ namespace AccountingStudentData.BoxWindows
 
         private void MnItAddStudent_Click(object sender, RoutedEventArgs e)
         {
+
             AddStudents addst = new AddStudents();
             bool? result = addst.ShowDialog();
             switch (result)
@@ -136,7 +101,8 @@ namespace AccountingStudentData.BoxWindows
         public void EdditStudent()
         {
             if (GridBaseStudent.SelectedIndex != -1)
-            {               
+            {
+                //LoadBase();
                 EddStudents eddst = new EddStudents((DataRowView)GridBaseStudent.SelectedItem);
                 eddst.Owner = this;
                 bool? result = eddst.ShowDialog();
@@ -243,7 +209,7 @@ namespace AccountingStudentData.BoxWindows
                     DataTable DT = new DataTable("Students");
                     SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
                     SDA.Fill(DT);
-                    if (CombSearchInfo.SelectedIndex != -1)
+                    if (CombSearchInfo.SelectedIndex != -1 && String.IsNullOrEmpty(TxtSearch.Text) == false)
                     {
                         DT = SerchInfo();
                     }
@@ -285,10 +251,31 @@ namespace AccountingStudentData.BoxWindows
                
                 using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                 {
-                   
+                    
                     connection.Open();
                     String combtext = CombSearchInfo.Text;
-                    string DBSerach = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
+                    string DBSearchVisi = $@"                    					
+                    SELECT Students.ID as IDSt,Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt,Students.Phone1 as Phone1St,Students.Phone2 as Phone2St,Students.DataBirth as DataBirthSt,
+                    Polls.Name as PollSt,Specialties.NumberSpecial as NumberSpecualSt,Specialties.Name as NameSpecial, Groups.Name as GroupSt,Students.PocleKlass as KlassSt,
+                    Users.ID as IDPyk,Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
+					Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt,Students.NumberAtect as AtectSt,Students.DataPolycen as  DataPolecenSt,
+					Students.DataСredited as DataPost, Students.DataEnd as DataOkon, Students.Foto as FotoSt,Students.NameSchool as NameSchoolSt,
+					Students.SNILS as SNILSSt, Students.OMS as OMSSt, Students.Adress as AdressSt,
+					Students.PassportData as PassDataSt, Students.PassportNumber as PassNumSt,Students.PassportSeria as PassSeriaSt,
+					Students.PassportVID as PassVIDSt,Students.PassportVidan as PassVidanSt,Students.PassportCountry as PassCountrySt,
+                    Students.IDSpecual as IDSpecSt,Students.IDGrop as IDGropSt,
+                    Students.NumberZatechBook,Students.NumberPrigazKyrs1,Students.DataСreditedKyrs1,Students.NumberPrigazKyrs2,Students.DataСreditedKyrs2,Students.NumberPrigazKyrs3,Students.DataСreditedKyrs3,
+                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,MestoBirthday,				
+				
+                    from Students
+
+                    LEFT JOIN Polls on Students.IDPoll = Polls.ID
+                    LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
+                    LEFT JOIN Groups on Students.IDGrop = Groups.ID
+                    LEFT JOIN Users on Students.IDPyku = Users.ID					
+                    where Students.Delete != 1;
+                    ";
+                    string DBSearchExcel = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
                                         Polls.Name as PollSt, Students.Phone1 as Phone1St, Students.PocleKlass as KlassSt,
                                         Specialties.NumberSpecial as NumberSpecualSt,Groups.Name as GroupSt,                                       
                                         Students.DataСredited as DataPost,Students.DataEnd as DataOkon,
@@ -300,13 +287,18 @@ namespace AccountingStudentData.BoxWindows
                     if (combtext == "Фамилия")
                     {
                         GridBaseStudent.ItemsSource = null;
-                        string query = $@"{DBSerach}   WHERE Students.Surname like '%{TxtSearch.Text}%'";
+                        string query = $@"{DBSearchVisi}   WHERE Students.Surname like '%{TxtSearch.Text}%'";
                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
                         DT = new DataTable("MenuPerTech");
                         SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
                         SDA.Fill(DT);
                         GridBaseStudent.ItemsSource = DT.DefaultView;
                         cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   WHERE Students.Surname like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("MenuPerTech");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
                         return DT;
                     }
 
@@ -497,6 +489,31 @@ namespace AccountingStudentData.BoxWindows
                         break;
                 }
             }               
+        }
+
+        private void MnItDelStudent_Click(object sender, RoutedEventArgs e)
+        {
+            if (GridBaseStudent.SelectedIndex != -1)
+            {
+                try
+                {
+                    using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                    {
+                        connection.Open();
+                        string ID;
+                        DataRowView drv = GridBaseStudent.SelectedItem as DataRowView;
+                        ID = drv["IDSt"].ToString();
+                        string query = $@"Update Students SET IsDelet = 1 WHERE ID = '{ID}'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        cmd.ExecuteNonQuery();
+                        LoadBase();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }                
+            }
         }
     }
 }
