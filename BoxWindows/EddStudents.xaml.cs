@@ -178,7 +178,7 @@ namespace AccountingStudentData.BoxWindows
                         var Work = (UIElement)FindName("WorkOtved" + i);
                         var WorkDol = (UIElement)FindName("WorkDolOtved" + i);
                         string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Phone1,Phone2,PassportVID,PassportVidan,PassportNumber,PassportSeria,PassportData,
-                        PassportCountry,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  ";
+                        PassportCountry,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}' and IDStudent = {IDSt} ";
                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);                      
                         cmd.ExecuteNonQuery();
                         SQLiteDataReader dr = null;
@@ -585,26 +585,27 @@ namespace AccountingStudentData.BoxWindows
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
                                     string query = $@"UPDATE  Students Set Surname='{SurnameSt.Text}',Name = '{NameSt.Text}',MidleName= '{MideleNameSt.Text}', Phone1= '{PhoneSt1.Text}', Phone2= '{PhoneSt2.Text}', SNILS = '{SNILSSt.Text}', OMS= '{OMSSt.Text}', 
                                     Adress= '{AdressSt.Text}', PassportVid= '{PasportSt.Text}', PassportVidan= '{VudanPasportSt.Text.ToUpper()}', PassportNumber= '{NumberPasportSt.Text}', PassportSeria= '{SeriaPasportSt.Text}',
-                                    PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}',IDMum= @IDMum, IDDad= @IDDad, IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz = '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora,
-                                    NumberzatechBook = '{TxtNumberzatechBook.Text}',NumberPrigazKyrs1 = '{NumberPrigazKyrs1.Text}' ,DataСreditedKyrs1 ='{DataСreditedKyrs1.Text}' ,NumberPrigazKyrs2 = '{NumberPrigazKyrs2.Text}',DataСreditedKyrs2 = '{DataСreditedKyrs1.Text}',NumberPrigazKyrs3 = '{NumberPrigazKyrs3.Text}',DataСreditedKyrs3= '{DataСreditedKyrs1.Text}',NumberPrigazKyrs4= '{NumberPrigazKyrs1.Text}',DataСreditedKyrs4 = '{DataСreditedKyrs1.Text}', MestoBirthday = '{AdressStBirht.Text}'";
+                                    PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}', IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz = '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora,
+                                    NumberzatechBook = '{TxtNumberzatechBook.Text}',NumberPrigazKyrs1 = '{NumberPrigazKyrs1.Text}' ,DataСreditedKyrs1 ='{DataСreditedKyrs1.Text}' ,NumberPrigazKyrs2 = '{NumberPrigazKyrs2.Text}',DataСreditedKyrs2 = '{DataСreditedKyrs1.Text}',NumberPrigazKyrs3 = '{NumberPrigazKyrs3.Text}',DataСreditedKyrs3= '{DataСreditedKyrs1.Text}',NumberPrigazKyrs4= '{NumberPrigazKyrs1.Text}',DataСreditedKyrs4 = '{DataСreditedKyrs1.Text}', MestoBirthday = '{AdressStBirht.Text}'
+                                    where ID = {IDSt} ";
                                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
                                     byte[] bytes = null;
-                                    if (IDMum == "" || IDMum == null)
-                                    {
-                                        cmd.Parameters.AddWithValue("@IDMum", null);
-                                    }
-                                    else
-                                    {
-                                        cmd.Parameters.AddWithValue("@IDMum", IDMum);
-                                    }
-                                    if (IDDad == "" || IDDad == null)
-                                    {
-                                        cmd.Parameters.AddWithValue("@IDDad", null);
-                                    }
-                                    else
-                                    {
-                                        cmd.Parameters.AddWithValue("@IDDad", IDDad);
-                                    }
+                                    //if (IDMum == "" || IDMum == null)
+                                    //{
+                                    //    cmd.Parameters.AddWithValue("@IDMum", null);
+                                    //}
+                                    //else
+                                    //{
+                                    //    cmd.Parameters.AddWithValue("@IDMum", IDMum);
+                                    //}
+                                    //if (IDDad == "" || IDDad == null)
+                                    //{
+                                    //    cmd.Parameters.AddWithValue("@IDDad", null);
+                                    //}
+                                    //else
+                                    //{
+                                    //    cmd.Parameters.AddWithValue("@IDDad", IDDad);
+                                    //}
                                     if (image_bytes == null)
                                     {
                                         bytes = File.ReadAllBytes("Foto/notfoto.jpg");

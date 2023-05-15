@@ -59,7 +59,7 @@ namespace AccountingStudentData.BoxWindows
                      SELECT  Users.ID,Users.Login, Users.Password,Users.Surname,Users.Name,Users.MidleName,Users.DataRegist, StatusUsers.NameStatus, AllowanceUsers.Allowance  FROM Users
                                LEFT JOIN StatusUsers on Users.IDStatus = StatusUsers.ID
 							   LEFT JOIN AllowanceUsers on Users.IDAllowance = AllowanceUsers.ID			
-                    where Users.IsDelet = 0 
+                    where Users.IsDelet = 0  and Users.ID != '{Saver.IDUser}'
                     ORDER BY Login";
                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
                     DataTable DT = new DataTable("Users");
@@ -86,10 +86,10 @@ namespace AccountingStudentData.BoxWindows
            
         }
 
-        private void MnItAddStudent_Click(object sender, RoutedEventArgs e)
+        private void MnItAddUser_Click(object sender, RoutedEventArgs e)
         {
 
-            AddStudents addst = new AddStudents();
+            RegistrUser addst = new RegistrUser();
             bool? result = addst.ShowDialog();
             switch (result)
             {
@@ -98,12 +98,12 @@ namespace AccountingStudentData.BoxWindows
                     break;
             }
         }
-        public void EdditStudent()
+        public void EdditUser()
         {
             if (GridBaseStudent.SelectedIndex != -1)
             {
                 //LoadBase();
-                EddStudents eddst = new EddStudents((DataRowView)GridBaseStudent.SelectedItem);
+                EdditUser eddst = new EdditUser((DataRowView)GridBaseStudent.SelectedItem);
                 eddst.Owner = this;
                 bool? result = eddst.ShowDialog();
                 switch (result)
@@ -121,12 +121,12 @@ namespace AccountingStudentData.BoxWindows
 
         private void GridBaseStudent_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            EdditStudent();
+            EdditUser();
         }
 
-        private void MnItEddStudent_Click(object sender, RoutedEventArgs e)
+        private void MnItEddUser_Click(object sender, RoutedEventArgs e)
         {
-            EdditStudent();
+            EdditUser();
         }
 
         private void MnItAddComponet_Click(object sender, RoutedEventArgs e)
@@ -186,13 +186,13 @@ namespace AccountingStudentData.BoxWindows
                 myRang2.Font.Name = "Times New Roman";
                 myRang2.Font.Bold = true;
                 myRang2.Cells.Font.Size = 16;
-                Excel.Range myRang3 = sheet1.get_Range("D1", "F1");
-                myRang3.Value = "Руководитель";
-                myRang3.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                myRang3.HorizontalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                myRang3.Merge(Type.Missing);
-                myRang3.Font.Name = "Times New Roman";
-                myRang3.Cells.Font.Size = 14;
+                //Excel.Range myRang3 = sheet1.get_Range("D1", "F1");
+                //myRang3.Value = "Руководитель";
+                //myRang3.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //myRang3.HorizontalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //myRang3.Merge(Type.Missing);
+                //myRang3.Font.Name = "Times New Roman";
+                //myRang3.Cells.Font.Size = 14;
                 using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                 {
                     connection.Open();
@@ -324,155 +324,11 @@ namespace AccountingStudentData.BoxWindows
         private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             SerchInfo();
-        }
-
-        public void KartochkaYchetSt()
-        {
-            try
-            {
-                if (GridBaseStudent.SelectedIndex != -1)
-                {
-                    Microsoft.Office.Interop.Word.Document doc = null;
-                    Word._Application oWord = new Word.Application();
-                    DataRowView drv = (DataRowView)GridBaseStudent.SelectedItem;
-                    Microsoft.Office.Interop.Word.Application app = new Word.Application();
-                    // Путь до шаблона документа
-                    string source = System.IO.Path.Combine(Environment.CurrentDirectory, "Учётная карточка студента.doc");
-                    // Открываем
-                    doc = app.Documents.Open(source);
-                    doc.Activate();
-                    doc.Bookmarks["Surname"].Range.Text = drv["SurnameSt"].ToString();
-                    doc.Bookmarks["Name"].Range.Text = drv["NameSt"].ToString();
-                    doc.Bookmarks["FirstName"].Range.Text = drv["MidleNameSt"].ToString();
-                    doc.Bookmarks["Birthday"].Range.Text = drv["DataBirthSt"].ToString();
-                    doc.Bookmarks["Group"].Range.Text = drv["GroupSt"].ToString();
-                    doc.Bookmarks["KodSpecial"].Range.Text = drv["NumberSpecualSt"].ToString();
-                    doc.Bookmarks["NameSpecial"].Range.Text = drv["NameSpecial"].ToString();
-                    doc.Bookmarks["NamePrikazePost"].Range.Text = drv["NumberPrikazSt"].ToString();
-                    doc.Bookmarks["EndDate"].Range.Text = drv["DataOkon"].ToString();
-                    doc.Bookmarks["Adress"].Range.Text = drv["AdressSt"].ToString();
-                    doc.Bookmarks["RegistrAdress"].Range.Text = drv["AdressSt"].ToString(); 
-                    doc.Bookmarks["MumSt"].Range.Text = drv["SurnameMum"].ToString() + " " + drv["NameMum"].ToString() + " " + drv["MidleNameMum"].ToString();
-                    doc.Bookmarks["WorkMum"].Range.Text = drv["WorkMum"].ToString() + " " + drv["WorkDolMum"].ToString();
-                    doc.Bookmarks["DadSt"].Range.Text = drv["SurnameDad"].ToString() + " " + drv["NameDad"].ToString() + " " + drv["MidleNameDad"].ToString();
-                    doc.Bookmarks["WorkDad"].Range.Text = drv["WorkDad"].ToString() + " " + drv["WorkDolDad"].ToString();
-                    string txtSurnKlss = drv["SurnamePyk"].ToString();
-                    char chr = txtSurnKlss[0];
-                    doc.Bookmarks["SurnameKlass"].Range.Text = chr.ToString();
-                    string txtnameKlss = drv["NamePyk"].ToString();
-                    char chr1 = txtnameKlss[0];
-                    doc.Bookmarks["NameKlass"].Range.Text = chr1.ToString();
-                    doc.Bookmarks["FirstNameKlass"].Range.Text = drv["MidleNamePyk"].ToString();
-                    doc.Bookmarks["DateNow"].Range.Text = DateTime.Now.ToString("D");
-                    string DirectoryFale = System.IO.Path.GetDirectoryName(source);
-                    doc.SaveAs($@"{DirectoryFale}\{drv["SurnameSt"]}{drv["NameSt"]}{drv["MidleNameSt"]}");
-                    doc.Close();
-                    doc = null;
-                    app.Quit();
-                    MessageBox.Show($@"Отчет сформулирован и находится в {DirectoryFale}");
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        //public void KartochkaLichSt()
-        //{
-        //    Microsoft.Office.Interop.Word.Document doc = null;
-        //    Word._Application oWord = new Word.Application();
-        //    try
-        //    {
-        //        if (GridBaseStudent.SelectedIndex != -1)
-        //        {
-        //            DataRowView drv = (DataRowView)GridBaseStudent.SelectedItem;
-        //            // Создаём объект приложения
-        //            Microsoft.Office.Interop.Word.Application app = new Word.Application();
-        //            // Путь до шаблона документа
-        //            // string source = @"/AccountingStudent/Test.docx";
-        //            string source = System.IO.Path.Combine(Environment.CurrentDirectory, "Личная карточка студента  NEW.docx");
-        //            // Открываем
-        //            doc = app.Documents.Open(source);
-        //            doc.Activate();
-        //            //Заполение данных
-        //            byte[] image_bytes = (byte[])drv["FotoSt"];
-        //            BitmapImage img = new BitmapImage();
-        //            img.BeginInit();
-        //            img.CreateOptions = BitmapCreateOptions.None;
-        //            img.CacheOption = BitmapCacheOption.Default;
-        //            img.DecodePixelWidth = 600;
-        //            img.DecodePixelHeight = 750;
-        //            img.StreamSource = new MemoryStream(image_bytes);
-        //            img.EndInit();
-        //            Clipboard.SetImage(img);
-        //            doc.Bookmarks.get_Item("Foto").Range.Paste();
-        //            doc.Bookmarks["NumberZatetku"].Range.Text = drv["NumberZatechBook"].ToString();
-        //            doc.Bookmarks["Surname"].Range.Text = drv["SurnameSt"].ToString() + " " + drv["NameSt"].ToString() + " " + drv["MidleNameSt"].ToString(); ;
-        //            doc.Bookmarks["Birthday"].Range.Text = drv["DataBirthSt"].ToString();
-        //            doc.Bookmarks["MestoBirthday"].Range.Text = "заглушка";
-        //            doc.Bookmarks["GroupSt"].Range.Text = drv["GroupSt"].ToString();
-        //            doc.Bookmarks["SpecialSt"].Range.Text = drv["NumberSpecualSt"].ToString() + " " + drv["NameSpecial"].ToString();
-        //            doc.Bookmarks["NumberPrikaz"].Range.Text = drv["NumberPrikazSt"].ToString();
-        //            doc.Bookmarks["DataPrikazwPostyplenuy"].Range.Text = drv["DataPost"].ToString();
-        //            doc.Bookmarks["FIOMum"].Range.Text = drv["SurnameMum"].ToString() + " " + drv["NameMum"].ToString() + " " + drv["MidleNameMum"].ToString();
-        //            doc.Bookmarks["MestoWorkMum"].Range.Text = drv["WorkMum"].ToString();
-        //            doc.Bookmarks["DolWorkMum"].Range.Text = drv["WorkDolMum"].ToString();
-        //            doc.Bookmarks["FIODad"].Range.Text = drv["SurnameDad"].ToString() + " " + drv["NameDad"].ToString() + " " + drv["MidleNameDad"].ToString();
-        //            doc.Bookmarks["MestoWorkDad"].Range.Text = drv["WorkDad"].ToString();
-        //            doc.Bookmarks["DolWorkDad"].Range.Text = drv["WorkDolDad"].ToString();
-        //            doc.Bookmarks["NameSchool"].Range.Text = drv["NameSchoolSt"].ToString();
-        //            doc.Bookmarks["DateEndSchool"].Range.Text = drv["DataPolecenSt"].ToString();
-        //            doc.Bookmarks["AdressSt"].Range.Text = drv["AdressSt"].ToString();
-        //            doc.Bookmarks["PhoneSt"].Range.Text = drv["Phone1St"].ToString();
-        //            doc.Bookmarks["VIDPassporta"].Range.Text = drv["PassVIDSt"].ToString();
-        //            doc.Bookmarks["SeriaPassport"].Range.Text = drv["PassSeriaSt"].ToString();
-        //            doc.Bookmarks["NumberPassport"].Range.Text = drv["PassNumSt"].ToString();
-        //            doc.Bookmarks["DatePolychPassport"].Range.Text = drv["PassDataSt"].ToString();
-        //            doc.Bookmarks["KemVudanPass"].Range.Text = drv["PassVidanSt"].ToString();
-        //            doc.Bookmarks["SNILS"].Range.Text = drv["SNILSSt"].ToString();
-        //            doc.Bookmarks["OMS"].Range.Text = drv["OMSSt"].ToString();
-        //            doc.Bookmarks["DateNow"].Range.Text = DateTime.Now.ToString("yyyy");
-        //            doc.Bookmarks["DateNow1"].Range.Text = DateTime.Now.AddYears(1).ToString("yyyy");
-        //            doc.Bookmarks["DateNow2"].Range.Text = DateTime.Now.AddYears(1).ToString("yyyy");
-        //            doc.Bookmarks["DateNow3"].Range.Text = DateTime.Now.AddYears(2).ToString("yyyy");
-        //            doc.Bookmarks["DateNow4"].Range.Text = DateTime.Now.AddYears(2).ToString("yyyy");
-        //            doc.Bookmarks["DateNow5"].Range.Text = DateTime.Now.AddYears(3).ToString("yyyy");
-        //            doc.Bookmarks["DateNow6"].Range.Text = DateTime.Now.AddYears(3).ToString("yyyy");
-        //            doc.Bookmarks["DateNow7"].Range.Text = DateTime.Now.AddYears(4).ToString("yyyy");
-        //            doc.Bookmarks["NumberPrigazKyrs1"].Range.Text = drv["NumberPrigazKyrs1"].ToString();
-        //            doc.Bookmarks["NumberPrigazKyrs2"].Range.Text = drv["NumberPrigazKyrs2"].ToString();
-        //            doc.Bookmarks["NumberPrigazKyrs3"].Range.Text = drv["NumberPrigazKyrs3"].ToString();
-        //            doc.Bookmarks["NumberPrigazKyrs4"].Range.Text = drv["NumberPrigazKyrs4"].ToString();
-        //            doc.Bookmarks["DataСreditedKyrs1"].Range.Text = drv["DataСreditedKyrs1"].ToString();
-        //            doc.Bookmarks["DataСreditedKyrs2"].Range.Text = drv["DataСreditedKyrs2"].ToString();
-        //            doc.Bookmarks["DataСreditedKyrs3"].Range.Text = drv["DataСreditedKyrs3"].ToString();
-        //            doc.Bookmarks["DataСreditedKyrs4"].Range.Text = drv["DataСreditedKyrs4"].ToString();
-        //            // Закрываем документ
-        //            string DirectoryFale = System.IO.Path.GetDirectoryName(source);
-        //            doc.SaveAs($@"{DirectoryFale}\Личная карточка студента_{drv["SurnameSt"]}_{drv["NameSt"]}_{drv["MidleNameSt"]}");
-        //            doc.Close();
-        //            doc = null;
-        //            app.Quit();
-
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        // Если произошла ошибка, то
-        //        // закрываем документ и выводим информацию
-        //        // doc.Close();
-        //        // doc = null;
-        //        Console.WriteLine("Во время выполнения произошла ошибка!");
-        //        Console.ReadLine();
-        //    }
-        //}
+        }      
 
         private void MnItYchetSt_Click(object sender, RoutedEventArgs e)
         {
-            KartochkaYchetSt();
+           
         }
 
         private void MnItLichSt_Click(object sender, RoutedEventArgs e)
@@ -491,7 +347,7 @@ namespace AccountingStudentData.BoxWindows
             }               
         }
 
-        private void MnItDelStudent_Click(object sender, RoutedEventArgs e)
+        private void MnItDelUser_Click(object sender, RoutedEventArgs e)
         {
             if (GridBaseStudent.SelectedIndex != -1)
             {
@@ -502,8 +358,8 @@ namespace AccountingStudentData.BoxWindows
                         connection.Open();
                         string ID;
                         DataRowView drv = GridBaseStudent.SelectedItem as DataRowView;
-                        ID = drv["IDSt"].ToString();
-                        string query = $@"Update Students SET IsDelet = 1 WHERE ID = '{ID}'";
+                        ID = drv["ID"].ToString();
+                        string query = $@"Update Users SET IsDelet = 1 WHERE ID = '{ID}'";
                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
                         cmd.ExecuteNonQuery();
                         LoadBase();
@@ -514,6 +370,6 @@ namespace AccountingStudentData.BoxWindows
                     MessageBox.Show(ex.ToString());
                 }                
             }
-        }
+        }      
     }
 }

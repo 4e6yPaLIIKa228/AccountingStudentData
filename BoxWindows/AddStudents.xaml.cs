@@ -302,7 +302,7 @@ namespace AccountingStudentData.BoxWindows
                                         int idmum = Convert.ToInt32(cmd.ExecuteScalar());
                                         IDMum = Convert.ToString(idmum);
                                     }*/
-                                    string IDDad = null;
+                                  //  string IDDad = null;
                                     /*if (checkBoxDad.IsChecked == true)
                                     {
                                         if (String.IsNullOrEmpty(WorkDad.Text))

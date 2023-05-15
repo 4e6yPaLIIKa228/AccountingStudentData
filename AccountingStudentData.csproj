@@ -113,6 +113,9 @@
     <Compile Include="BoxWindows\EddStudents.xaml.cs">
       <DependentUpon>EddStudents.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BoxWindows\EdditUser.xaml.cs">
+      <DependentUpon>EdditUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BoxWindows\UsersBase.xaml.cs">
       <DependentUpon>UsersBase.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
     <Page Include="BoxWindows\EddStudents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BoxWindows\EdditUser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="BoxWindows\RegistrUser.xaml">
       <SubType>Designer</SubType>

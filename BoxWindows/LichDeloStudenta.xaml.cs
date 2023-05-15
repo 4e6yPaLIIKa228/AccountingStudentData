@@ -1,7 +1,9 @@
-﻿using Microsoft.Office.Interop.Word;
+﻿using AccountingStudentData.Connection;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -77,19 +79,47 @@ namespace AccountingStudentData.BoxWindows
                 doc.Bookmarks["NumberZatetku"].Range.Text = drvnew["NumberZatechBook"].ToString();
                 doc.Bookmarks["Surname"].Range.Text = drvnew["SurnameSt"].ToString() + " " + drvnew["NameSt"].ToString() + " " + drvnew["MidleNameSt"].ToString(); ;
                 doc.Bookmarks["Birthday"].Range.Text = drvnew["DataBirthSt"].ToString();
-                doc.Bookmarks["MestoBirthday"].Range.Text = "заглушка";
+                doc.Bookmarks["MestoBirthday"].Range.Text = drvnew["MestoBirthday"].ToString(); 
                 doc.Bookmarks["GroupSt"].Range.Text = drvnew["GroupSt"].ToString();
                 doc.Bookmarks["SpecialSt"].Range.Text = drvnew["NumberSpecualSt"].ToString() + " " + drvnew["NameSpecial"].ToString();
                 doc.Bookmarks["NumberPrikaz"].Range.Text = drvnew["NumberPrikazSt"].ToString();
                 doc.Bookmarks["DataPrikazwPostyplenuy"].Range.Text = drvnew["DataPost"].ToString();
-                doc.Bookmarks["FIOMum"].Range.Text = drvnew["SurnameMum"].ToString() + " " + drvnew["NameMum"].ToString() + " " + drvnew["MidleNameMum"].ToString();
-                doc.Bookmarks["MestoWorkMum"].Range.Text = drvnew["WorkMum"].ToString();
-                doc.Bookmarks["DolWorkMum"].Range.Text = drvnew["WorkDolMum"].ToString();
-                doc.Bookmarks["FIODad"].Range.Text = drvnew["SurnameDad"].ToString() + " " + drvnew["NameDad"].ToString() + " " + drvnew["MidleNameDad"].ToString();
-                doc.Bookmarks["MestoWorkDad"].Range.Text = drvnew["WorkDad"].ToString();
-                doc.Bookmarks["DolWorkDad"].Range.Text = drvnew["WorkDolDad"].ToString();
-                doc.Bookmarks["NameSchool"].Range.Text = drvnew["NameSchoolSt"].ToString();
-                doc.Bookmarks["DateEndSchool"].Range.Text = drvnew["DataPolecenSt"].ToString();
+                using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                {
+                    connection.Open();
+                    string pr = "0";
+                    string IDSt = "0";
+                    IDSt = drvnew["IDSt"].ToString();
+                    for (int i = 1; i <= 4; i++)
+                    {
+                        var Surname = (UIElement)FindName("SurnameOtved" + i);
+                        var Name = (UIElement)FindName("NameOtved" + i);
+                        var MidleName = (UIElement)FindName("MideleNameOtved" + i);
+                        var Pod = (UIElement)FindName("CmbRodOtved" + i);
+                        string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and {IDSt} ";
+                        SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
+                        cmd.ExecuteNonQuery();
+                        SQLiteDataReader dr = null;
+                        dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            pr = dr["ID"].ToString();
+                            doc.Bookmarks[$@"NameOtved{i}"].Range.Text = dr["Pod"].ToString() + ": " +
+                            dr["Surname"].ToString() + " " + dr["Name"].ToString() + " " + dr["MidleName"].ToString()
+                            + "\n" + "Место работы: " + dr["Work"].ToString() + "\n" + "Должность: " + dr["WorkDol"].ToString();
+                            break;
+                        }
+                    }
+
+                }
+                    //doc.Bookmarks["FIOMum"].Range.Text = drvnew["SurnameMum"].ToString() + " " + drvnew["NameMum"].ToString() + " " + drvnew["MidleNameMum"].ToString();
+                    // doc.Bookmarks["MestoWorkMum"].Range.Text = drvnew["WorkMum"].ToString();
+                    // doc.Bookmarks["DolWorkMum"].Range.Text = drvnew["WorkDolMum"].ToString();
+                    //doc.Bookmarks["FIODad"].Range.Text = drvnew["SurnameDad"].ToString() + " " + drvnew["NameDad"].ToString() + " " + drvnew["MidleNameDad"].ToString();
+                    //doc.Bookmarks["MestoWorkDad"].Range.Text = drvnew["WorkDad"].ToString();
+                    //doc.Bookmarks["DolWorkDad"].Range.Text = drvnew["WorkDolDad"].ToString();
+                    // doc.Bookmarks["NameSchool"].Range.Text = drvnew["NameSchoolSt"].ToString();
+                    doc.Bookmarks["DateEndSchool"].Range.Text = drvnew["DataPolecenSt"].ToString();
                 doc.Bookmarks["AdressSt"].Range.Text = drvnew["AdressSt"].ToString();
                 doc.Bookmarks["PhoneSt"].Range.Text = drvnew["Phone1St"].ToString();
                 doc.Bookmarks["VIDPassporta"].Range.Text = drvnew["PassVIDSt"].ToString();

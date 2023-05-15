@@ -14,7 +14,7 @@
         
         Title="StudentBase" Height="680" Width="1450"  AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Times New Roman" FontSize="18">
     <Window.Resources>
-        <converter:TextConverter x:Key="TextOneCumvl"/>
+       
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -45,7 +45,7 @@
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Image  Source="/Foto/team.png"  Width="30" Height="30"  />
-                                    <ContentPresenter Margin="10,0,0,0" Content="Список пользователей" VerticalAlignment="Center" />
+                                    <ContentPresenter Margin="10,0,0,0" Content="Список cтудентов" VerticalAlignment="Center" />
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
@@ -77,10 +77,10 @@
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Image  Source="/Foto/student.png"  Width="30" Height="30"  />
-                                    <ContentPresenter Margin="10,0,0,0" Content="Студент" VerticalAlignment="Center" />
+                                    <ContentPresenter Margin="10,0,0,0" Content="Пользоваетль" VerticalAlignment="Center" />
                                 </StackPanel>
                             </MenuItem.Header>
-                            <MenuItem x:Name="MnItAddStudent" Click="MnItAddStudent_Click">
+                            <MenuItem x:Name="MnItAddUser" Click="MnItAddUser_Click">
                                 <MenuItem.Header>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                                         <Image x:Name="ImgAddstudent"  Source="/Foto/adduser.png"  Width="30" Height="30" Margin="-4,0,0,0"   />
@@ -88,7 +88,7 @@
                                     </StackPanel>
                                 </MenuItem.Header>
                             </MenuItem>
-                            <MenuItem x:Name="MnItEddStudent" Click="MnItEddStudent_Click" >
+                            <MenuItem x:Name="MnItEddUser" Click="MnItEddUser_Click" >
                                 <MenuItem.Header>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  >
                                         <Image  Source="/Foto/edit.png"  Width="30" Height="30"  />
@@ -96,7 +96,7 @@
                                     </StackPanel>
                                 </MenuItem.Header>
                             </MenuItem>
-                            <MenuItem x:Name="MnItDelStudent" Click="MnItDelStudent_Click"> 
+                            <MenuItem x:Name="MnItDelUser" Click="MnItDelUser_Click"> 
                                 <MenuItem.Header>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <Image  Source="/Foto/deleteuser.png"  Width="30" Height="30"  />
@@ -105,7 +105,7 @@
                                 </MenuItem.Header>
                             </MenuItem>
                         </MenuItem>
-                        <MenuItem>
+                        <!--<MenuItem>
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Image  Source="/Foto/settings.png"  Width="30" Height="30"  />
@@ -128,7 +128,7 @@
                                     </StackPanel>
                                 </MenuItem.Header>
                             </MenuItem>
-                        </MenuItem>
+                        </MenuItem>-->
                     </MenuItem>
                     <MenuItem>
                         <MenuItem.Header>
@@ -145,7 +145,7 @@
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
-                        <MenuItem x:Name="MnItYchetSt" Click="MnItYchetSt_Click" >
+                        <!--<MenuItem x:Name="MnItYchetSt" Click="MnItYchetSt_Click" >
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Image Width="30" Height="30" Source="/Foto/doc.png" />
@@ -160,7 +160,7 @@
                                     <ContentPresenter Margin="14,0,0,0" Content="Личная карточка" VerticalAlignment="Center" />
                                 </StackPanel>
                             </MenuItem.Header>
-                        </MenuItem>
+                        </MenuItem>-->
                     </MenuItem>
                     <MenuItem >
                         <MenuItem.Header>
@@ -176,7 +176,7 @@
         <Grid Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="1" Margin="5,0,5,5">
             <DataGrid  IsReadOnly="True" ColumnWidth="*" ScrollViewer.CanContentScroll="True" FontFamily="Times New Roman" FontSize="16"   x:Name="GridBaseStudent"  CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0"  Background="White" MouseDoubleClick="GridBaseStudent_MouseDoubleClick"   >
                 <DataGrid.Columns  >
-                    <DataGridTextColumn Header="Телефон"    Binding="{Binding Login}"/>
+                    <DataGridTextColumn Header="Логин"    Binding="{Binding Login}"/>
                     <DataGridTextColumn Header="ФИО" >
                         <DataGridTextColumn.Binding>
                             <MultiBinding StringFormat="{} {0} &#x0a; {1} &#x0a; {2}">
@@ -224,7 +224,7 @@
                 <TextBlock Text="Version 0.1 "/>                
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  >
-                <TextBlock Text="Список студентов" FontSize="20" />
+                <TextBlock Text="Список пользователей" FontSize="20" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
                 <Menu>

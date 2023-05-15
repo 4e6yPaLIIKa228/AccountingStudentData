@@ -73,7 +73,7 @@ namespace AccountingStudentData.BoxWindows
                     LEFT JOIN Polls on Students.IDPoll = Polls.ID
                     LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
                     LEFT JOIN Groups on Students.IDGrop = Groups.ID
-                    LEFT JOIN Users on Students.IDPyku = Users.ID					
+                    LEFT JOIN Users on Students.IDPyku = Users.ID
                     where Students.IsDelet = 0 
                     ORDER BY SurnameSt";
                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
@@ -529,6 +529,14 @@ namespace AccountingStudentData.BoxWindows
                     MessageBox.Show(ex.ToString());
                 }                
             }
+        }
+
+        private void MnItExitUser_Click(object sender, RoutedEventArgs e)
+        {
+            Authorization eddst = new Authorization();
+            eddst.Show();
+            this.Close();
+           Saver.IDUser = "0";
         }
     }
 }
