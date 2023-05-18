@@ -688,8 +688,9 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,5">
                 <Button x:Name="BtnBack" Content="Назад"  Margin="0,0,5,0" Click="BtnBack_Click"/>
-                <Button Name="BtnAdd" Click="BtnAdd_Click" Content="Изменить" Margin="0,0,3,0" />
+                <Button Name="BtnAdd" Click="BtnAdd_Click" Content="Изменить" Margin="0,0,3,0" />               
             </StackPanel>
+            <Button Name="BtnArxiv" Click="BtnArxiv_Click" Content="В Архив" Margin="0,-0,5,45"  HorizontalAlignment="Right"  Grid.Column="1" VerticalAlignment="Bottom"/>
         </Grid>
 
     </Grid>

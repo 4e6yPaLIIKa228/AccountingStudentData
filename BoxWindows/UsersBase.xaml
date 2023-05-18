@@ -12,7 +12,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"     
         
-        Title="StudentBase" Height="680" Width="1450"  AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Times New Roman" FontSize="18">
+        Title="StudentBase" Height="680" Width="1450"  AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Times New Roman" FontSize="18" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.Resources>
        
     </Window.Resources>
@@ -231,6 +231,11 @@
                     <MenuItem Height="40" Width="48"  Click="MenuItem_Click" >
                         <MenuItem.Icon>
                             <Image Source="\Foto\minimize.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Height="40" Width="48"  x:Name="MnItSize" Click="MnItSize_Click" >
+                        <MenuItem.Icon>
+                            <Image Source="\Foto\expand.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Height="40" Width="48"  x:Name="MnItClose" Click="MnItClose_Click" >

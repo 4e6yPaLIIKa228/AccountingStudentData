@@ -215,6 +215,9 @@
     <Content Include="Foto\doc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Foto\expand.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Учётная карточка студента.doc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

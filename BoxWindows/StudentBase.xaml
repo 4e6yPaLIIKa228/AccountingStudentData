@@ -12,7 +12,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"     
         
-        Title="StudentBase" Height="680" Width="1450"  AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Times New Roman" FontSize="18">
+        Title="StudentBase" Height="680" Width="1450"  AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Times New Roman" FontSize="18" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.Resources>
         <converter:TextConverter x:Key="TextOneCumvl"/>
     </Window.Resources>
@@ -41,7 +41,7 @@
                                 <ContentPresenter Content="Окна"  />
                             </StackPanel>
                         </MenuItem.Header>
-                        <MenuItem>
+                        <MenuItem x:Name="MnItListUsers" Click="MnItListUsers_Click" Visibility="Collapsed" >
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Image  Source="/Foto/team.png"  Width="30" Height="30"  />
@@ -96,7 +96,7 @@
                                     </StackPanel>
                                 </MenuItem.Header>
                             </MenuItem>
-                            <MenuItem x:Name="MnItDelStudent" Click="MnItDelStudent_Click"> 
+                            <MenuItem x:Name="MnItDelStudent" Click="MnItDelStudent_Click">
                                 <MenuItem.Header>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <Image  Source="/Foto/deleteuser.png"  Width="30" Height="30"  />
@@ -162,7 +162,7 @@
                             </MenuItem.Header>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem >
+                    <MenuItem  x:Name="MnItUpdate" Click="MnItUpdate_Click" >
                         <MenuItem.Header>
                             <StackPanel>
                                 <Image Width="30" Height="30" Source="/Foto/refresh.png" />
@@ -191,15 +191,14 @@
                                 <Binding Path="SurnamePyk"   />
                                 <Binding Path="NamePyk" />
                                 <Binding Path="MidleNamePyk"/>
-                                <!--Converter="{StaticResource TextOneCumvl}" ConverterParameter="1"-->
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Пол"   Binding="{Binding PollSt, Converter={StaticResource TextOneCumvl}, ConverterParameter=1}" />
-                    <DataGridTextColumn Header="Телефон"    Binding="{Binding Phone1St}"/>                
+                    <DataGridTextColumn Header="Телефон"    Binding="{Binding Phone1St}"/>
                     <DataGridTextColumn Header="После"   Width="auto"  Binding="{Binding KlassSt}"/>
                     <DataGridTextColumn Header="Код &#x0a;специальности" Width="auto" Binding="{Binding NumberSpecualSt}" />
-                    <DataGridTextColumn Header="Группа" Width="auto" Binding="{Binding GroupSt}" />                   
+                    <DataGridTextColumn Header="Группа" Width="auto" Binding="{Binding GroupSt}" />
                     <DataGridTextColumn Header="Дата &#x0a;зачисления" Width="auto" Binding="{Binding DataPost}" />
                     <DataGridTextColumn Header="Дата &#x0a;окончания" Width="auto" Binding="{Binding DataOkon}" />
                     <DataGridTextColumn Header="Номер &#x0a;приказа" Width="auto" Binding="{Binding NumberPrikazSt}" />
@@ -218,19 +217,14 @@
             <StackPanel Grid.Row= "0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" >
                 <DockPanel  LastChildFill="True">
                     <ComboBox x:Name="CombSearchInfo" Width="290" FontFamily="Times New Roman" FontSize="14" Height="52" Margin="10,0,0,2" VerticalAlignment="Bottom" MaxDropDownHeight="100"  Style="{StaticResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Критерий">
-                        <TextBlock>Фамилия</TextBlock>
-                        <TextBlock>Имя</TextBlock>
-                        <TextBlock>Отчество</TextBlock>
-                        <TextBlock>Пол</TextBlock>
-                        <TextBlock>Телефон</TextBlock>
-                        <TextBlock>Пришел после</TextBlock>
+                        <TextBlock>Фамилия Ст</TextBlock>
+                        <TextBlock>Имя Ст</TextBlock>
+                        <TextBlock>Отчество Ст</TextBlock>
                         <TextBlock>Код специальности</TextBlock>
                         <TextBlock>Группа</TextBlock>
-                        <TextBlock>Руководитель</TextBlock>
-                        <TextBlock>Дата зачисления</TextBlock>
-                        <TextBlock>Дата окончания</TextBlock>
-                        <TextBlock>Номер приказа</TextBlock>
-                        <TextBlock>Номер договора</TextBlock>                       
+                        <TextBlock>Фамилия Рук</TextBlock>
+                        <TextBlock>Имя Рук</TextBlock>
+                        <TextBlock>Отчество Рук</TextBlock>
                     </ComboBox>
                     <TextBox x:Name="TxtSearch" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontFamily="Times New Roman" FontSize="14" VerticalAlignment="Bottom" TextWrapping="Wrap"    Width="290" Height="52"  materialDesign:HintAssist.Hint="Поиск" Margin="5,0,0,2" TextChanged="TxtSearch_TextChanged" />
                 </DockPanel>
@@ -240,19 +234,24 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
-            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" >
-                <TextBlock Text="Version 0.1 "/>                
+            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,12,0,0" Height="21" Width="86" >
+                <TextBlock Text="Version 0.1 "/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  >
+            <StackPanel Orientation="Horizontal"  Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="22" Width="152"  >
                 <TextBlock Text="Список студентов" FontSize="20" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" Height="38">
                 <Menu>
                     <MenuItem Height="40" Width="48"  Click="MenuItem_Click" >
                         <MenuItem.Icon>
                             <Image Source="\Foto\minimize.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Height="40" Width="48"  x:Name="MnItSize" Click="MnItSize_Click" >
+                        <MenuItem.Icon>
+                            <Image Source="\Foto\expand.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Height="40" Width="48"  x:Name="MnItClose" Click="MnItClose_Click" >

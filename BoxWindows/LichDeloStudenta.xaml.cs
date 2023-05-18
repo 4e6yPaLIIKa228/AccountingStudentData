@@ -31,7 +31,7 @@ namespace AccountingStudentData.BoxWindows
         int count1 = 1;
         string[,] celltable = new string[,]
              {
-                    { "Наименование предмета,модуля", "Вид испытания", "№", "Часы", "Оценка", "Дата сдачи", "1" },
+                    { "Наименование предмета, модуля", "Вид испытания", "№", "Часы", "Оценка", "Дата сдачи", "1" },
                     { "Русский", "Зачет", "", "51", "", "", "0" },
                     { "Литература", "Зачет", "", "51", "", "", "0" },
                     { "Иностранный язык", "Зачет", "", "34", "", "", "0" },
@@ -112,14 +112,7 @@ namespace AccountingStudentData.BoxWindows
                     }
 
                 }
-                    //doc.Bookmarks["FIOMum"].Range.Text = drvnew["SurnameMum"].ToString() + " " + drvnew["NameMum"].ToString() + " " + drvnew["MidleNameMum"].ToString();
-                    // doc.Bookmarks["MestoWorkMum"].Range.Text = drvnew["WorkMum"].ToString();
-                    // doc.Bookmarks["DolWorkMum"].Range.Text = drvnew["WorkDolMum"].ToString();
-                    //doc.Bookmarks["FIODad"].Range.Text = drvnew["SurnameDad"].ToString() + " " + drvnew["NameDad"].ToString() + " " + drvnew["MidleNameDad"].ToString();
-                    //doc.Bookmarks["MestoWorkDad"].Range.Text = drvnew["WorkDad"].ToString();
-                    //doc.Bookmarks["DolWorkDad"].Range.Text = drvnew["WorkDolDad"].ToString();
-                    // doc.Bookmarks["NameSchool"].Range.Text = drvnew["NameSchoolSt"].ToString();
-                    doc.Bookmarks["DateEndSchool"].Range.Text = drvnew["DataPolecenSt"].ToString();
+                doc.Bookmarks["DateEndSchool"].Range.Text = drvnew["DataPolecenSt"].ToString();
                 doc.Bookmarks["AdressSt"].Range.Text = drvnew["AdressSt"].ToString();
                 doc.Bookmarks["PhoneSt"].Range.Text = drvnew["Phone1St"].ToString();
                 doc.Bookmarks["VIDPassporta"].Range.Text = drvnew["PassVIDSt"].ToString();
@@ -213,7 +206,7 @@ namespace AccountingStudentData.BoxWindows
 
                 // Закрываем документ
                 string DirectoryFale = System.IO.Path.GetDirectoryName(source);
-                doc.SaveAs($@"{DirectoryFale}\Личная карточка студента_{drvnew["SurnameSt"]}_{drvnew["NameSt"]}_{drvnew["MidleNameSt"]}");
+                doc.SaveAs($@"{DirectoryFale}\Личная карточка студента_{drvnew["SurnameSt"]} {drvnew["NameSt"]} {drvnew["MidleNameSt"]}");
                 doc.Close();
                 doc = null;
                 app.Quit();
@@ -221,13 +214,7 @@ namespace AccountingStudentData.BoxWindows
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                // Если произошла ошибка, то
-                // закрываем документ и выводим информацию
-                // doc.Close();
-                // doc = null;
-                //Console.WriteLine("Во время выполнения произошла ошибка!");
-                //Console.ReadLine();
+                MessageBox.Show(ex.Message);               
             }
         }
 

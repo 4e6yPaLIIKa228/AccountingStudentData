@@ -25,7 +25,7 @@ namespace AccountingStudentData.BoxWindows
     public partial class EdditUser : Window
     {
         string IDUser = null, OldLogin = null;
-        int CheckeLogin = 0, IDProverka = 0;
+
         public EdditUser(DataRowView drv)
         {
             InitializeComponent();
@@ -34,8 +34,6 @@ namespace AccountingStudentData.BoxWindows
             OldLogin = drv["Login"].ToString();
             TextBoxLogin.Text = drv["Login"].ToString();
             PassBox.Password = drv["Password"].ToString();
-            //  var Pass = SimpleComand.GetHash(PassBox.Password);
-            //  PassBox.Password = Convert.ToString(Pass);
             CombAllowance.Text = drv["Allowance"].ToString();
             CombStatus.Text = drv["NameStatus"].ToString();
             TextFamili.Text = drv["Surname"].ToString();

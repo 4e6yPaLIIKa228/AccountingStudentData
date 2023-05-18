@@ -27,7 +27,7 @@ namespace AccountingStudentData.BoxWindows
     /// </summary>
     public partial class AddStudents : Window
     {
-        int CheckDad = 0, CheckMum = 0,Proverka1 = 0;
+        int Proverka1 = 0;
         byte[] image_bytes = null;
         public AddStudents()
         {
@@ -142,99 +142,7 @@ namespace AccountingStudentData.BoxWindows
                     }
                     else if (NumberAtestat.Text.Length == 14 && OMSSt.Text.Length == 16 && PhoneSt1.Text.Length == 11 && PhoneSt1.Text.Length == 11)
                     {
-                       /*
-                        if (checkBoxDad.IsChecked == true)
-                        {
-                            if (String.IsNullOrEmpty(SurnameDad.Text) || String.IsNullOrEmpty(NameDad.Text) || String.IsNullOrEmpty(PhoneDad.Text) || String.IsNullOrEmpty(PasportDad.Text) ||
-                               String.IsNullOrEmpty(NumberPasportDad.Text) || String.IsNullOrEmpty(SeriaPasportDad.Text) || String.IsNullOrEmpty(VudanPasportDad.Text)
-                               || String.IsNullOrEmpty(GrStudentDad.Text) || String.IsNullOrEmpty(DtpPasportDad.Text))
-                            {
-                                MessageBox.Show("Заполните информацию в данных родитель(Отец)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckDad = 1;
-                                // Proverka1 = 1;
-                            }
-                            else if (PhoneDad.Text.Length != 11)
-                            {
-                                MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckDad = 1;
-                                // Proverka1 = 1;
-                            }
-                            else if (PhoneDad2.Text.Length != 11 && PhoneDad2.Text != string.Empty)
-                            {
-                                MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckDad = 1;
-                                // Proverka1 = 1;
-                            }
-                            else if (NumberPasportDad.Text.Length != 6)
-                            {
-                                MessageBox.Show("В номере паспорта должно быть 6 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckDad = 1;
-                                //  Proverka1 = 1;
-                            }
-                            else if (SeriaPasportDad.Text.Length != 4)
-                            {
-                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckDad = 1;
-                                // Proverka1 = 1;
-                            }
-                            else if (PhoneDad.Text.Length == 11 && NumberPasportDad.Text.Length == 6 && SeriaPasportDad.Text.Length == 4)
-                            {
-                                CheckDad = 0;
-                            }
-
-                        }
-                        if (checkBoxMum.IsChecked == true)
-                        {
-                            if (String.IsNullOrEmpty(SurnameMum.Text) || String.IsNullOrEmpty(NameMum.Text) || String.IsNullOrEmpty(PhoneMum.Text) || String.IsNullOrEmpty(PasportMum.Text) ||
-                              String.IsNullOrEmpty(NumberPasportMum.Text) || String.IsNullOrEmpty(SeriaPasportMum.Text) || String.IsNullOrEmpty(VudanPasportMum.Text) || String.IsNullOrEmpty(DtpPasportMum.Text)
-                              || String.IsNullOrEmpty(GrStudentMum.Text))
-                            {
-                                MessageBox.Show("Заполните информацию в данных родитель(Мать)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckMum = 1;
-                                // Proverka1 = 1;
-                            }
-                            else if (PhoneMum.Text.Length != 11)
-                            {
-                                MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckMum = 1;
-                                // Proverka1 = 1;
-                            }
-                            else if (PhoneMum2.Text.Length != 11 && PhoneMum2.Text != string.Empty)
-                            {
-                                MessageBox.Show("В номере телефона должно быть 11 цифр", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckMum = 1;
-                                //Proverka1 = 1;
-                            }
-                            else if (NumberPasportMum.Text.Length != 6)
-                            {
-                                MessageBox.Show("В номере паспорта должно быть 6 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckMum = 1;
-                                // Proverka1 = 1;
-                            }
-                            else if (SeriaPasportMum.Text.Length != 4)
-                            {
-                                MessageBox.Show("В серии паспорта должно быть 4 цифры", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                CheckMum = 1;
-                                //Proverka1 = 1;
-                            }
-                            else if (PhoneMum.Text.Length == 11 && NumberPasportMum.Text.Length == 6 && SeriaPasportMum.Text.Length == 4)
-                            {
-                                CheckMum = 0;
-                            }
-                        }
-                        if (checkBoxDad.IsChecked == false && checkBoxMum.IsChecked == false)
-                        {
-                            MessageBox.Show("Выберите хотябы одного родителя", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                            Proverka1 = 1;
-                        }*/
-                       /* else*/ if (CheckDad == 0 && CheckMum == 0)
-                        {
-                            Proverka1 = 0;
-                        }
-                        else
-                        {
-                            Proverka1 = 1;
-                        }
+                        Proverka1 = 1;
                     }
                 }
             }
@@ -262,69 +170,8 @@ namespace AccountingStudentData.BoxWindows
                             cmd = new SQLiteCommand(query, connection);
                             int ProverkaMedSt= Convert.ToInt32(cmd.ExecuteScalar());
                             if (ProverkaMedSt == 0)//Проверка снилса и омс у студента
-                            {
-                                int ProverkaMum = 0;
-                                int ProverkaDad = 0;
-                               /* if (checkBoxMum.IsChecked == true)
-                                {
-                                    query = $@"SELECT count () FROM MumStudents WHERE PassportSeria = '{NumberPasportMum.Text}' and PassportNumber = '{NumberPasportMum.Text}' ";
-                                    cmd = new SQLiteCommand(query, connection);
-                                    ProverkaMum = Convert.ToInt32(cmd.ExecuteScalar());
-                                }
-                                if (checkBoxDad.IsChecked == true)
-                                {
-                                    query = $@"SELECT count () FROM DadStudents WHERE PassportSeria = '{NumberPasportDad.Text}' and PassportNumber = '{SeriaPasportDad.Text}' ";
-                                    cmd = new SQLiteCommand(query, connection);
-                                    ProverkaDad = Convert.ToInt32(cmd.ExecuteScalar());
-                                }*/
-                                if (ProverkaMum == 0 && ProverkaDad == 0) //Проверка номера и серии паспорта у родителей
-                                {
-                                    string IDMum = null;
-                                  /*  if (checkBoxMum.IsChecked == true)
-                                    {
-                                        if (String.IsNullOrEmpty(WorkMum.Text))
-                                        {
-                                            WorkMum.Text = "Не рабоает";
-                                            WorkDolMum.Text = "Не рабоает";
-                                        }
-                                        if (String.IsNullOrEmpty(WorkDolMum.Text))
-                                        {
-                                            WorkDolMum.Text = "Нет данных";
-                                        }
-                                        query = $@"INSERT INTO MumStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','WorkMum','WorkDolMum')
-                                        values ('{SurnameMum.Text}','{NameMum.Text}','{MideleNameMum.Text}','{PhoneMum.Text.ToLower()}','{PhoneMum2.Text.ToLower()}','{PasportMum.Text.ToLower()}',
-                                        '{VudanPasportMum.Text.ToLower()}','{NumberPasportMum.Text.ToLower()}','{SeriaPasportMum.Text.ToLower()}','{DtpPasportMum.Text.ToLower()}','{GrStudentMum.Text.ToUpper()}','{WorkMum.Text}','{WorkDolMum.Text}')";
-                                        cmd = new SQLiteCommand(query, connection);
-                                        cmd.ExecuteScalar();
-                                        query = $@"SELECT ID FROM MumStudents WHERE Surname = '{SurnameMum.Text}' and Name = '{NameMum.Text}' and MidleName = '{MideleNameMum.Text}' and  Phone1 = '{PhoneMum.Text.ToLower()}' and Phone2 = '{PhoneMum2.Text.ToLower()}' and PassportVID = '{PasportMum.Text.ToLower()}'
-                                        and PassportVidan = '{VudanPasportMum.Text.ToLower()}' and  PassportNumber = '{NumberPasportMum.Text.ToLower()}' and  PassportSeria ='{SeriaPasportMum.Text.ToLower()}' and PassportData = '{DtpPasportMum.Text.ToLower()}' and WorkMum ='{WorkMum.Text}' and WorkDolMum ='{WorkDolMum.Text}' ";
-                                        cmd = new SQLiteCommand(query, connection);
-                                        int idmum = Convert.ToInt32(cmd.ExecuteScalar());
-                                        IDMum = Convert.ToString(idmum);
-                                    }*/
-                                  //  string IDDad = null;
-                                    /*if (checkBoxDad.IsChecked == true)
-                                    {
-                                        if (String.IsNullOrEmpty(WorkDad.Text))
-                                        {
-                                            WorkMum.Text = "Не рабоает";
-                                            WorkDolMum.Text = "Не рабоает";
-                                        }
-                                        if (String.IsNullOrEmpty(WorkDolDad.Text))
-                                        {
-                                            WorkDolMum.Text = "Нет данных";
-                                        }
-                                        query = $@"INSERT INTO DadStudents('Surname','Name','MidleName','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','WorkDad','WorkDolDad')
-                                        values ('{SurnameDad.Text}','{NameDad.Text}','{MideleNameDad.Text}','{PhoneDad.Text.ToLower()}','{PhoneDad.Text.ToLower()}','{PasportDad.Text.ToLower()}',
-                                        '{VudanPasportDad.Text.ToLower()}','{NumberPasportDad.Text.ToLower()}','{SeriaPasportDad.Text.ToLower()}','{DtpPasportDad.Text.ToLower()}','{GrStudentDad.Text.ToUpper()}','{WorkDad.Text}','{WorkDolDad.Text}')";
-                                        cmd = new SQLiteCommand(query, connection);
-                                        cmd.ExecuteScalar();
-                                        query = $@"SELECT ID FROM DadStudents WHERE Surname = '{SurnameDad.Text}' and Name = '{NameDad.Text}' and MidleName = '{MideleNameDad.Text}' and  Phone1 = '{PhoneDad.Text.ToLower()}' and Phone2 = '{PhoneDad2.Text.ToLower()}' and PassportVID = '{PasportDad.Text.ToLower()}'
-                                        and PassportVidan = '{VudanPasportDad.Text.ToLower()}' and  PassportNumber = '{NumberPasportDad.Text.ToLower()}' and  PassportSeria ='{SeriaPasportDad.Text.ToLower()}' and PassportData = '{DtpPasportDad.Text.ToLower()}' and WorkDad ='{WorkDad.Text}' and WorkDolDad ='{WorkDolDad.Text}' ";
-                                        cmd = new SQLiteCommand(query, connection);
-                                        int iddad = Convert.ToInt32(cmd.ExecuteScalar());
-                                        IDDad = Convert.ToString(iddad);
-                                    }*/
+                            {                              
+                               
                                     bool result1 = int.TryParse(Poll.SelectedValue.ToString(), out int IDPoll);
                                     bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec);
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
@@ -358,22 +205,7 @@ namespace AccountingStudentData.BoxWindows
                                     }
                                     cmd.ExecuteScalar();
                                     AddAndUpdateResosible();
-                                    MessageBox.Show("Студент добавлен", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                                }
-                                else
-                                {
-                                    if (ProverkaMum == 1)
-                                    {
-                                        MessageBox.Show("Такой номер и серия паспорта уже используется(Мать)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    }
-                                    else if (ProverkaDad ==1)
-                                    {
-                                        MessageBox.Show("Такой номер и серия паспорта уже используется(Отец)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    }else if (ProverkaMum == 1 && ProverkaDad == 1)
-                                    {
-                                        MessageBox.Show("Такой номер и серия паспорта уже используется(Мать и Отец)", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    }
-                                }
+                                    MessageBox.Show("Студент добавлен", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);                            
                             }
                             else
                             {
@@ -490,176 +322,7 @@ namespace AccountingStudentData.BoxWindows
         {
             TextBox box = (TextBox)sender;
             e.Handled = box.Text.Length > 4;
-        }
-
-        private void PhoneMaskSt1(string PhoneStudent1)
-        {
-            var newVal = PhoneStudent1;
-            PhoneStudent1 = string.Empty;
-            switch (newVal.Length)
-            {
-                case 1:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})", "+7(___)___-__-__");
-                    break;
-                case 2:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2__)___-__-__");
-                    break;
-                case 3:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2_)___-__-__");
-                    break;
-                case 4:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2)___-__-__");
-                    break;
-                case 5:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3__-__-__");
-                    break;
-                case 6:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3_-__-__");
-                    break;
-                case 7:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3-__-__");
-                    break;
-                case 8:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})", "+7($2)$3-$4_-__");
-                    break;
-                case 9:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})", "+7($2)$3-$4-__");
-                    break;
-                case 10:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})", "+7($2)$3-$4-$5_");
-                    break;
-                case 11:
-                    PhoneStudent1 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})", "+7($2)$3-$4-$5");
-                    break;
-            }
-            PhoneSt1.Text = PhoneStudent1;
-        }
-        private string ReplacenumberSt1()
-        {
-            string num = Regex.Replace(PhoneSt1.Text, @"[^0-9]", "");
-            return num;
         }       
-        private void ChangeCaretIndexSt1(string PhoneStudent1)
-        {
-            if (PhoneStudent1.Length <= 11)
-            {
-                PhoneMaskSt1(PhoneStudent1);
-            }
-            if (PhoneStudent1.Length <= 4)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent1.Length + 2;
-            }
-            else if (PhoneStudent1.Length <= 7)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent1.Length + 3;
-            }
-            else if (PhoneStudent1.Length <= 9)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent1.Length + 4;
-            }
-            else if (PhoneStudent1.Length <= 11)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent1.Length + 5;
-            }
-
-        }
-        private void TbPhone_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ChangeCaretIndexSt1(ReplacenumberSt1());
-        }
-        private void TbPhone_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            ChangeCaretIndexSt1(ReplacenumberSt1() + e.Text);
-            e.Handled = true;
-        }
-        private void TbPhone_GotFocus(object sender, RoutedEventArgs e)
-        {
-            ChangeCaretIndexSt1(ReplacenumberSt1());
-        }
-
-        private void PhoneMaskSt2(string PhoneStudent2)
-        {
-            var newVal = PhoneStudent2;
-            PhoneStudent2 = string.Empty;
-            switch (newVal.Length)
-            {
-                case 1:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})", "+7(___)___-__-__");
-                    break;
-                case 2:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2__)___-__-__");
-                    break;
-                case 3:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2_)___-__-__");
-                    break;
-                case 4:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{0,3})", "+7($2)___-__-__");
-                    break;
-                case 5:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3__-__-__");
-                    break;
-                case 6:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3_-__-__");
-                    break;
-                case 7:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})", "+7($2)$3-__-__");
-                    break;
-                case 8:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})", "+7($2)$3-$4_-__");
-                    break;
-                case 9:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})", "+7($2)$3-$4-__");
-                    break;
-                case 10:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})", "+7($2)$3-$4-$5_");
-                    break;
-                case 11:
-                    PhoneStudent2 = Regex.Replace(newVal, @"(\d{1})(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})", "+7($2)$3-$4-$5");
-                    break;
-            }
-            PhoneSt2.Text = PhoneStudent2;
-        }
-        private string ReplacenumberSt2()
-        {
-            string num = Regex.Replace(PhoneSt2.Text, @"[^0-9]", "");
-            return num;
-        }
-        private void ChangeCaretIndexSt2(string PhoneStudent2)
-        {
-            if (PhoneStudent2.Length <= 11)
-            {
-                PhoneMaskSt2(PhoneStudent2);
-            }
-            if (PhoneStudent2.Length <= 4)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent2.Length + 2;
-            }
-            else if (PhoneStudent2.Length <= 7)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent2.Length + 3;
-            }
-            else if (PhoneStudent2.Length <= 9)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent2.Length + 4;
-            }
-            else if (PhoneStudent2.Length <= 11)
-            {
-                PhoneSt1.CaretIndex = PhoneStudent2.Length + 5;
-            }
-        }
-        private void TbPhoneSt2_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ChangeCaretIndexSt2(ReplacenumberSt2());
-        }
-        private void TbPhoneSt2_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            ChangeCaretIndexSt2(ReplacenumberSt2() + e.Text);
-            e.Handled = true;
-        }
-        private void TbPhoneSt2_GotFocus(object sender, RoutedEventArgs e)
-        {
-            ChangeCaretIndexSt2(ReplacenumberSt2());
-        }
 
         private void checkBoxMum_Checked(object sender, RoutedEventArgs e)
         {

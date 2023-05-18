@@ -28,7 +28,6 @@ namespace AccountingStudentData.BoxWindows
         {
             InitializeComponent();
             LoadGroup();
-            //checkopen1 = checkopen;
         }
 
         private void CombSearchInfo_DropDownClosed(object sender, EventArgs e)
@@ -88,7 +87,6 @@ namespace AccountingStudentData.BoxWindows
                     SDA.Fill(dt);
                     CmdKodSpecial.ItemsSource = dt.DefaultView;
                     CmdKodSpecial.DisplayMemberPath = "NumberSpecial";
-                   // CmbComponet.SelectedValuePath = "ID";
                 }
             }
             catch (Exception ex)
@@ -212,42 +210,36 @@ namespace AccountingStudentData.BoxWindows
             this.Close();
         }
 
-        private void BtnClear_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BtnAddcomponet_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void MnItClose_Click(object sender, RoutedEventArgs e)
         {
-            //checkopen1 = 1;
-            //StudentBase stbs = new StudentBase();
-            //stbs.Activate();
-            //stbs.IsEnabled = true;
             this.Close();
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
-        }
-
-        private void CombKruterui_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void TextComponet_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        }              
 
         private void BtnDellcomponet_Click(object sender, RoutedEventArgs e)
         {
             DellComponent();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                this.DragMove();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            CombKruterui.SelectedIndex = -1;
+            CmbComponetGroup.SelectedIndex = -1;
         }
     }
 }

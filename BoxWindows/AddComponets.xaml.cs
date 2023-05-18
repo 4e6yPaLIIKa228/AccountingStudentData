@@ -54,7 +54,8 @@ namespace AccountingStudentData.BoxWindows
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-
+            CombKruterui.SelectedIndex = -1;
+            TextComponet.Text = string.Empty;
         }
 
         public void AddComponent()
@@ -133,25 +134,23 @@ namespace AccountingStudentData.BoxWindows
 
         private void MnItClose_Click(object sender, RoutedEventArgs e)
         {
-            //checkopen1 = 1;
-            //StudentBase stbs = new StudentBase();
-            //stbs.Activate();
-            //stbs.IsEnabled = true;
             this.Close();
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
-        }
+        }       
 
-        private void CombKruterui_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            try
+            {
+                this.DragMove();
+            }
+            catch
+            {
 
-        }
-
-        private void TextComponet_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            }
         }
     }
 }

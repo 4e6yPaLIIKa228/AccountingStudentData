@@ -349,26 +349,30 @@ namespace AccountingStudentData.BoxWindows
 
         private void MnItDelUser_Click(object sender, RoutedEventArgs e)
         {
-            if (GridBaseStudent.SelectedIndex != -1)
+            if (MessageBox.Show("Вы уверены, что хотите добавить пользователя?", "Сообщение", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                try
+                if (GridBaseStudent.SelectedIndex != -1)
                 {
-                    using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                    try
                     {
-                        connection.Open();
-                        string ID;
-                        DataRowView drv = GridBaseStudent.SelectedItem as DataRowView;
-                        ID = drv["ID"].ToString();
-                        string query = $@"Update Users SET IsDelet = 1 WHERE ID = '{ID}'";
-                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                        cmd.ExecuteNonQuery();
-                        LoadBase();
+                        using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                        {
+                            connection.Open();
+                            string ID;
+                            DataRowView drv = GridBaseStudent.SelectedItem as DataRowView;
+                            ID = drv["ID"].ToString();
+                            string query = $@"Update Users SET IsDelet = 1 WHERE ID = '{ID}'";
+                            SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                            cmd.ExecuteNonQuery();
+                            LoadBase();
+                            MessageBox.Show("Аккаунт удален", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }                
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }            
             }
         }      
     }

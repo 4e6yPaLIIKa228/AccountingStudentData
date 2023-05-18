@@ -46,6 +46,7 @@ namespace AccountingStudentData.BoxWindows
         {
             InitializeComponent();
             LoadBase();
+            CheackListUser();
         }
 
         public void LoadBase()
@@ -280,7 +281,7 @@ namespace AccountingStudentData.BoxWindows
 					Students.PassportVID as PassVIDSt,Students.PassportVidan as PassVidanSt,Students.PassportCountry as PassCountrySt,
                     Students.IDSpecual as IDSpecSt,Students.IDGrop as IDGropSt,
                     Students.NumberZatechBook,Students.NumberPrigazKyrs1,Students.DataСreditedKyrs1,Students.NumberPrigazKyrs2,Students.DataСreditedKyrs2,Students.NumberPrigazKyrs3,Students.DataСreditedKyrs3,
-                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,MestoBirthday,				
+                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,MestoBirthday				
 				
                     from Students
 
@@ -288,7 +289,7 @@ namespace AccountingStudentData.BoxWindows
                     LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
                     LEFT JOIN Groups on Students.IDGrop = Groups.ID
                     LEFT JOIN Users on Students.IDPyku = Users.ID					
-                    where Students.Delete != 1;
+                    where Students.IsDelet != 1 
                     ";
                     string DBSearchExcel = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
                                         Polls.Name as PollSt, Students.Phone1 as Phone1St, Students.PocleKlass as KlassSt,
@@ -298,20 +299,140 @@ namespace AccountingStudentData.BoxWindows
                                         LEFT JOIN Polls on Students.IDPoll = Polls.ID
                                         LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
                                         LEFT JOIN Groups on Students.IDGrop = Groups.ID
-                                        LEFT JOIN Users on Students.IDPyku = Users.ID";                   
-                    if (combtext == "Фамилия")
+                                        LEFT JOIN Users on Students.IDPyku = Users.ID
+                                        where Students.IsDelet != 1 ";                   
+                    if (combtext == "Фамилия Ст")
                     {
                         GridBaseStudent.ItemsSource = null;
-                        string query = $@"{DBSearchVisi}   WHERE Students.Surname like '%{TxtSearch.Text}%'";
+                        string query = $@"{DBSearchVisi}  and  Students.Surname like '%{TxtSearch.Text}%'";
                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                        DT = new DataTable("MenuPerTech");
+                        DT = new DataTable("Students");
                         SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
                         SDA.Fill(DT);
                         GridBaseStudent.ItemsSource = DT.DefaultView;
                         cmd.ExecuteNonQuery();
-                        query = $@"{DBSearchExcel}   WHERE Students.Surname like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        query = $@"{DBSearchExcel}   and  Students.Surname like '%{TxtSearch.Text}%'";
                         cmd = new SQLiteCommand(query, connection);
-                        DT = new DataTable("MenuPerTech");
+                        DT = new DataTable("Students");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Имя Ст")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and Students.Name like '%{TxtSearch.Text}%'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}  and Students.Name like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Отчество Ст")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and Students.MidleName like '%{TxtSearch.Text}%'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and Students.MidleName like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Код специальности")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}  and Specialties.NumberSpecial like '%{TxtSearch.Text}%'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}  and Specialties.NumberSpecial  like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Группа")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and  Groups.Name  like '%{TxtSearch.Text}%'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and Groups.Name like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Фамилия Рук")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and Users.Surname like '%{TxtSearch.Text}%'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}  and Users.Surname like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Имя Рук")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}  and Users.Name like '%{TxtSearch.Text}%'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and Users.Name like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Отчество Рук")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi} and  Users.MidleName like '%{TxtSearch.Text}%'";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and  Users.MidleName like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Students");
                         SDA = new SQLiteDataAdapter(cmd);
                         SDA.Fill(DT);
                         return DT;
@@ -366,11 +487,35 @@ namespace AccountingStudentData.BoxWindows
                     doc.Bookmarks["NamePrikazePost"].Range.Text = drv["NumberPrikazSt"].ToString();
                     doc.Bookmarks["EndDate"].Range.Text = drv["DataOkon"].ToString();
                     doc.Bookmarks["Adress"].Range.Text = drv["AdressSt"].ToString();
-                    doc.Bookmarks["RegistrAdress"].Range.Text = drv["AdressSt"].ToString(); 
-                    doc.Bookmarks["MumSt"].Range.Text = drv["SurnameMum"].ToString() + " " + drv["NameMum"].ToString() + " " + drv["MidleNameMum"].ToString();
-                    doc.Bookmarks["WorkMum"].Range.Text = drv["WorkMum"].ToString() + " " + drv["WorkDolMum"].ToString();
-                    doc.Bookmarks["DadSt"].Range.Text = drv["SurnameDad"].ToString() + " " + drv["NameDad"].ToString() + " " + drv["MidleNameDad"].ToString();
-                    doc.Bookmarks["WorkDad"].Range.Text = drv["WorkDad"].ToString() + " " + drv["WorkDolDad"].ToString();
+                    doc.Bookmarks["RegistrAdress"].Range.Text = drv["AdressSt"].ToString();
+                    using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
+                    {
+                        connection.Open();
+                        string pr = "0";
+                        string IDSt = "0";
+                        IDSt = drv["IDSt"].ToString();
+                        for (int i = 1; i <= 4; i++)
+                        {
+                            var Surname = (UIElement)FindName("SurnameOtved" + i);
+                            var Name = (UIElement)FindName("NameOtved" + i);
+                            var MidleName = (UIElement)FindName("MideleNameOtved" + i);
+                            var Pod = (UIElement)FindName("CmbRodOtved" + i);
+                            string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and {IDSt} ";
+                            SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
+                            cmd.ExecuteNonQuery();
+                            SQLiteDataReader dr = null;
+                            dr = cmd.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                pr = dr["ID"].ToString();
+                                doc.Bookmarks[$@"Otved{i}"].Range.Text = dr["Pod"].ToString() + ": " +
+                                dr["Surname"].ToString() + " " + dr["Name"].ToString() + " " + dr["MidleName"].ToString()
+                                + "\n" + "Место работы: " + dr["Work"].ToString() + "\n" + "Должность: " + dr["WorkDol"].ToString();
+                                break;
+                            }
+                        }
+
+                    }                    
                     string txtSurnKlss = drv["SurnamePyk"].ToString();
                     char chr = txtSurnKlss[0];
                     doc.Bookmarks["SurnameKlass"].Range.Text = chr.ToString();
@@ -380,7 +525,7 @@ namespace AccountingStudentData.BoxWindows
                     doc.Bookmarks["FirstNameKlass"].Range.Text = drv["MidleNamePyk"].ToString();
                     doc.Bookmarks["DateNow"].Range.Text = DateTime.Now.ToString("D");
                     string DirectoryFale = System.IO.Path.GetDirectoryName(source);
-                    doc.SaveAs($@"{DirectoryFale}\{drv["SurnameSt"]}{drv["NameSt"]}{drv["MidleNameSt"]}");
+                    doc.SaveAs($@"{DirectoryFale}\{drv["SurnameSt"]} {drv["NameSt"]} {drv["MidleNameSt"]}");
                     doc.Close();
                     doc = null;
                     app.Quit();
@@ -393,97 +538,6 @@ namespace AccountingStudentData.BoxWindows
                 MessageBox.Show(ex.ToString());
             }
         }
-
-        //public void KartochkaLichSt()
-        //{
-        //    Microsoft.Office.Interop.Word.Document doc = null;
-        //    Word._Application oWord = new Word.Application();
-        //    try
-        //    {
-        //        if (GridBaseStudent.SelectedIndex != -1)
-        //        {
-        //            DataRowView drv = (DataRowView)GridBaseStudent.SelectedItem;
-        //            // Создаём объект приложения
-        //            Microsoft.Office.Interop.Word.Application app = new Word.Application();
-        //            // Путь до шаблона документа
-        //            // string source = @"/AccountingStudent/Test.docx";
-        //            string source = System.IO.Path.Combine(Environment.CurrentDirectory, "Личная карточка студента  NEW.docx");
-        //            // Открываем
-        //            doc = app.Documents.Open(source);
-        //            doc.Activate();
-        //            //Заполение данных
-        //            byte[] image_bytes = (byte[])drv["FotoSt"];
-        //            BitmapImage img = new BitmapImage();
-        //            img.BeginInit();
-        //            img.CreateOptions = BitmapCreateOptions.None;
-        //            img.CacheOption = BitmapCacheOption.Default;
-        //            img.DecodePixelWidth = 600;
-        //            img.DecodePixelHeight = 750;
-        //            img.StreamSource = new MemoryStream(image_bytes);
-        //            img.EndInit();
-        //            Clipboard.SetImage(img);
-        //            doc.Bookmarks.get_Item("Foto").Range.Paste();
-        //            doc.Bookmarks["NumberZatetku"].Range.Text = drv["NumberZatechBook"].ToString();
-        //            doc.Bookmarks["Surname"].Range.Text = drv["SurnameSt"].ToString() + " " + drv["NameSt"].ToString() + " " + drv["MidleNameSt"].ToString(); ;
-        //            doc.Bookmarks["Birthday"].Range.Text = drv["DataBirthSt"].ToString();
-        //            doc.Bookmarks["MestoBirthday"].Range.Text = "заглушка";
-        //            doc.Bookmarks["GroupSt"].Range.Text = drv["GroupSt"].ToString();
-        //            doc.Bookmarks["SpecialSt"].Range.Text = drv["NumberSpecualSt"].ToString() + " " + drv["NameSpecial"].ToString();
-        //            doc.Bookmarks["NumberPrikaz"].Range.Text = drv["NumberPrikazSt"].ToString();
-        //            doc.Bookmarks["DataPrikazwPostyplenuy"].Range.Text = drv["DataPost"].ToString();
-        //            doc.Bookmarks["FIOMum"].Range.Text = drv["SurnameMum"].ToString() + " " + drv["NameMum"].ToString() + " " + drv["MidleNameMum"].ToString();
-        //            doc.Bookmarks["MestoWorkMum"].Range.Text = drv["WorkMum"].ToString();
-        //            doc.Bookmarks["DolWorkMum"].Range.Text = drv["WorkDolMum"].ToString();
-        //            doc.Bookmarks["FIODad"].Range.Text = drv["SurnameDad"].ToString() + " " + drv["NameDad"].ToString() + " " + drv["MidleNameDad"].ToString();
-        //            doc.Bookmarks["MestoWorkDad"].Range.Text = drv["WorkDad"].ToString();
-        //            doc.Bookmarks["DolWorkDad"].Range.Text = drv["WorkDolDad"].ToString();
-        //            doc.Bookmarks["NameSchool"].Range.Text = drv["NameSchoolSt"].ToString();
-        //            doc.Bookmarks["DateEndSchool"].Range.Text = drv["DataPolecenSt"].ToString();
-        //            doc.Bookmarks["AdressSt"].Range.Text = drv["AdressSt"].ToString();
-        //            doc.Bookmarks["PhoneSt"].Range.Text = drv["Phone1St"].ToString();
-        //            doc.Bookmarks["VIDPassporta"].Range.Text = drv["PassVIDSt"].ToString();
-        //            doc.Bookmarks["SeriaPassport"].Range.Text = drv["PassSeriaSt"].ToString();
-        //            doc.Bookmarks["NumberPassport"].Range.Text = drv["PassNumSt"].ToString();
-        //            doc.Bookmarks["DatePolychPassport"].Range.Text = drv["PassDataSt"].ToString();
-        //            doc.Bookmarks["KemVudanPass"].Range.Text = drv["PassVidanSt"].ToString();
-        //            doc.Bookmarks["SNILS"].Range.Text = drv["SNILSSt"].ToString();
-        //            doc.Bookmarks["OMS"].Range.Text = drv["OMSSt"].ToString();
-        //            doc.Bookmarks["DateNow"].Range.Text = DateTime.Now.ToString("yyyy");
-        //            doc.Bookmarks["DateNow1"].Range.Text = DateTime.Now.AddYears(1).ToString("yyyy");
-        //            doc.Bookmarks["DateNow2"].Range.Text = DateTime.Now.AddYears(1).ToString("yyyy");
-        //            doc.Bookmarks["DateNow3"].Range.Text = DateTime.Now.AddYears(2).ToString("yyyy");
-        //            doc.Bookmarks["DateNow4"].Range.Text = DateTime.Now.AddYears(2).ToString("yyyy");
-        //            doc.Bookmarks["DateNow5"].Range.Text = DateTime.Now.AddYears(3).ToString("yyyy");
-        //            doc.Bookmarks["DateNow6"].Range.Text = DateTime.Now.AddYears(3).ToString("yyyy");
-        //            doc.Bookmarks["DateNow7"].Range.Text = DateTime.Now.AddYears(4).ToString("yyyy");
-        //            doc.Bookmarks["NumberPrigazKyrs1"].Range.Text = drv["NumberPrigazKyrs1"].ToString();
-        //            doc.Bookmarks["NumberPrigazKyrs2"].Range.Text = drv["NumberPrigazKyrs2"].ToString();
-        //            doc.Bookmarks["NumberPrigazKyrs3"].Range.Text = drv["NumberPrigazKyrs3"].ToString();
-        //            doc.Bookmarks["NumberPrigazKyrs4"].Range.Text = drv["NumberPrigazKyrs4"].ToString();
-        //            doc.Bookmarks["DataСreditedKyrs1"].Range.Text = drv["DataСreditedKyrs1"].ToString();
-        //            doc.Bookmarks["DataСreditedKyrs2"].Range.Text = drv["DataСreditedKyrs2"].ToString();
-        //            doc.Bookmarks["DataСreditedKyrs3"].Range.Text = drv["DataСreditedKyrs3"].ToString();
-        //            doc.Bookmarks["DataСreditedKyrs4"].Range.Text = drv["DataСreditedKyrs4"].ToString();
-        //            // Закрываем документ
-        //            string DirectoryFale = System.IO.Path.GetDirectoryName(source);
-        //            doc.SaveAs($@"{DirectoryFale}\Личная карточка студента_{drv["SurnameSt"]}_{drv["NameSt"]}_{drv["MidleNameSt"]}");
-        //            doc.Close();
-        //            doc = null;
-        //            app.Quit();
-
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //        // Если произошла ошибка, то
-        //        // закрываем документ и выводим информацию
-        //        // doc.Close();
-        //        // doc = null;
-        //        Console.WriteLine("Во время выполнения произошла ошибка!");
-        //        Console.ReadLine();
-        //    }
-        //}
 
         private void MnItYchetSt_Click(object sender, RoutedEventArgs e)
         {
@@ -536,7 +590,58 @@ namespace AccountingStudentData.BoxWindows
             Authorization eddst = new Authorization();
             eddst.Show();
             this.Close();
-           Saver.IDUser = "0";
+            Saver.IDUser = "0";
+        }
+
+        public void CheackListUser()
+        {
+            if (Saver.IDAllowanceString == "Администратор")
+            {
+                MnItListUsers.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MnItListUsers.Visibility = Visibility.Collapsed;
+            }
+        }
+            
+        private void MnItListUsers_Click(object sender, RoutedEventArgs e)
+        {
+            Authorization eddst = new Authorization();
+            eddst.Show();
+            this.Close();
+           // Saver.IDUser = "0";
+        }
+
+        private void MnItUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            LoadBase();
+            CombSearchInfo.SelectedIndex = -1;
+            TxtSearch.Text = string.Empty;
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                this.DragMove();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void MnItSize_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == System.Windows.WindowState.Normal)
+            {
+                this.WindowState = System.Windows.WindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = System.Windows.WindowState.Normal;
+            }
         }
     }
 }
