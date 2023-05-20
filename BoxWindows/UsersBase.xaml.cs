@@ -60,7 +60,7 @@ namespace AccountingStudentData.BoxWindows
                                LEFT JOIN StatusUsers on Users.IDStatus = StatusUsers.ID
 							   LEFT JOIN AllowanceUsers on Users.IDAllowance = AllowanceUsers.ID			
                     where Users.IsDelet = 0  and Users.ID != '{Saver.IDUser}'
-                    ORDER BY Login";
+                    ORDER BY Surname";
                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
                     DataTable DT = new DataTable("Users");
                     SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
@@ -83,8 +83,8 @@ namespace AccountingStudentData.BoxWindows
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-           
-        }
+            this.WindowState = WindowState.Minimized;
+        }  
 
         private void MnItAddUser_Click(object sender, RoutedEventArgs e)
         {
@@ -102,7 +102,6 @@ namespace AccountingStudentData.BoxWindows
         {
             if (GridBaseStudent.SelectedIndex != -1)
             {
-                //LoadBase();
                 EdditUser eddst = new EdditUser((DataRowView)GridBaseStudent.SelectedItem);
                 eddst.Owner = this;
                 bool? result = eddst.ShowDialog();
@@ -165,11 +164,11 @@ namespace AccountingStudentData.BoxWindows
                 excel.ScreenUpdating = false;
                 excel.UserControl = false;
                 excel.DisplayAlerts = false;        
-                for (int j = 2; j < GridBaseStudent.Columns.Count - 1; j++) //Столбцы
+                for (int j = 2; j < GridBaseStudent.Columns.Count+1; j++) //Столбцы
                 {
-                    Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[1, j + 5];
-                    sheet1.Columns[j + 1].NumberFormat = "@";
-                    myRange.Value2 = GridBaseStudent.Columns[j].Header;
+                    Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[1, j+2];
+                    sheet1.Columns[j].NumberFormat = "@";
+                    myRange.Value2 = GridBaseStudent.Columns[j-1].Header;
                     myRange.Font.Name = "Times New Roman";
                     myRange.Cells.Font.Size = 16;
                     myRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
@@ -196,17 +195,13 @@ namespace AccountingStudentData.BoxWindows
                 using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                 {
                     connection.Open();
-                    string query = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
-                                        Polls.Name as PollSt, Students.Phone1 as Phone1St, Students.PocleKlass as KlassSt,
-                                        Specialties.NumberSpecial as NumberSpecualSt,Groups.Name as GroupSt,                                       
-                                        Students.DataСredited as DataPost,Students.DataEnd as DataOkon,
-                                        Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt from  Students
-                                        LEFT JOIN Polls on Students.IDPoll = Polls.ID
-                                        LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
-                                        LEFT JOIN Groups on Students.IDGrop = Groups.ID
-                                        LEFT JOIN Users on Students.IDPyku = Users.ID";
+                    string query = $@"SELECT Users.Surname,Users.Name,Users.MidleName, Users.Login,Users.DataRegist, StatusUsers.NameStatus, AllowanceUsers.Allowance  FROM Users
+                               LEFT JOIN StatusUsers on Users.IDStatus = StatusUsers.ID
+							   LEFT JOIN AllowanceUsers on Users.IDAllowance = AllowanceUsers.ID
+                               where Users.IsDelet = 0  and Users.ID != '{Saver.IDUser}' 
+                               ORDER BY Surname";
                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                    DataTable DT = new DataTable("Students");
+                    DataTable DT = new DataTable("Users");
                     SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
                     SDA.Fill(DT);
                     if (CombSearchInfo.SelectedIndex != -1 && String.IsNullOrEmpty(TxtSearch.Text) == false)
@@ -255,48 +250,129 @@ namespace AccountingStudentData.BoxWindows
                     connection.Open();
                     String combtext = CombSearchInfo.Text;
                     string DBSearchVisi = $@"                    					
-                    SELECT Students.ID as IDSt,Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt,Students.Phone1 as Phone1St,Students.Phone2 as Phone2St,Students.DataBirth as DataBirthSt,
-                    Polls.Name as PollSt,Specialties.NumberSpecial as NumberSpecualSt,Specialties.Name as NameSpecial, Groups.Name as GroupSt,Students.PocleKlass as KlassSt,
-                    Users.ID as IDPyk,Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
-					Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt,Students.NumberAtect as AtectSt,Students.DataPolycen as  DataPolecenSt,
-					Students.DataСredited as DataPost, Students.DataEnd as DataOkon, Students.Foto as FotoSt,Students.NameSchool as NameSchoolSt,
-					Students.SNILS as SNILSSt, Students.OMS as OMSSt, Students.Adress as AdressSt,
-					Students.PassportData as PassDataSt, Students.PassportNumber as PassNumSt,Students.PassportSeria as PassSeriaSt,
-					Students.PassportVID as PassVIDSt,Students.PassportVidan as PassVidanSt,Students.PassportCountry as PassCountrySt,
-                    Students.IDSpecual as IDSpecSt,Students.IDGrop as IDGropSt,
-                    Students.NumberZatechBook,Students.NumberPrigazKyrs1,Students.DataСreditedKyrs1,Students.NumberPrigazKyrs2,Students.DataСreditedKyrs2,Students.NumberPrigazKyrs3,Students.DataСreditedKyrs3,
-                    Students.NumberPrigazKyrs4,Students.DataСreditedKyrs4,MestoBirthday,				
-				
-                    from Students
-
-                    LEFT JOIN Polls on Students.IDPoll = Polls.ID
-                    LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
-                    LEFT JOIN Groups on Students.IDGrop = Groups.ID
-                    LEFT JOIN Users on Students.IDPyku = Users.ID					
-                    where Students.Delete != 1;
-                    ";
-                    string DBSearchExcel = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
-                                        Polls.Name as PollSt, Students.Phone1 as Phone1St, Students.PocleKlass as KlassSt,
-                                        Specialties.NumberSpecial as NumberSpecualSt,Groups.Name as GroupSt,                                       
-                                        Students.DataСredited as DataPost,Students.DataEnd as DataOkon,
-                                        Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt from  Students
-                                        LEFT JOIN Polls on Students.IDPoll = Polls.ID
-                                        LEFT JOIN Specialties on Students.IDSpecual = Specialties.ID
-                                        LEFT JOIN Groups on Students.IDGrop = Groups.ID
-                                        LEFT JOIN Users on Students.IDPyku = Users.ID";                   
+                    SELECT  Users.ID,Users.Login, Users.Password,Users.Surname,Users.Name,Users.MidleName,Users.DataRegist, StatusUsers.NameStatus, AllowanceUsers.Allowance  FROM Users
+                               LEFT JOIN StatusUsers on Users.IDStatus = StatusUsers.ID
+							   LEFT JOIN AllowanceUsers on Users.IDAllowance = AllowanceUsers.ID			
+                    where Users.IsDelet = 0  and Users.ID != '{Saver.IDUser}'  ";
+                    string DBSearchExcel = $@"SELECT Users.Surname,Users.Name,Users.MidleName, Users.Login,Users.DataRegist, StatusUsers.NameStatus, AllowanceUsers.Allowance  FROM Users
+                               LEFT JOIN StatusUsers on Users.IDStatus = StatusUsers.ID
+							   LEFT JOIN AllowanceUsers on Users.IDAllowance = AllowanceUsers.ID
+                               where Users.IsDelet = 0  and Users.ID != '{Saver.IDUser}' ";                   
                     if (combtext == "Фамилия")
                     {
                         GridBaseStudent.ItemsSource = null;
-                        string query = $@"{DBSearchVisi}   WHERE Students.Surname like '%{TxtSearch.Text}%'";
+                        string query = $@"{DBSearchVisi}   and  Users.Surname like '%{TxtSearch.Text}%'  ORDER BY Surname";
                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                        DT = new DataTable("MenuPerTech");
+                        DT = new DataTable("Users");
                         SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
                         SDA.Fill(DT);
                         GridBaseStudent.ItemsSource = DT.DefaultView;
                         cmd.ExecuteNonQuery();
-                        query = $@"{DBSearchExcel}   WHERE Students.Surname like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        query = $@"{DBSearchExcel}   and Users.Surname  like '%{TxtSearch.Text}%'  ORDER BY Surname";
                         cmd = new SQLiteCommand(query, connection);
-                        DT = new DataTable("MenuPerTech");
+                        DT = new DataTable("Users");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Имя")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and Users.Name like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and Users.Name  like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Отчество")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and Users.MidleName like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and Users.MidleName  like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Логин")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and Users.Login like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and Users.Login  like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Дата регистрации")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and Users.DataRegist like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and Users.DataRegist  like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Статус")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and  StatusUsers.NameStatus like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and  StatusUsers.NameStatus  like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        return DT;
+                    }
+                    else if (combtext == "Доступ")
+                    {
+                        GridBaseStudent.ItemsSource = null;
+                        string query = $@"{DBSearchVisi}   and AllowanceUsers.Allowance like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
+                        SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
+                        SDA.Fill(DT);
+                        GridBaseStudent.ItemsSource = DT.DefaultView;
+                        cmd.ExecuteNonQuery();
+                        query = $@"{DBSearchExcel}   and AllowanceUsers.Allowance  like '%{TxtSearch.Text}%'  ORDER BY Surname";
+                        cmd = new SQLiteCommand(query, connection);
+                        DT = new DataTable("Users");
                         SDA = new SQLiteDataAdapter(cmd);
                         SDA.Fill(DT);
                         return DT;
@@ -374,6 +450,59 @@ namespace AccountingStudentData.BoxWindows
                     }
                 }            
             }
-        }      
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                this.DragMove();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void MnItSize_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == System.Windows.WindowState.Normal)
+            {
+                this.WindowState = System.Windows.WindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = System.Windows.WindowState.Normal;
+            }
+        }
+
+        private void MnItUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            LoadBase();
+            CombSearchInfo.SelectedIndex = -1;
+            TxtSearch.Text = string.Empty;
+        }       
+
+        private void MnItListStudents_Click(object sender, RoutedEventArgs e)
+        {
+            StudentBase eddst = new StudentBase();
+            eddst.Show();
+            this.Close();
+        }
+
+        private void MnItExitUser_Click(object sender, RoutedEventArgs e)
+        {
+            Authorization eddst = new Authorization();
+            eddst.Show();
+            this.Close();
+            Saver.IDUser = "0";
+        }
+
+        private void MnItArchive_Click(object sender, RoutedEventArgs e)
+        {
+            Archive eddst = new Archive();
+            eddst.Show();
+            this.Close();
+        }
     }
 }

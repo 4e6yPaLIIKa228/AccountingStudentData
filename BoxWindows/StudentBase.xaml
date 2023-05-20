@@ -12,7 +12,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"     
         
-        Title="StudentBase" Height="680" Width="1450"  AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Times New Roman" FontSize="18" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Title="StudentBase" Height="680" Width="1350"  AllowsTransparency="False" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Times New Roman" FontSize="18" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.Resources>
         <converter:TextConverter x:Key="TextOneCumvl"/>
     </Window.Resources>
@@ -57,7 +57,7 @@
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
-                        <MenuItem>
+                        <MenuItem  x:Name="MnItArchive" Click="MnItArchive_Click">
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                     <Image  Source="/Foto/archive.png"  Width="30" Height="30"  />
@@ -194,8 +194,8 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Пол"   Binding="{Binding PollSt, Converter={StaticResource TextOneCumvl}, ConverterParameter=1}" />
-                    <DataGridTextColumn Header="Телефон"    Binding="{Binding Phone1St}"/>
+                    <DataGridTextColumn Header="Пол"  Width="auto"   Binding="{Binding PollSt, Converter={StaticResource TextOneCumvl}, ConverterParameter=1}" />
+                    <DataGridTextColumn Header="Телефон"   Width="auto"   Binding="{Binding Phone1St}"/>
                     <DataGridTextColumn Header="После"   Width="auto"  Binding="{Binding KlassSt}"/>
                     <DataGridTextColumn Header="Код &#x0a;специальности" Width="auto" Binding="{Binding NumberSpecualSt}" />
                     <DataGridTextColumn Header="Группа" Width="auto" Binding="{Binding GroupSt}" />

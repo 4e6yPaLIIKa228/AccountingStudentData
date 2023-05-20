@@ -96,7 +96,7 @@ namespace AccountingStudentData.BoxWindows
                         var Name = (UIElement)FindName("NameOtved" + i);
                         var MidleName = (UIElement)FindName("MideleNameOtved" + i);
                         var Pod = (UIElement)FindName("CmbRodOtved" + i);
-                        string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and {IDSt} ";
+                        string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and IDStudent = {IDSt} ";
                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                         cmd.ExecuteNonQuery();
                         SQLiteDataReader dr = null;
@@ -170,7 +170,6 @@ namespace AccountingStudentData.BoxWindows
                             if (cell.RowIndex == 1)
                             {
                                 cell.Range.Text = celltable[0, i];
-                                //cell.Range.Font.Bold = 1;
                                 i++;
                                 if (i == 6)
                                 {
@@ -292,51 +291,6 @@ namespace AccountingStudentData.BoxWindows
                     }
                 }
             } //1k1c
-
-            // TextBox textBlock = parag.AppendTextBox(300, 300);
-            //doc.Content.Paragraphs.Add();
-            //Microsoft.Office.Interop.Word.Paragraph para2 = doc.Content.Paragraphs.Add();
-            //Table firstttable2 = doc.Tables.Add(para2.Range, 5, 6);
-            //firstttable2.Borders.Enable = 1;
-            //int j = 0;
-            //foreach (Row row in firstttable2.Rows)
-            //{
-            //    foreach (Cell cell in row.Cells)
-            //    {
-            //        if (cell.RowIndex == 1)
-            //        {
-            //            cell.Range.Text = celltable[0, i];
-            //            cell.Range.Font.Bold = 1;
-            //            i++;
-            //        }
-            //        else
-            //        {
-            //            if (celltable[1, 6] == "1")
-            //            {
-            //                cell.Range.Text = celltable[1, i];
-            //                cell.Range.Font.Bold = 1;
-            //                i++;
-            //                return;
-            //            }
-            //            //if (celltable[1, 6] == "1")
-            //            //{
-                            
-            //            //}
-            //            //if (celltable[2, 6] == "1")
-            //            //{
-            //            //    cell.Range.Text = celltable[2, i];
-            //            //    cell.Range.Font.Bold = 1;
-            //            //    i++;
-            //            //    return;
-            //            //}
-            //        }
-            //        if (i == 6)
-            //        {
-            //            i = 0;
-            //        }
-            //        j++;
-            //    }
-            //}
             string DirectoryFale = System.IO.Path.GetDirectoryName(source);
             doc.SaveAs($@"{DirectoryFale}\1234");
             doc.Close();
@@ -542,7 +496,7 @@ namespace AccountingStudentData.BoxWindows
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            this.WindowState = WindowState.Minimized;
         }
 
         private void MnItClose_Click(object sender, RoutedEventArgs e)

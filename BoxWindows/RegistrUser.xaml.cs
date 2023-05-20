@@ -194,12 +194,7 @@ namespace AccountingStudentData.BoxWindows
         private void InHome_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        } //Кнопка назад
-
-        private void BtnResize_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
+        } //Кнопка назад       
 
         private void BtnSazeMax_Click(object sender, RoutedEventArgs e)
         {
@@ -220,12 +215,12 @@ namespace AccountingStudentData.BoxWindows
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            this.WindowState = WindowState.Minimized;
         }
 
         private void MnItClose_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

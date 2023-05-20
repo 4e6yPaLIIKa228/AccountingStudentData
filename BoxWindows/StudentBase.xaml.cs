@@ -500,7 +500,7 @@ namespace AccountingStudentData.BoxWindows
                             var Name = (UIElement)FindName("NameOtved" + i);
                             var MidleName = (UIElement)FindName("MideleNameOtved" + i);
                             var Pod = (UIElement)FindName("CmbRodOtved" + i);
-                            string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and {IDSt} ";
+                            string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and IDStudent = {IDSt} ";
                             SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                             cmd.ExecuteNonQuery();
                             SQLiteDataReader dr = null;
@@ -642,6 +642,13 @@ namespace AccountingStudentData.BoxWindows
             {
                 this.WindowState = System.Windows.WindowState.Normal;
             }
+        }
+
+        private void MnItArchive_Click(object sender, RoutedEventArgs e)
+        {
+            Archive eddst = new Archive();
+            eddst.Show();
+            this.Close();
         }
     }
 }

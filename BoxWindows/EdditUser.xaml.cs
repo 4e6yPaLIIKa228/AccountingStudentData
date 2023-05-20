@@ -209,7 +209,7 @@ namespace AccountingStudentData.BoxWindows
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            this.WindowState = WindowState.Minimized;
         }
 
         private void MnItClose_Click(object sender, RoutedEventArgs e)
