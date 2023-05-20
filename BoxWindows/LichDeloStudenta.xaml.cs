@@ -59,7 +59,6 @@ namespace AccountingStudentData.BoxWindows
             {
                 // Создаём объект приложения
                 // Путь до шаблона документа
-                // string source = @"/AccountingStudent/Test.docx";
                 string source = System.IO.Path.Combine(Environment.CurrentDirectory, "Личная карточка студента  NEW.docx");
                 // Открываем
                 doc = app.Documents.Open(source);
@@ -189,7 +188,6 @@ namespace AccountingStudentData.BoxWindows
                                 if (celltable[j, 6] == "1")
                                 {
                                     cell.Range.Text = celltable[j, i];
-                                    //cell.Range.Font.Bold = 1;
                                     i++;
                                     if (i == 6)
                                     {
@@ -215,93 +213,6 @@ namespace AccountingStudentData.BoxWindows
             {
                 MessageBox.Show(ex.Message);               
             }
-        }
-
-        public  void Test()
-        {
-            Microsoft.Office.Interop.Word.Document doc = null;
-            Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
-            // Путь до шаблона документа
-            string source = System.IO.Path.Combine(Environment.CurrentDirectory, "Личная карточка студента  NEW.docx");
-            // Открываем
-            doc = app.Documents.Open(source);
-            doc.Activate();
-            Microsoft.Office.Interop.Word.Paragraph textparag = doc.Content.Paragraphs.Add();
-            Table tebletext = doc.Tables.Add(textparag.Range, 1, 1);
-            foreach (Row row in tebletext.Rows)
-            {
-                foreach (Cell cell in row.Cells)
-                {
-                    if (cell.RowIndex == 1)
-                    {
-                        cell.Range.Text = "1 курс 1 семестр";
-                        cell.Range.Font.Bold = 1;
-                    }
-                }
-            }
-
-            doc.Content.Paragraphs.Add();
-            doc.Content.Paragraphs.Add();
-            if (count1 >= 2)
-            {
-                GlobalSearch();
-                Microsoft.Office.Interop.Word.Paragraph para1 = doc.Content.Paragraphs.Add();
-                Table firstttable = doc.Tables.Add(para1.Range, count1, 6);
-                firstttable.Borders.Enable = 1;
-                int i = 0;
-                int j = 1;
-                int k = 0;
-                foreach (Row row in firstttable.Rows)
-                {
-                    foreach (Cell cell in row.Cells)
-                    {
-                        if (cell.RowIndex == 1)
-                        {
-                            cell.Range.Text = celltable[0, i];
-                            //cell.Range.Font.Bold = 1;
-                            i++;
-                            if (i == 6)
-                            {
-                                i = 0;
-                            }
-                        }
-                        else
-                        {    
-                            for(k= 1; k < 13;k++)
-                            {
-                                if (celltable[k, 6] == "1")
-                                {
-                                    j = k;
-                                    break;
-                                }
-                            }
-                            if (celltable[j, 6] == "1")
-                            {
-                                cell.Range.Text = celltable[j, i];
-                                //cell.Range.Font.Bold = 1;
-                                i++;
-                                if (i == 6)
-                                {
-                                    i = 0;
-                                    celltable[j, 6] = "0";
-                                }
-                            }
-                        }
-                       
-                    }
-                }
-            } //1k1c
-            string DirectoryFale = System.IO.Path.GetDirectoryName(source);
-            doc.SaveAs($@"{DirectoryFale}\1234");
-            doc.Close();
-            doc = null;
-            app.Quit();
-        }
-
-       
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Test();
         }
 
         public void GlobalSearch()

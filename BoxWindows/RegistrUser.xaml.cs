@@ -1,19 +1,10 @@
 ﻿using AccountingStudentData.Connection;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AccountingStudentData.BoxWindows
 {
@@ -55,7 +46,6 @@ namespace AccountingStudentData.BoxWindows
 
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            //AddProverka();
             AddUsers();
         } //Кнопка добавления пользователя
 
@@ -115,7 +105,6 @@ namespace AccountingStudentData.BoxWindows
                                 connection.Open();
                                 var Login = TextBoxLogin.Text.ToLower();
                                 var Pass = SimpleComand.GetHash(PassBox.Password);
-                                //var Pass = SimpleComand.GetHash(txtpassreg.Password);
                                 var DateNow = DateTime.Now.ToString("dd/MM/yyyy");
                                 bool resultType = int.TryParse(CombAllowance.SelectedValue.ToString(), out int IDCombAllowance);
                                 string query = $@"INSERT INTO Users ('Login','Password','Surname',Name,MidleName,IDStatus,IDAllowance,DataRegist,IsDelet) VALUES ('{Login}',@Password,'{TextFamili.Text}','{TextName.Text}','{TextOthectbo.Text}','{1}','{IDCombAllowance}','{DateNow}',0)";

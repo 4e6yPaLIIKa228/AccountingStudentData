@@ -1,21 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.SQLite;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using AccountingStudentData.Connection;
-using AccountingStudentData.BoxWindows;
 
 namespace AccountingStudentData.BoxWindows
 {
@@ -53,10 +41,8 @@ namespace AccountingStudentData.BoxWindows
                         connection.Open();
                         var Pass = SimpleComand.GetHash(PassBox.Password);
                         string LoginLower = TextBoxLogin.Text.ToLower();
-                        //string query = $@"SELECT  COUNT(1) FROM Users WHERE Login='{LoginLower}' AND Password = @Password";
                         string query = $@"SELECT  COUNT(1) FROM Users WHERE Login='{LoginLower}'";
                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                        // cmd.Parameters.AddWithValue("@Password", Pass);
                         int UsersSearch = Convert.ToInt32(cmd.ExecuteScalar());
                         if (UsersSearch == 1)
                         {
@@ -91,7 +77,6 @@ namespace AccountingStudentData.BoxWindows
                                         {
                                             Saver.IDUser = dr["ID"].ToString();
                                             IDAllowanceString = dr["Allowance"].ToString();
-                                            //  Saver.IDAcc = countID;
                                         }
 
                                         if (IDAllowanceString == "Администратор" || IDAllowanceString == "администратор")
@@ -125,7 +110,6 @@ namespace AccountingStudentData.BoxWindows
                                 }
 
                                 connection.Close();
-                                //MessageBox.Show("Добро пожаловать! " + $@"{TextBoxLogin.Text}");
                             }
                             else
                             {
@@ -174,10 +158,8 @@ namespace AccountingStudentData.BoxWindows
                         dr = cmd1.ExecuteReader();
                         while (dr.Read())
                         {
-                            //Saver.IDUser = dr["ID"].ToString();
                             IDProverka = Convert.ToInt32(dr["IDProverka"].ToString());
                             IDAllowance = Convert.ToInt32(dr["IDAllowance"].ToString());
-                            //  Saver.IDAcc = countID;
                         }
                         query = $@"SELECT AttemptNumber,TimeEnd,TimeBegin FROM Proverka WHERE ID = '{IDProverka}';";
                         cmd = new SQLiteCommand(query, connection);
@@ -202,7 +184,6 @@ namespace AccountingStudentData.BoxWindows
 
                             int kolint = Convert.ToInt32(AttemptNumber);
                             kolint++;
-                            //string timeban = "0:02";
                             TimeSpan s1 = TimeSpan.Parse("0:01");
                             TimeSpan s3 = s1 + s2;
                             string times3 = s3.ToString("hh':'mm");
@@ -249,10 +230,8 @@ namespace AccountingStudentData.BoxWindows
                         dr = cmd1.ExecuteReader();
                         while (dr.Read())
                         {
-                            // Saver.IDUser = dr["ID"].ToString();
                             IDAllowance = Convert.ToInt32(dr["IDAllowance"].ToString());
                             IDProverka = Convert.ToInt32(dr["IDProverka"].ToString());
-                            //  Saver.IDAcc = countID;
                         }
                         query = $@"SELECT AttemptNumber,TimeEnd,TimeBegin FROM Proverka WHERE ID = '{IDProverka}';";
                         cmd = new SQLiteCommand(query, connection);
@@ -260,7 +239,6 @@ namespace AccountingStudentData.BoxWindows
                         TimeSpan s2 = TimeSpan.Parse(dateOpen);
                         dr = null;
                         string AttemptNumber = "";
-                       // string dateban = "00:00";
                         string dateBegin = "00:00";
                         string dateban = DateTime.Now.ToString("t");
                         dr = cmd.ExecuteReader();
@@ -345,17 +323,7 @@ namespace AccountingStudentData.BoxWindows
         private void BtnAvtoriz_Click(object sender, RoutedEventArgs e)
         {
             AuthorizationUser();
-        }
-
-        private void BtnAvtorizvisitor_Click(object sender, RoutedEventArgs e)
-        {        
-            //MessageBox.Show("Добро пожаловать!", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-            //MenuInformation menuinfor = new MenuInformation();
-            //Saver.Visitor = 1;
-            //Saver.IDAllowanceString = "Гость";
-            //this.Close();
-            //menuinfor.ShowDialog();
-        }       
+        } 
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

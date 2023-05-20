@@ -61,8 +61,7 @@
 
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,0,0,0"  >
             <StackPanel Orientation="Vertical">
-                <Button x:Name="BtnAvtoriz" Content="Войти" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="350"   BorderBrush="White"  FontWeight="Bold" Click="BtnAvtoriz_Click"/>
-                <Button x:Name="BtnAvtorizvisitor" Visibility="Collapsed" Content="Гость" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="350"   BorderBrush="White"  FontWeight="Bold" Margin="0,5,0,5" Click="BtnAvtorizvisitor_Click"/>
+                <Button x:Name="BtnAvtoriz" Content="Войти" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="350"   BorderBrush="White"  FontWeight="Bold" Click="BtnAvtoriz_Click"/>            
             </StackPanel>
         </Grid>
 

@@ -98,7 +98,7 @@
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
                                             <TextBlock  Text="Кем ваыдан"  VerticalAlignment="Center" Margin="2,0,0,0" />
-                                            <TextBox x:Name="VudanPasportSt"  Margin="17.4,0,0,0" Width="390.1"  PreviewTextInput="TextValidationTextBox" materialDesign:HintAssist.Hint="Обязательное поле"/>
+                                            <TextBox x:Name="VudanPasportSt"  Margin="17.4,0,0,0" Width="390.1" materialDesign:HintAssist.Hint="Обязательное поле"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock  Text="Гражданство"  VerticalAlignment="Center" Margin="2,0,0,10"/>

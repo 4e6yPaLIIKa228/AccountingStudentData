@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using AccountingStudentData.Connection;
 using Microsoft.Win32;
-using Image = System.Drawing.Image;
 
 namespace AccountingStudentData.BoxWindows
 {
@@ -329,17 +319,7 @@ namespace AccountingStudentData.BoxWindows
         private void checkBoxMum_Unchecked(object sender, RoutedEventArgs e)
         {
             StpMum.IsEnabled = false;
-        }
-
-        private void checkBoxDad_Unchecked(object sender, RoutedEventArgs e)
-        {
-            //StpDad.IsEnabled = false;
-        }
-
-        private void checkBoxDad_Checked(object sender, RoutedEventArgs e)
-        {
-           // StpDad.IsEnabled = true;
-        }
+        }      
 
         public void AddFoto()
         {

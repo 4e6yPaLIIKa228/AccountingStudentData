@@ -1,21 +1,10 @@
 ﻿using AccountingStudentData.Connection;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AccountingStudentData.BoxWindows
 {
@@ -83,7 +72,6 @@ namespace AccountingStudentData.BoxWindows
                 {
                     if (String.IsNullOrEmpty(TextBoxLogin.Text) || String.IsNullOrEmpty(PassBox.Password) || String.IsNullOrEmpty(CombAllowance.Text) || String.IsNullOrEmpty(TextFamili.Text) || String.IsNullOrEmpty(TextName.Text) || String.IsNullOrEmpty(CombStatus.Text))
                     {
-                        //CheckerText();
                         MessageBox.Show("Заполните обязательные поля ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else

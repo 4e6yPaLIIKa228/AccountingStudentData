@@ -1,39 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using AccountingStudentData.Connection;
-using Microsoft.Office.Interop.Excel;
 using Window = System.Windows.Window;
 using DataTable = System.Data.DataTable;
-using System.Windows.Markup;
 using Excel = Microsoft.Office.Interop.Excel;
-using System.Data.Common;
-using Application = Microsoft.Office.Interop.Excel.Application;
-using Spire.Xls;
 using DBConnection = AccountingStudentData.Connection.DBConnection;
-using Microsoft.Win32;
-using Spire.Xls.Core;
-using System.IO;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using Word = Microsoft.Office.Interop.Word;
-using Microsoft.Office.Interop.Word;
 using XlLineStyle = Microsoft.Office.Interop.Excel.XlLineStyle;
-using static System.Net.Mime.MediaTypeNames;
-using Spire.Pdf.Exporting.XPS.Schema;
-using System.Xml.Linq;
-using System.Reflection;
 
 namespace AccountingStudentData.BoxWindows
 {
@@ -185,13 +160,6 @@ namespace AccountingStudentData.BoxWindows
                 myRang2.Font.Name = "Times New Roman";
                 myRang2.Font.Bold = true;
                 myRang2.Cells.Font.Size = 16;
-                //Excel.Range myRang3 = sheet1.get_Range("D1", "F1");
-                //myRang3.Value = "Руководитель";
-                //myRang3.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                //myRang3.HorizontalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                //myRang3.Merge(Type.Missing);
-                //myRang3.Font.Name = "Times New Roman";
-                //myRang3.Cells.Font.Size = 14;
                 using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                 {
                     connection.Open();

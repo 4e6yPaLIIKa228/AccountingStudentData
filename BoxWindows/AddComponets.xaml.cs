@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using AccountingStudentData.Connection;
 
 namespace AccountingStudentData.BoxWindows
@@ -25,7 +15,6 @@ namespace AccountingStudentData.BoxWindows
         public AddComponets()
         {
             InitializeComponent();
-            //checkopen1 = checkopen;
         }
 
         private void CombSearchInfo_DropDownClosed(object sender, EventArgs e)

@@ -1,31 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Data.SQLite;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 using AccountingStudentData.Connection;
-using Microsoft.Office.Interop.Excel;
 using Microsoft.Win32;
-using static System.Net.Mime.MediaTypeNames;
 using DataTable = System.Data.DataTable;
-using Image = System.Drawing.Image;
 using TextBox = System.Windows.Controls.TextBox;
 using Window = System.Windows.Window;
 
@@ -568,10 +552,7 @@ namespace AccountingStudentData.BoxWindows
                                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                                         cmd.ExecuteScalar();
                                     }
-                                }                            
-                               
-                               
-                                    
+                                }  
                                     bool result1 = int.TryParse(Poll.SelectedValue.ToString(), out int IDPoll);
                                     bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec);
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
@@ -671,17 +652,7 @@ namespace AccountingStudentData.BoxWindows
         private void checkBoxMum_Unchecked(object sender, RoutedEventArgs e)
         {
             StpMum.IsEnabled = false;
-        }
-
-        private void checkBoxDad_Unchecked(object sender, RoutedEventArgs e)
-        {
-            //StpDad.IsEnabled = false;
-        }
-
-        private void checkBoxDad_Checked(object sender, RoutedEventArgs e)
-        {
-           // StpDad.IsEnabled = true;
-        }
+        }      
 
         public void AddFoto()
         {
