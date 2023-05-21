@@ -23,7 +23,7 @@ using Window = System.Windows.Window;
 namespace AccountingStudentData.BoxWindows
 {
     /// <summary>
-    /// Логика взаимодействия для TestAddTableWord.xaml
+    /// Логика взаимодействия для LichDeloStudenta.xaml
     /// </summary>
     public partial class LichDeloStudenta : Window
     {

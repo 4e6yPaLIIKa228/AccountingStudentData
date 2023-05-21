@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace AccountingStudentData.BoxWindows
 {
     /// <summary>
-    /// Логика взаимодействия для AddComponets.xaml
+    /// Логика взаимодействия для DellComponets.xaml
     /// </summary>
     public partial class DellComponets : Window
     {

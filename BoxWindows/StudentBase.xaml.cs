@@ -566,7 +566,7 @@ namespace AccountingStudentData.BoxWindows
 
         public void CheackListUser()
         {
-            if (Saver.IDAllowanceString == "Администратор")
+            if (Saver.IDAllowanceString == "Администратор" || Saver.IDAllowanceString == "администратор")
             {
                 MnItListUsers.Visibility = Visibility.Visible;
             }
@@ -578,7 +578,7 @@ namespace AccountingStudentData.BoxWindows
             
         private void MnItListUsers_Click(object sender, RoutedEventArgs e)
         {
-            Authorization eddst = new Authorization();
+            UsersBase eddst = new UsersBase();
             eddst.Show();
             this.Close();
         }

@@ -10,7 +10,7 @@ using DBConnection = AccountingStudentData.Connection.DBConnection;
 namespace AccountingStudentData.BoxWindows
 {
     /// <summary>
-    /// Логика взаимодействия для StudentBase.xaml
+    /// Логика взаимодействия для Archive.xaml
     /// </summary>
     public partial class Archive : Window
     {

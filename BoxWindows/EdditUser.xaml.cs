@@ -9,7 +9,7 @@ using System.Windows.Input;
 namespace AccountingStudentData.BoxWindows
 {
     /// <summary>
-    /// Логика взаимодействия для RegistrUser.xaml
+    /// Логика взаимодействия для EdditUser.xaml
     /// </summary>
     public partial class EdditUser : Window
     {

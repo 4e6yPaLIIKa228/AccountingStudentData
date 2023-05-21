@@ -13,7 +13,7 @@ using XlLineStyle = Microsoft.Office.Interop.Excel.XlLineStyle;
 namespace AccountingStudentData.BoxWindows
 {
     /// <summary>
-    /// Логика взаимодействия для StudentBase.xaml
+    /// Логика взаимодействия для UsersBase.xaml
     /// </summary>
     public partial class UsersBase : Window
     {
