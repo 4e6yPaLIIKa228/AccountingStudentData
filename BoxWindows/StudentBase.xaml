@@ -194,19 +194,19 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Пол"  Width="auto"   Binding="{Binding PollSt, Converter={StaticResource TextOneCumvl}, ConverterParameter=1}" />
-                    <DataGridTextColumn Header="Телефон"   Width="auto"   Binding="{Binding Phone1St}"/>
-                    <DataGridTextColumn Header="После"   Width="auto"  Binding="{Binding KlassSt}"/>
-                    <DataGridTextColumn Header="Код &#x0a;специальности" Width="auto" Binding="{Binding NumberSpecualSt}" />
-                    <DataGridTextColumn Header="Группа" Width="auto" Binding="{Binding GroupSt}" />
-                    <DataGridTextColumn Header="Дата &#x0a;зачисления" Width="auto" Binding="{Binding DataPost}" />
-                    <DataGridTextColumn Header="Дата &#x0a;окончания" Width="auto" Binding="{Binding DataOkon}" />
-                    <DataGridTextColumn Header="Номер &#x0a;приказа" Width="auto" Binding="{Binding NumberPrikazSt}" />
-                    <DataGridTextColumn Header="Номер &#x0a;договора" Width="auto" Binding="{Binding NumberDogovorSt,TargetNullValue=Буджет}"  />
-                    <DataGridTemplateColumn Header="Фото" Width="auto">
+                    <DataGridTextColumn Header="Пол" Width="60"     Binding="{Binding PollSt, Converter={StaticResource TextOneCumvl}, ConverterParameter=1}" />
+                    <DataGridTextColumn Header="Телефон" Width="120"      Binding="{Binding Phone1St}"/>
+                    <DataGridTextColumn Header="После"    Binding="{Binding KlassSt}"/>
+                    <DataGridTextColumn Header="Код &#x0a;специальности" Binding="{Binding NumberSpecualSt}" />
+                    <DataGridTextColumn Header="Группа"  Binding="{Binding GroupSt}" />
+                    <DataGridTextColumn Header="Дата &#x0a;зачисления" Binding="{Binding DataPost}" />
+                    <DataGridTextColumn Header="Дата &#x0a;окончания"  Binding="{Binding DataOkon}" />
+                    <DataGridTextColumn Header="Номер &#x0a;приказа" Binding="{Binding NumberPrikazSt}" />
+                    <DataGridTextColumn Header="Номер &#x0a;договора" Binding="{Binding NumberDogovorSt,TargetNullValue=Буджет}"  />
+                    <DataGridTemplateColumn Header="Фото" >
                         <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding FotoSt}"  Width="70" Height="70" />
+                            <DataTemplate >
+                                <Image Source="{Binding FotoSt}" HorizontalAlignment="Left"  Width="70" Height="70" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
