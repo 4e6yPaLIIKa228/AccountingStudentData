@@ -33,9 +33,9 @@ namespace AccountingStudentData.BoxWindows
                 {
                     connection.Open();
                     string query = $@"                    					
-                    SELECT Students.ID as IDSt,Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt,Students.Phone1 as Phone1St,Students.Phone2 as Phone2St,Students.DataBirth as DataBirthSt,
+                    SELECT Students.ID as IDSt,Students.Surname as SurnameSt, Students.Name as NameSt, Students.MiddleName  as MidleNameSt,Students.Phone1 as Phone1St,Students.Phone2 as Phone2St,Students.DataBirth as DataBirthSt,
                     Polls.Name as PollSt,Specialties.NumberSpecial as NumberSpecualSt,Specialties.Name as NameSpecial, Groups.Name as GroupSt,Students.PocleKlass as KlassSt,
-                    Users.ID as IDPyk,Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
+                    Users.ID as IDPyk,Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MiddleName  as MidleNamePyk,
 					Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt,Students.NumberAtect as AtectSt,Students.DataPolycen as  DataPolecenSt,
 					Students.DataСredited as DataPost, Students.DataEnd as DataOkon, Students.Foto as FotoSt,Students.NameSchool as NameSchoolSt,
 					Students.SNILS as SNILSSt, Students.OMS as OMSSt, Students.Adress as AdressSt,
@@ -183,7 +183,7 @@ namespace AccountingStudentData.BoxWindows
                 using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                 {
                     connection.Open();
-                    string query = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
+                    string query = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MiddleName  as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MiddleName as MidleNamePyk,
                                         Polls.Name as PollSt, Students.Phone1 as Phone1St, Students.PocleKlass as KlassSt,
                                         Specialties.NumberSpecial as NumberSpecualSt,Groups.Name as GroupSt,                                       
                                         Students.DataСredited as DataPost,Students.DataEnd as DataOkon,
@@ -242,9 +242,9 @@ namespace AccountingStudentData.BoxWindows
                     connection.Open();
                     String combtext = CombSearchInfo.Text;
                     string DBSearchVisi = $@"                    					
-                    SELECT Students.ID as IDSt,Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt,Students.Phone1 as Phone1St,Students.Phone2 as Phone2St,Students.DataBirth as DataBirthSt,
+                    SELECT Students.ID as IDSt,Students.Surname as SurnameSt, Students.Name as NameSt, Students.MiddleName  as MidleNameSt,Students.Phone1 as Phone1St,Students.Phone2 as Phone2St,Students.DataBirth as DataBirthSt,
                     Polls.Name as PollSt,Specialties.NumberSpecial as NumberSpecualSt,Specialties.Name as NameSpecial, Groups.Name as GroupSt,Students.PocleKlass as KlassSt,
-                    Users.ID as IDPyk,Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
+                    Users.ID as IDPyk,Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MiddleName  as MidleNamePyk,
 					Students.NumberPrikaz as NumberPrikazSt,Students.NumberDogovora as NumberDogovorSt,Students.NumberAtect as AtectSt,Students.DataPolycen as  DataPolecenSt,
 					Students.DataСredited as DataPost, Students.DataEnd as DataOkon, Students.Foto as FotoSt,Students.NameSchool as NameSchoolSt,
 					Students.SNILS as SNILSSt, Students.OMS as OMSSt, Students.Adress as AdressSt,
@@ -262,7 +262,7 @@ namespace AccountingStudentData.BoxWindows
                     LEFT JOIN Users on Students.IDPyku = Users.ID					
                     where Students.IsDelet != 1 
                     ";
-                    string DBSearchExcel = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MidleName as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MidleName as MidleNamePyk,
+                    string DBSearchExcel = $@"SELECT Students.Surname as SurnameSt, Students.Name as NameSt, Students.MiddleName  as MidleNameSt, Users.Surname as SurnamePyk ,Users.Name as NamePyk, Users.MiddleName  as MidleNamePyk,
                                         Polls.Name as PollSt, Students.Phone1 as Phone1St, Students.PocleKlass as KlassSt,
                                         Specialties.NumberSpecial as NumberSpecualSt,Groups.Name as GroupSt,                                       
                                         Students.DataСredited as DataPost,Students.DataEnd as DataOkon,
@@ -309,14 +309,14 @@ namespace AccountingStudentData.BoxWindows
                     else if (combtext == "Отчество Ст")
                     {
                         GridBaseStudent.ItemsSource = null;
-                        string query = $@"{DBSearchVisi}   and Students.MidleName like '%{TxtSearch.Text}%'";
+                        string query = $@"{DBSearchVisi}   and Students.MiddleName  like '%{TxtSearch.Text}%'";
                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
                         DT = new DataTable("Students");
                         SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
                         SDA.Fill(DT);
                         GridBaseStudent.ItemsSource = DT.DefaultView;
                         cmd.ExecuteNonQuery();
-                        query = $@"{DBSearchExcel}   and Students.MidleName like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        query = $@"{DBSearchExcel}   and Students.MiddleName  like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
                         cmd = new SQLiteCommand(query, connection);
                         DT = new DataTable("Students");
                         SDA = new SQLiteDataAdapter(cmd);
@@ -394,14 +394,14 @@ namespace AccountingStudentData.BoxWindows
                     else if (combtext == "Отчество Рук")
                     {
                         GridBaseStudent.ItemsSource = null;
-                        string query = $@"{DBSearchVisi} and  Users.MidleName like '%{TxtSearch.Text}%'";
+                        string query = $@"{DBSearchVisi} and  Users.MiddleName  like '%{TxtSearch.Text}%'";
                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
                         DT = new DataTable("Students");
                         SQLiteDataAdapter SDA = new SQLiteDataAdapter(cmd);
                         SDA.Fill(DT);
                         GridBaseStudent.ItemsSource = DT.DefaultView;
                         cmd.ExecuteNonQuery();
-                        query = $@"{DBSearchExcel}   and  Users.MidleName like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
+                        query = $@"{DBSearchExcel}   and  Users.MiddleName  like '%{TxtSearch.Text}%' ORDER BY SurnameSt";
                         cmd = new SQLiteCommand(query, connection);
                         DT = new DataTable("Students");
                         SDA = new SQLiteDataAdapter(cmd);
@@ -471,7 +471,7 @@ namespace AccountingStudentData.BoxWindows
                             var Name = (UIElement)FindName("NameOtved" + i);
                             var MidleName = (UIElement)FindName("MideleNameOtved" + i);
                             var Pod = (UIElement)FindName("CmbRodOtved" + i);
-                            string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and IDStudent = {IDSt} ";
+                            string qwert = $@"Select ID,Surname,Name,MiddleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and IDStudent = {IDSt} ";
                             SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                             cmd.ExecuteNonQuery();
                             SQLiteDataReader dr = null;
@@ -480,7 +480,7 @@ namespace AccountingStudentData.BoxWindows
                             {
                                 pr = dr["ID"].ToString();
                                 doc.Bookmarks[$@"Otved{i}"].Range.Text = dr["Pod"].ToString() + ": " +
-                                dr["Surname"].ToString() + " " + dr["Name"].ToString() + " " + dr["MidleName"].ToString()
+                                dr["Surname"].ToString() + " " + dr["Name"].ToString() + " " + dr["MiddleName"].ToString()
                                 + "\n" + "Место работы: " + dr["Work"].ToString() + "\n" + "Должность: " + dr["WorkDol"].ToString();
                                 break;
                             }

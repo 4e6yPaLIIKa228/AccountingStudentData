@@ -31,7 +31,7 @@ namespace AccountingStudentData.BoxWindows
                 {
                     connection.Open();
                     string query = $@"                    					
-                     SELECT  Users.ID,Users.Login, Users.Password,Users.Surname,Users.Name,Users.MidleName,Users.DataRegist, StatusUsers.NameStatus, AllowanceUsers.Allowance  FROM Users
+                     SELECT  Users.ID,Users.Login, Users.Password,Users.Surname,Users.Name,Users.MiddleName,Users.DataRegist, StatusUsers.NameStatus, AllowanceUsers.Allowance  FROM Users
                                LEFT JOIN StatusUsers on Users.IDStatus = StatusUsers.ID
 							   LEFT JOIN AllowanceUsers on Users.IDAllowance = AllowanceUsers.ID			
                     where Users.IsDelet = 0  and Users.ID != '{Saver.IDUser}'

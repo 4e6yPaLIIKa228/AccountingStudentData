@@ -165,7 +165,7 @@
                             <MultiBinding StringFormat="{} {0} &#x0a; {1} &#x0a; {2}">
                                 <Binding Path="Surname"/>
                                 <Binding Path="Name"/>
-                                <Binding Path="MidleName"/>
+                                <Binding Path="MiddleName"/>
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>

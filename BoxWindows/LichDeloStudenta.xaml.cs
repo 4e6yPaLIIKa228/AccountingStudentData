@@ -95,7 +95,7 @@ namespace AccountingStudentData.BoxWindows
                         var Name = (UIElement)FindName("NameOtved" + i);
                         var MidleName = (UIElement)FindName("MideleNameOtved" + i);
                         var Pod = (UIElement)FindName("CmbRodOtved" + i);
-                        string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and IDStudent = {IDSt} ";
+                        string qwert = $@"Select ID,Surname,Name,MiddleName,Pod,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}'  and IDStudent = {IDSt} ";
                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                         cmd.ExecuteNonQuery();
                         SQLiteDataReader dr = null;
@@ -104,7 +104,7 @@ namespace AccountingStudentData.BoxWindows
                         {
                             pr = dr["ID"].ToString();
                             doc.Bookmarks[$@"NameOtved{i}"].Range.Text = dr["Pod"].ToString() + ": " +
-                            dr["Surname"].ToString() + " " + dr["Name"].ToString() + " " + dr["MidleName"].ToString()
+                            dr["Surname"].ToString() + " " + dr["Name"].ToString() + " " + dr["MiddleName"].ToString()
                             + "\n" + "Место работы: " + dr["Work"].ToString() + "\n" + "Должность: " + dr["WorkDol"].ToString();
                             break;
                         }

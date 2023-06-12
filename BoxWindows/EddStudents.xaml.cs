@@ -119,7 +119,7 @@ namespace AccountingStudentData.BoxWindows
                         var PassportCountry = (UIElement)FindName("GrStudentOtved" + i);
                         var Work = (UIElement)FindName("WorkOtved" + i);
                         var WorkDol = (UIElement)FindName("WorkDolOtved" + i);
-                        string qwert = $@"Select ID,Surname,Name,MidleName,Pod,Phone1,Phone2,PassportVID,PassportVidan,PassportNumber,PassportSeria,PassportData,
+                        string qwert = $@"Select ID,Surname,Name,MiddleName,Pod,Phone1,Phone2,PassportVID,PassportVidan,PassportNumber,PassportSeria,PassportData,
                         PassportCountry,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}' and IDStudent = {IDSt} ";
                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);                      
                         cmd.ExecuteNonQuery();
@@ -130,7 +130,7 @@ namespace AccountingStudentData.BoxWindows
                             pr = dr["ID"].ToString();                         
                             (Surname as TextBox).Text = dr["Surname"].ToString();
                             (Name as TextBox).Text = (string)dr["Name"];
-                            (MidleName as TextBox).Text = (string)dr["MidleName"];
+                            (MidleName as TextBox).Text = (string)dr["MiddleName"];
                             (Pod as ComboBox).Text = (string)dr["Pod"];
                             (Phone1 as TextBox).Text = (string)dr["Phone1"];
                             (Phone2 as TextBox).Text = (string)dr["Phone2"];
@@ -222,7 +222,7 @@ namespace AccountingStudentData.BoxWindows
                 try
                 {
                     connection.Open();
-                    string query1 = $@"SELECT ID, Surname,Name,MidleName  FROM Users where IDAllowance = 2 and ID = {IDPyk} ";
+                    string query1 = $@"SELECT ID, Surname,Name,MiddleName  FROM Users where IDAllowance = 2 and ID = {IDPyk} ";
                     string query2 = $@"SELECT ID, Name as NameSpecial, NumberSpecial, Class from Specialties where ID = {IDSpec} ";;
                     SQLiteCommand cmd1 = new SQLiteCommand(query1, connection);
                     SQLiteCommand cmd2 = new SQLiteCommand(query2, connection);
@@ -442,7 +442,7 @@ namespace AccountingStudentData.BoxWindows
                                     if (SurnameOtved1.Text != string.Empty)
                                     {
                                         String txtOtved1 = CmbRodOtved1.Text;
-                                        string query = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol',IsDelet)
+                                        string query = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol',IsDelet)
                                         values ('{IDSt}','{SurnameOtved1.Text}','{NameOtved1.Text}','{MideleNameOtved1.Text}','{txtOtved1}','{PhoneOtved1.Text.ToLower()}','{PhoneDopOtved1.Text.ToLower()}','{PasportOtved1.Text.ToLower()}',
                                         '{VudanPasportOtved1.Text.ToLower()}','{NumberPasportOtved1.Text.ToLower()}','{SeriaPasportOtved1.Text.ToLower()}','{DtpPasportOtved1.Text.ToLower()}','{GrStudentOtved1.Text.ToUpper()}','{WorkOtved1.Text}','{WorkDolOtved1.Text}',0)";
                                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
@@ -454,7 +454,7 @@ namespace AccountingStudentData.BoxWindows
                                     if (SurnameOtved1.Text != string.Empty)
                                     {
                                         String txtOtved1 = CmbRodOtved1.Text;
-                                        string qwert = $@"UPDATE Responsible SET Surname='{SurnameOtved1.Text}', Name='{NameOtved1.Text}',MidleName='{MideleNameOtved1.Text}', Pod = '{txtOtved1}',Phone1='{PhoneOtved1.Text.ToLower()}', Phone2='{PhoneDopOtved1.Text.ToLower()}', 
+                                        string qwert = $@"UPDATE Responsible SET Surname='{SurnameOtved1.Text}', Name='{NameOtved1.Text}',MiddleName ='{MideleNameOtved1.Text}', Pod = '{txtOtved1}',Phone1='{PhoneOtved1.Text.ToLower()}', Phone2='{PhoneDopOtved1.Text.ToLower()}', 
                                             PassportVID='{PasportOtved1.Text.ToLower()}',PassportVidan= '{VudanPasportOtved1.Text.ToLower()}', PassportNumber='{NumberPasportOtved1.Text}',PassportSeria='{SeriaPasportOtved1.Text}',PassportData='{DtpPasportOtved1.Text.ToLower()}',PassportCountry = '{GrStudentOtved1.Text.ToUpper()}' , Work ='{WorkOtved1.Text}', WorkDol ='{WorkDolOtved1.Text}' WHERE ID='{IDOved1}';";
                                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                                         cmd.ExecuteScalar();
@@ -471,7 +471,7 @@ namespace AccountingStudentData.BoxWindows
                                     if (SurnameOtved2.Text != string.Empty)
                                     {
                                         String txtOtved2 = CmbRodOtved2.Text;
-                                        string query = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol',IsDelet)
+                                        string query = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol',IsDelet)
                                         values ('{IDSt}','{SurnameOtved2.Text}','{NameOtved2.Text}','{MideleNameOtved2.Text}','{txtOtved2}','{PhoneOtved2.Text.ToLower()}','{PhoneDopOtved2.Text.ToLower()}','{PasportOtved2.Text.ToLower()}',
                                         '{VudanPasportOtved2.Text.ToLower()}','{NumberPasportOtved2.Text.ToLower()}','{SeriaPasportOtved2.Text.ToLower()}','{DtpPasportOtved2.Text.ToLower()}','{GrStudentOtved2.Text.ToUpper()}','{WorkOtved2.Text}','{WorkDolOtved2.Text}',0)";
                                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
@@ -483,7 +483,7 @@ namespace AccountingStudentData.BoxWindows
                                     if (SurnameOtved2.Text != string.Empty)
                                     {
                                         String txtOtved2 = CmbRodOtved2.Text;
-                                        string qwert = $@"UPDATE Responsible SET Surname='{SurnameOtved2.Text}', Name='{NameOtved2.Text}',MidleName='{MideleNameOtved2.Text}', Pod = '{txtOtved2}', Phone1='{PhoneOtved2.Text.ToLower()}', Phone2='{PhoneDopOtved2.Text.ToLower()}', 
+                                        string qwert = $@"UPDATE Responsible SET Surname='{SurnameOtved2.Text}', Name='{NameOtved2.Text}',MiddleName = '{MideleNameOtved2.Text}', Pod = '{txtOtved2}', Phone1='{PhoneOtved2.Text.ToLower()}', Phone2='{PhoneDopOtved2.Text.ToLower()}', 
                                             PassportVID='{PasportOtved2.Text.ToLower()}',PassportVidan= '{VudanPasportOtved2.Text.ToLower()}', PassportNumber='{NumberPasportOtved2.Text}',PassportSeria='{SeriaPasportOtved2.Text}',PassportData='{DtpPasportOtved2.Text.ToLower()}',PassportCountry = '{GrStudentOtved2.Text.ToUpper()}' , Work ='{WorkOtved2.Text}', WorkDol ='{WorkDolOtved2.Text}' WHERE ID='{IDOved2}';";
                                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                                         cmd.ExecuteScalar();
@@ -500,7 +500,7 @@ namespace AccountingStudentData.BoxWindows
                                     if (SurnameOtved3.Text != string.Empty)
                                     {
                                         String txtOtved3 = CmbRodOtved3.Text;
-                                        string query = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol',IsDelet)
+                                        string query = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol',IsDelet)
                                         values ('{IDSt}','{SurnameOtved3.Text}','{NameOtved3.Text}','{MideleNameOtved3.Text}','{txtOtved3}','{PhoneOtved3.Text.ToLower()}','{PhoneDopOtved3.Text.ToLower()}','{PasportOtved3.Text.ToLower()}',
                                         '{VudanPasportOtved3.Text.ToLower()}','{NumberPasportOtved3.Text.ToLower()}','{SeriaPasportOtved3.Text.ToLower()}','{DtpPasportOtved3.Text.ToLower()}','{GrStudentOtved3.Text.ToUpper()}','{WorkOtved3.Text}','{WorkDolOtved3.Text}',0)";
                                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
@@ -512,7 +512,7 @@ namespace AccountingStudentData.BoxWindows
                                     if (SurnameOtved3.Text != string.Empty)
                                     {
                                         String txtOtved3 = CmbRodOtved3.Text;
-                                        string qwert = $@"UPDATE Responsible SET Surname='{SurnameOtved3.Text}', Name='{NameOtved3.Text}',MidleName='{MideleNameOtved3.Text}', Pod = '{txtOtved3}', Phone1='{PhoneOtved3.Text.ToLower()}', Phone2='{PhoneDopOtved3.Text.ToLower()}', 
+                                        string qwert = $@"UPDATE Responsible SET Surname='{SurnameOtved3.Text}', Name='{NameOtved3.Text}',MiddleName ='{MideleNameOtved3.Text}', Pod = '{txtOtved3}', Phone1='{PhoneOtved3.Text.ToLower()}', Phone2='{PhoneDopOtved3.Text.ToLower()}', 
                                             PassportVID='{PasportOtved3.Text.ToLower()}',PassportVidan= '{VudanPasportOtved3.Text.ToLower()}', PassportNumber='{NumberPasportOtved3.Text}',PassportSeria='{SeriaPasportOtved3.Text}',PassportData='{DtpPasportOtved3.Text.ToLower()}',PassportCountry = '{GrStudentOtved3.Text.ToUpper()}' , Work ='{WorkOtved3.Text}', WorkDol ='{WorkDolOtved3.Text}' WHERE ID='{IDOved3}';";
                                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                                         cmd.ExecuteScalar();
@@ -529,7 +529,7 @@ namespace AccountingStudentData.BoxWindows
                                     if (SurnameOtved4.Text != string.Empty)
                                     {
                                         String txtOtved4 = CmbRodOtved4.Text;
-                                        string query = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol',IsDelet)
+                                        string query = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol',IsDelet)
                                         values ('{IDSt}','{SurnameOtved4.Text}','{NameOtved4.Text}','{MideleNameOtved4.Text}','{txtOtved4}','{PhoneOtved4.Text.ToLower()}','{PhoneDopOtved4.Text.ToLower()}','{PasportOtved4.Text.ToLower()}',
                                         '{VudanPasportOtved4.Text.ToLower()}','{NumberPasportOtved4.Text.ToLower()}','{SeriaPasportOtved4.Text.ToLower()}','{DtpPasportOtved4.Text.ToLower()}','{GrStudentOtved4.Text.ToUpper()}','{WorkOtved4.Text}','{WorkDolOtved4.Text}',0)";
                                         SQLiteCommand cmd = new SQLiteCommand(query, connection);
@@ -541,7 +541,7 @@ namespace AccountingStudentData.BoxWindows
                                     if (SurnameOtved4.Text != string.Empty)
                                     {
                                         String txtOtved4 = CmbRodOtved4.Text;
-                                        string qwert = $@"UPDATE Responsible SET Surname='{SurnameOtved4.Text}', Name='{NameOtved4.Text}',MidleName='{MideleNameOtved4.Text}', Pod = '{txtOtved4}', Phone1='{PhoneOtved4.Text.ToLower()}', Phone2='{PhoneDopOtved4.Text.ToLower()}', 
+                                        string qwert = $@"UPDATE Responsible SET Surname='{SurnameOtved4.Text}', Name='{NameOtved4.Text}',MiddleName ='{MideleNameOtved4.Text}', Pod = '{txtOtved4}', Phone1='{PhoneOtved4.Text.ToLower()}', Phone2='{PhoneDopOtved4.Text.ToLower()}', 
                                             PassportVID='{PasportOtved4.Text.ToLower()}',PassportVidan= '{VudanPasportOtved4.Text.ToLower()}', PassportNumber='{NumberPasportOtved4.Text}',PassportSeria='{SeriaPasportOtved4.Text}',PassportData='{DtpPasportOtved4.Text.ToLower()}',PassportCountry = '{GrStudentOtved4.Text.ToUpper()}' , Work ='{WorkOtved4.Text}', WorkDol ='{WorkDolOtved4.Text}' WHERE ID='{IDOved4}';";
                                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                                         cmd.ExecuteScalar();
@@ -557,7 +557,7 @@ namespace AccountingStudentData.BoxWindows
                                     bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec);
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
-                                    string query1 = $@"UPDATE  Students Set Surname='{SurnameSt.Text}',Name = '{NameSt.Text}',MidleName= '{MideleNameSt.Text}', Phone1= '{PhoneSt1.Text}', Phone2= '{PhoneSt2.Text}', SNILS = '{SNILSSt.Text}', OMS= '{OMSSt.Text}', 
+                                    string query1 = $@"UPDATE  Students Set Surname='{SurnameSt.Text}',Name = '{NameSt.Text}',MiddleName = '{MideleNameSt.Text}', Phone1= '{PhoneSt1.Text}', Phone2= '{PhoneSt2.Text}', SNILS = '{SNILSSt.Text}', OMS= '{OMSSt.Text}', 
                                     Adress= '{AdressSt.Text}', PassportVid= '{PasportSt.Text}', PassportVidan= '{VudanPasportSt.Text.ToUpper()}', PassportNumber= '{NumberPasportSt.Text}', PassportSeria= '{SeriaPasportSt.Text}',
                                     PassportData= '{DtpPasportSt.Text}', IDPoll= '{IDPoll}', IDSpecual= '{IDCpec}', IDGrop= '{IDGroup}', IDPyku= '{IDPyk}', PocleKlass= '{LastObraz.Text}', NameSchool= '{OrganizStudent.Text}', NumberAtect= '{NumberAtestat.Text}', DataPolycen= '{DtnPolucheyne.Text}', Foto=@Foto, DataСredited= '{DataСredited.Text}', DataEnd= '{DataEnd.Text}', NumberPrikaz = '{NumberPrigaz.Text}', NumberDogovora=@NumberDogovora,
                                     NumberzatechBook = '{TxtNumberzatechBook.Text}',NumberPrigazKyrs1 = '{NumberPrigazKyrs1.Text}' ,DataСreditedKyrs1 ='{DataСreditedKyrs1.Text}' ,NumberPrigazKyrs2 = '{NumberPrigazKyrs2.Text}',DataСreditedKyrs2 = '{DataСreditedKyrs1.Text}',NumberPrigazKyrs3 = '{NumberPrigazKyrs3.Text}',DataСreditedKyrs3= '{DataСreditedKyrs1.Text}',NumberPrigazKyrs4= '{NumberPrigazKyrs1.Text}',DataСreditedKyrs4 = '{DataСreditedKyrs1.Text}', MestoBirthday = '{AdressStBirht.Text}'
@@ -759,7 +759,7 @@ namespace AccountingStudentData.BoxWindows
             {
                 using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                 {
-                    string query1 = $@"SELECT ID, Surname,Name,MidleName  FROM Users where IDAllowance = 2 ";
+                    string query1 = $@"SELECT ID, Surname,Name,MiddleName   FROM Users where IDAllowance = 2 ";
                     SQLiteCommand cmd1 = new SQLiteCommand(query1, connection);
                     SQLiteDataAdapter SDA1 = new SQLiteDataAdapter(cmd1);
                     DataTable dt1 = new DataTable("Users");
@@ -788,7 +788,7 @@ namespace AccountingStudentData.BoxWindows
                     bool result1 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
                     using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                     {
-                        string query1 = $@"SELECT ID, Surname,Name,MidleName  FROM Users where IDAllowance = 2 and ID = {IDPyk} ";
+                        string query1 = $@"SELECT ID, Surname,Name,MiddleName   FROM Users where IDAllowance = 2 and ID = {IDPyk} ";
                         SQLiteCommand cmd1 = new SQLiteCommand(query1, connection);
                         SQLiteDataAdapter SDA1 = new SQLiteDataAdapter(cmd1);
                         DataTable dt1 = new DataTable("Users");

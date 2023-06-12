@@ -8,6 +8,6 @@ namespace AccountingStudentData.Connection
 {
     internal class DBConnection
     {
-        public static string myConn = $@"Data Source=AccountingStudentData.db;Version=3;";
+        public static string myConn = $@"Data Source = {Saver.NameDB};Version=3;";
     }
 }

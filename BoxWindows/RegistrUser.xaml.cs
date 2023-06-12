@@ -107,7 +107,7 @@ namespace AccountingStudentData.BoxWindows
                                 var Pass = SimpleComand.GetHash(PassBox.Password);
                                 var DateNow = DateTime.Now.ToString("dd/MM/yyyy");
                                 bool resultType = int.TryParse(CombAllowance.SelectedValue.ToString(), out int IDCombAllowance);
-                                string query = $@"INSERT INTO Users ('Login','Password','Surname',Name,MidleName,IDStatus,IDAllowance,DataRegist,IsDelet) VALUES ('{Login}',@Password,'{TextFamili.Text}','{TextName.Text}','{TextOthectbo.Text}','{1}','{IDCombAllowance}','{DateNow}',0)";
+                                string query = $@"INSERT INTO Users ('Login','Password','Surname',Name,MiddleName,IDStatus,IDAllowance,DataRegist,IsDelet) VALUES ('{Login}',@Password,'{TextFamili.Text}','{TextName.Text}','{TextOthectbo.Text}','{1}','{IDCombAllowance}','{DateNow}',0)";
                                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
                                 cmd.Parameters.AddWithValue("@Password", Pass);
                                 cmd.ExecuteScalar();

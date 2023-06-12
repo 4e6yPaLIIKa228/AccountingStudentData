@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using AccountingStudentData.Connection;
+using Microsoft.Win32;
+using Path = System.IO.Path;
 
 namespace AccountingStudentData.BoxWindows
 {
@@ -27,6 +29,7 @@ namespace AccountingStudentData.BoxWindows
         {
             try
             {
+               // SelectDb();
                 using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                 {
 
@@ -346,5 +349,30 @@ namespace AccountingStudentData.BoxWindows
         {
             Environment.Exit(0);
         }
+
+        public void SelectDb()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();//(*.bmp, *.jpg)|*.bmp;*.jpg|Все файлы (*.*)|*.*""
+            openFileDialog.Filter = "Text files (*.db)|*.db|All files (*.*)|*.*"; //"Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {                
+                Saver.NameDB = Path.GetFullPath(openFileDialog.FileName);
+                MessageBox.Show(Saver.NameDB);
+                DBConnection.myConn = $@"Data Source = {Saver.NameDB};Version=3;";
+                return;
+            }
+            else
+            {
+                DBConnection.myConn = $@"Data Source = AccountingStudentData.db;Version=3;";
+                Saver.NameDB = "AccountingStudentData.db";
+                return;
+            }
+        }
+
+        private void BtnSelectDB_Click(object sender, RoutedEventArgs e)
+        {
+            SelectDb();
+        }
+        
     }
 }

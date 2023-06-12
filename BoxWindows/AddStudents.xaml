@@ -208,7 +208,7 @@
                                                                 <MultiBinding StringFormat="{}{0} {1} {2}">
                                                                     <Binding Path="Name"/>
                                                                     <Binding Path="Surname"/>
-                                                                    <Binding Path="MidleName"/>
+                                                                    <Binding Path="MiddleName"/>
                                                                 </MultiBinding>
                                                             </TextBlock.Text>
                                                         </TextBlock>

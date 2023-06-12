@@ -27,7 +27,7 @@ namespace AccountingStudentData.BoxWindows
             CombStatus.Text = drv["NameStatus"].ToString();
             TextFamili.Text = drv["Surname"].ToString();
             TextName.Text = drv["Name"].ToString();
-            TextOthectbo.Text = drv["MidleName"].ToString();
+            TextOthectbo.Text = drv["MiddleName"].ToString();
 
 
         }
@@ -85,42 +85,45 @@ namespace AccountingStudentData.BoxWindows
                                 string query = $@"SELECT count (Login) FROM Users WHERE Login = '{TextBoxLogin.Text}'";
                                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
                                 ProverkaLogin = Convert.ToInt32(cmd.ExecuteScalar());
-                                MessageBox.Show("Данный логин занят, выберите другой ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                            else
-                            {
-                                if (ProverkaLogin == 0)
+                                if (ProverkaLogin == 1)
                                 {
-                                    if (String.IsNullOrEmpty(PassBoxNew1.Password) || String.IsNullOrEmpty(PassBoxNew1.Password))
-                                    {
-                                        bool resultClass = int.TryParse(CombAllowance.SelectedValue.ToString(), out int idAllow);
-                                        bool resultKab = int.TryParse(CombStatus.SelectedValue.ToString(), out int idStatus);
-                                        string query = $@"UPDATE Users SET Login='{TextBoxLogin.Text.ToLower()}',Surname='{TextFamili.Text}', Name='{TextName.Text}', MidleName='{TextOthectbo.Text}', 
+                                    MessageBox.Show("Данный логин занят, выберите другой ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
+                            }
+                            if (ProverkaLogin == 0)
+                            {
+                                if (String.IsNullOrEmpty(PassBoxNew1.Password) || String.IsNullOrEmpty(PassBoxNew1.Password))
+                                {
+                                    bool resultClass = int.TryParse(CombAllowance.SelectedValue.ToString(), out int idAllow);
+                                    bool resultKab = int.TryParse(CombStatus.SelectedValue.ToString(), out int idStatus);
+                                    string query = $@"UPDATE Users SET Login='{TextBoxLogin.Text.ToLower()}',Surname='{TextFamili.Text}', Name='{TextName.Text}', MiddleName ='{TextOthectbo.Text}', 
                                             IDStatus='{idStatus}' ,IDAllowance='{idAllow}'  WHERE ID='{IDUser}';";
-                                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                                        cmd.ExecuteNonQuery();
-                                        MessageBox.Show("Данные обновлены!", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                                    }
-                                    else if (PassBoxNew1.Password != "" && PassBoxNew2.Password != "" && PassBoxNew1.Password == PassBoxNew2.Password)
-                                    {
+                                    SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                                    cmd.ExecuteNonQuery();
+                                    OldLogin = TextBoxLogin.Text;
+                                    MessageBox.Show("Данные обновлены!", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                                        bool resultClass = int.TryParse(CombAllowance.SelectedValue.ToString(), out int idAllow);
-                                        bool resultKab = int.TryParse(CombStatus.SelectedValue.ToString(), out int idStatus);
-                                        var Pass = SimpleComand.GetHash(PassBoxNew2.Password);
-                                        string query = $@"UPDATE Users SET Login='{TextBoxLogin.Text.ToLower()}', Password=@Password, Surname='{TextFamili.Text}',Name='{TextName.Text}', MidleName='{TextOthectbo.Text}', 
+                                }
+                                else if (PassBoxNew1.Password != "" && PassBoxNew2.Password != "" && PassBoxNew1.Password == PassBoxNew2.Password)
+                                {
+
+                                    bool resultClass = int.TryParse(CombAllowance.SelectedValue.ToString(), out int idAllow);
+                                    bool resultKab = int.TryParse(CombStatus.SelectedValue.ToString(), out int idStatus);
+                                    var Pass = SimpleComand.GetHash(PassBoxNew2.Password);
+                                    string query = $@"UPDATE Users SET Login='{TextBoxLogin.Text.ToLower()}', Password=@Password, Surname='{TextFamili.Text}',Name='{TextName.Text}', MiddleName ='{TextOthectbo.Text}', 
                                         IDStatus='{idStatus}' ,IDAllowance='{idAllow}'  WHERE ID='{IDUser}';";
-                                        SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                                        cmd.Parameters.AddWithValue("@Password", Pass);
-                                        cmd.ExecuteNonQuery();
-                                        MessageBox.Show("Данные обновленны", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                                        PassBoxNew1.Password = string.Empty;
-                                        PassBoxNew2.Password = string.Empty;
-                                        PassBox.Password = "111111111";
-                                    }
-                                    else if (PassBoxNew1.Password != PassBoxNew2.Password)
-                                    {
-                                        MessageBox.Show("Пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                                    }
+                                    SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                                    cmd.Parameters.AddWithValue("@Password", Pass);
+                                    cmd.ExecuteNonQuery();
+                                    MessageBox.Show("Данные обновленны", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    PassBoxNew1.Password = string.Empty;
+                                    PassBoxNew2.Password = string.Empty;
+                                    PassBox.Password = "111111111";
+                                    OldLogin = TextBoxLogin.Text;
+                                }
+                                else if (PassBoxNew1.Password != PassBoxNew2.Password)
+                                {
+                                    MessageBox.Show("Пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                                 }
                             }
                         }

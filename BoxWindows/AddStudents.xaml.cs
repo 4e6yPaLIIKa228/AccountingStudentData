@@ -32,7 +32,7 @@ namespace AccountingStudentData.BoxWindows
                 {
                     connection.Open();
                     string query = $@"SELECT * FROM Polls";
-                    string query1 = $@"SELECT ID, Surname,Name,MidleName  FROM Users where IDAllowance = 2 ";
+                    string query1 = $@"SELECT ID, Surname,Name,MiddleName   FROM Users where IDAllowance = 2 ";
                     string query2 = $@"SELECT ID, Name as NameSpecial, NumberSpecial, Class from Specialties ";
                     string query3 = $@"SELECT ID, Name from Groups ";
                     SQLiteCommand cmd = new SQLiteCommand(query, connection);
@@ -163,7 +163,7 @@ namespace AccountingStudentData.BoxWindows
                                     bool result2 = int.TryParse(CbmCpec.SelectedValue.ToString(), out int IDCpec);
                                     bool result3 = int.TryParse(CbmGroup.SelectedValue.ToString(), out int IDGroup);
                                     bool result4 = int.TryParse(CbmPyk.SelectedValue.ToString(), out int IDPyk);
-                                    query = $@" INSERT INTO Students ('Surname','Name','MidleName','Phone1','Phone2','SNILS',
+                                    query = $@" INSERT INTO Students ('Surname','Name','MiddleName','Phone1','Phone2','SNILS',
                                     'OMS','Adress','PassportVid','PassportVidan','PassportNumber','PassportSeria',
                                     'PassportData','IDPoll','IDSpecual','IDGrop',
                                     'IDPyku','PocleKlass','NameSchool','NumberAtect','DataPolycen','Foto','DataСredited','DataEnd','NumberPrikaz','NumberDogovora','DataBirth','PassportCountry','NumberZatechBook','NumberPrigazKyrs1','DataСreditedKyrs1','NumberPrigazKyrs2','DataСreditedKyrs2','NumberPrigazKyrs3','DataСreditedKyrs3','NumberPrigazKyrs4','DataСreditedKyrs4','MestoBirthday','IsDelet') 
@@ -219,7 +219,7 @@ namespace AccountingStudentData.BoxWindows
                 using (SQLiteConnection connection = new SQLiteConnection(DBConnection.myConn))
                 { 
                     connection.Open();
-                    string qwert = $@"SELECT ID FROM Students WHERE Surname = '{SurnameSt.Text}' and Name = '{NameSt.Text}' and MidleName = '{MideleNameSt.Text}' and  Phone1 = '{PhoneSt1.Text.ToLower()}' and Phone2 = '{PhoneSt2.Text.ToLower()}' and PassportVid = '{PasportSt.Text.ToLower()}'
+                    string qwert = $@"SELECT ID FROM Students WHERE Surname = '{SurnameSt.Text}' and Name = '{NameSt.Text}' and MiddleName  = '{MideleNameSt.Text}' and  Phone1 = '{PhoneSt1.Text.ToLower()}' and Phone2 = '{PhoneSt2.Text.ToLower()}' and PassportVid = '{PasportSt.Text.ToLower()}'
                                         and PassportVidan = '{VudanPasportSt.Text.ToLower()}' and  PassportNumber = '{NumberPasportSt.Text.ToLower()}' and  PassportSeria ='{SeriaPasportSt.Text.ToLower()}' and PassportData = '{DtpPasportSt.Text.ToLower()}'";
                     SQLiteCommand cmd = new SQLiteCommand(qwert, connection);
                     int idmum = Convert.ToInt32(cmd.ExecuteScalar());
@@ -228,7 +228,7 @@ namespace AccountingStudentData.BoxWindows
                     if (SurnameOtved1.Text != string.Empty)
                     {
                         String txtOtved1 = CmbRodOtved1.Text;
-                        qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                        qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
                                         values ('{IDSt}','{SurnameOtved1.Text}','{NameOtved1.Text}','{MideleNameOtved1.Text}','{txtOtved1}','{PhoneOtved1.Text.ToLower()}','{PhoneDopOtved1.Text.ToLower()}','{PasportOtved1.Text.ToLower()}',
                                         '{VudanPasportOtved1.Text.ToLower()}','{NumberPasportOtved1.Text.ToLower()}','{SeriaPasportOtved1.Text.ToLower()}','{DtpPasportOtved1.Text.ToLower()}','{GrStudentOtved1.Text.ToUpper()}','{WorkOtved1.Text}','{WorkDolOtved1.Text}')";
                         cmd = new SQLiteCommand(qwert, connection);
@@ -236,7 +236,7 @@ namespace AccountingStudentData.BoxWindows
                         if (SurnameOtved2.Text != string.Empty)
                         {
                             String txtOtved2 = CmbRodOtved2.Text;
-                            qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MidleName','Pod',,'Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                            qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod',,'Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
                                         values ('{IDSt}','{SurnameOtved2.Text}','{NameOtved2.Text}','{MideleNameOtved2.Text}','{txtOtved2}','{PhoneOtved2.Text.ToLower()}','{PhoneDopOtved2.Text.ToLower()}','{PasportOtved2.Text.ToLower()}',
                                         '{VudanPasportOtved2.Text.ToLower()}','{NumberPasportOtved2.Text.ToLower()}','{SeriaPasportOtved2.Text.ToLower()}','{DtpPasportOtved2.Text.ToLower()}','{GrStudentOtved2.Text.ToUpper()}','{WorkOtved2.Text}','{WorkDolOtved2.Text}')";
                             cmd = new SQLiteCommand(qwert, connection);
@@ -245,7 +245,7 @@ namespace AccountingStudentData.BoxWindows
                         if (SurnameOtved3.Text != string.Empty)
                         {
                             String txtOtved3 = CmbRodOtved3.Text;
-                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
                                         values ('{IDSt}','{SurnameOtved3.Text}','{NameOtved3.Text}','{MideleNameOtved2.Text}','{txtOtved3}','{PhoneOtved3.Text.ToLower()}','{PhoneDopOtved3.Text.ToLower()}','{PasportOtved3.Text.ToLower()}',
                                         '{VudanPasportOtved3.Text.ToLower()}','{NumberPasportOtved3.Text.ToLower()}','{SeriaPasportOtved3.Text.ToLower()}','{DtpPasportOtved3.Text.ToLower()}','{GrStudentOtved3.Text.ToUpper()}','{WorkOtved3.Text}','{WorkDolOtved3.Text}')";
                             cmd = new SQLiteCommand(qwert, connection);
@@ -254,7 +254,7 @@ namespace AccountingStudentData.BoxWindows
                         if (SurnameOtved4.Text != string.Empty)
                         {
                             String txtOtved4 = CmbRodOtved3.Text;
-                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MidleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
                                         values ('{IDSt}','{SurnameOtved4.Text}','{NameOtved4.Text}','{MideleNameOtved4.Text}','{txtOtved4}','{PhoneOtved4.Text.ToLower()}','{PhoneDopOtved4.Text.ToLower()}','{PasportOtved4.Text.ToLower()}',
                                         '{VudanPasportOtved4.Text.ToLower()}','{NumberPasportOtved4.Text.ToLower()}','{SeriaPasportOtved4.Text.ToLower()}','{DtpPasportOtved4.Text.ToLower()}','{GrStudentOtved4.Text.ToUpper()}','{WorkOtved4.Text}','{WorkDolOtved4.Text}')";
                             cmd = new SQLiteCommand(qwert, connection);
