@@ -119,9 +119,6 @@
     <Compile Include="BoxWindows\Archive.xaml.cs">
       <DependentUpon>Archive.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BoxWindows\test22.xaml.cs">
-      <DependentUpon>test22.xaml</DependentUpon>
-    </Compile>
     <Compile Include="BoxWindows\UsersBase.xaml.cs">
       <DependentUpon>UsersBase.xaml</DependentUpon>
     </Compile>
@@ -172,10 +169,6 @@
     <Page Include="BoxWindows\Archive.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="BoxWindows\test22.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BoxWindows\UsersBase.xaml">
       <Generator>MSBuild:Compile</Generator>

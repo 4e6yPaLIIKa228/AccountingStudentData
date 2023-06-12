@@ -228,35 +228,35 @@ namespace AccountingStudentData.BoxWindows
                     if (SurnameOtved1.Text != string.Empty)
                     {
                         String txtOtved1 = CmbRodOtved1.Text;
-                        qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                        qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol','IsDelet')
                                         values ('{IDSt}','{SurnameOtved1.Text}','{NameOtved1.Text}','{MideleNameOtved1.Text}','{txtOtved1}','{PhoneOtved1.Text.ToLower()}','{PhoneDopOtved1.Text.ToLower()}','{PasportOtved1.Text.ToLower()}',
-                                        '{VudanPasportOtved1.Text.ToLower()}','{NumberPasportOtved1.Text.ToLower()}','{SeriaPasportOtved1.Text.ToLower()}','{DtpPasportOtved1.Text.ToLower()}','{GrStudentOtved1.Text.ToUpper()}','{WorkOtved1.Text}','{WorkDolOtved1.Text}')";
+                                        '{VudanPasportOtved1.Text.ToLower()}','{NumberPasportOtved1.Text.ToLower()}','{SeriaPasportOtved1.Text.ToLower()}','{DtpPasportOtved1.Text.ToLower()}','{GrStudentOtved1.Text.ToUpper()}','{WorkOtved1.Text}','{WorkDolOtved1.Text}',0)";
                         cmd = new SQLiteCommand(qwert, connection);
                         cmd.ExecuteNonQuery();
                         if (SurnameOtved2.Text != string.Empty)
                         {
                             String txtOtved2 = CmbRodOtved2.Text;
-                            qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod',,'Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                            qwert = $@"INSERT INTO Responsible ('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol','IsDelet')
                                         values ('{IDSt}','{SurnameOtved2.Text}','{NameOtved2.Text}','{MideleNameOtved2.Text}','{txtOtved2}','{PhoneOtved2.Text.ToLower()}','{PhoneDopOtved2.Text.ToLower()}','{PasportOtved2.Text.ToLower()}',
-                                        '{VudanPasportOtved2.Text.ToLower()}','{NumberPasportOtved2.Text.ToLower()}','{SeriaPasportOtved2.Text.ToLower()}','{DtpPasportOtved2.Text.ToLower()}','{GrStudentOtved2.Text.ToUpper()}','{WorkOtved2.Text}','{WorkDolOtved2.Text}')";
+                                        '{VudanPasportOtved2.Text.ToLower()}','{NumberPasportOtved2.Text.ToLower()}','{SeriaPasportOtved2.Text.ToLower()}','{DtpPasportOtved2.Text.ToLower()}','{GrStudentOtved2.Text.ToUpper()}','{WorkOtved2.Text}','{WorkDolOtved2.Text}',0)";
                             cmd = new SQLiteCommand(qwert, connection);
                             cmd.ExecuteNonQuery();
                         }
                         if (SurnameOtved3.Text != string.Empty)
                         {
                             String txtOtved3 = CmbRodOtved3.Text;
-                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol','IsDelet')
                                         values ('{IDSt}','{SurnameOtved3.Text}','{NameOtved3.Text}','{MideleNameOtved2.Text}','{txtOtved3}','{PhoneOtved3.Text.ToLower()}','{PhoneDopOtved3.Text.ToLower()}','{PasportOtved3.Text.ToLower()}',
-                                        '{VudanPasportOtved3.Text.ToLower()}','{NumberPasportOtved3.Text.ToLower()}','{SeriaPasportOtved3.Text.ToLower()}','{DtpPasportOtved3.Text.ToLower()}','{GrStudentOtved3.Text.ToUpper()}','{WorkOtved3.Text}','{WorkDolOtved3.Text}')";
+                                        '{VudanPasportOtved3.Text.ToLower()}','{NumberPasportOtved3.Text.ToLower()}','{SeriaPasportOtved3.Text.ToLower()}','{DtpPasportOtved3.Text.ToLower()}','{GrStudentOtved3.Text.ToUpper()}','{WorkOtved3.Text}','{WorkDolOtved3.Text}',0)";
                             cmd = new SQLiteCommand(qwert, connection);
                             cmd.ExecuteNonQuery();
                         }
                         if (SurnameOtved4.Text != string.Empty)
                         {
                             String txtOtved4 = CmbRodOtved3.Text;
-                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol')
+                            qwert = $@"INSERT INTO Responsible('IDStudent','Surname','Name','MiddleName','Pod','Phone1','Phone2','PassportVID','PassportVidan','PassportNumber','PassportSeria','PassportData','PassportCountry','Work','WorkDol','IsDelet')
                                         values ('{IDSt}','{SurnameOtved4.Text}','{NameOtved4.Text}','{MideleNameOtved4.Text}','{txtOtved4}','{PhoneOtved4.Text.ToLower()}','{PhoneDopOtved4.Text.ToLower()}','{PasportOtved4.Text.ToLower()}',
-                                        '{VudanPasportOtved4.Text.ToLower()}','{NumberPasportOtved4.Text.ToLower()}','{SeriaPasportOtved4.Text.ToLower()}','{DtpPasportOtved4.Text.ToLower()}','{GrStudentOtved4.Text.ToUpper()}','{WorkOtved4.Text}','{WorkDolOtved4.Text}')";
+                                        '{VudanPasportOtved4.Text.ToLower()}','{NumberPasportOtved4.Text.ToLower()}','{SeriaPasportOtved4.Text.ToLower()}','{DtpPasportOtved4.Text.ToLower()}','{GrStudentOtved4.Text.ToUpper()}','{WorkOtved4.Text}','{WorkDolOtved4.Text}',0)";
                             cmd = new SQLiteCommand(qwert, connection);
                             cmd.ExecuteNonQuery();
                         }

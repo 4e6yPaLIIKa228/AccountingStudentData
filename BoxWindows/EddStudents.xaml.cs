@@ -120,7 +120,7 @@ namespace AccountingStudentData.BoxWindows
                         var Work = (UIElement)FindName("WorkOtved" + i);
                         var WorkDol = (UIElement)FindName("WorkDolOtved" + i);
                         string qwert = $@"Select ID,Surname,Name,MiddleName,Pod,Phone1,Phone2,PassportVID,PassportVidan,PassportNumber,PassportSeria,PassportData,
-                        PassportCountry,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}' and IDStudent = {IDSt} ";
+                        PassportCountry,Work,WorkDol from Responsible where Responsible.IsDelet = 0 and  ID > '{pr}' and IDStudent = '{IDSt}' ";
                         SQLiteCommand cmd = new SQLiteCommand(qwert, connection);                      
                         cmd.ExecuteNonQuery();
                         SQLiteDataReader dr = null;
